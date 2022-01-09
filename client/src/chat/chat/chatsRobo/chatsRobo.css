@@ -1,0 +1,29 @@
+.article-janelas_chat{
+}
+.article-div-janelas_chat{
+    display: flex;  
+    width: 100%;
+    background-color: #FFFFFF ;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+.article-janelas_chat-p{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    padding: 10px;
+    border-bottom: 1px solid rgb(216, 216, 216);
+
+}
+.article-div-janelas_chat-avatar{
+    margin-left: 6%;
+    width: 19%;
+}
+
+.article-div-janelas_chat-nome{
+    margin-left: 10%;
+}

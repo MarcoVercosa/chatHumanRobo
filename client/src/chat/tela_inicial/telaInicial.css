@@ -1,0 +1,29 @@
+.main-telainicial{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    /* altura e largura serão sempre tamanho da tela */
+}
+.main-telainicial-h1{
+    margin:0 0 30px 0;
+    font-family: "Open Sans", sans-serif;
+    color: rgb(104, 104, 104);
+    font-size: 40px;
+}
+
+.main-telainicial-div{
+    text-align: center;
+    border: 2px solid rgb(112, 181, 254);
+    padding: 30px;
+    border-radius: 10px;
+}
+.main-telainicial-div-email{
+    margin-bottom: 30px;
+}
+.main-telainicial-div-nome{
+    margin-bottom: 30px;
+}
+
