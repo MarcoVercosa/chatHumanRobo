@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
-import "./telaInicial.css"
-import Chat from '../chat/chat';
 import { useDispatch, useSelector } from "react-redux"
-import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.reducer';
-
-import io from "socket.io-client"
-
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import "./telaInicial.css"
+import Chat from '../chat/chat';
+import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.reducer';
 
-var socket = io("http://localhost:3001")
 
 function Tela_Inicial() {
 
     const dispatch = useDispatch()
-
     const dadosTelaInicialReducer: any = useSelector((state: any) => state.changeDadosTelaInicialReducer)
 
 
