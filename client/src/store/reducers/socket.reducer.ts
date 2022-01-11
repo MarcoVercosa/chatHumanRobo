@@ -4,20 +4,17 @@ import io from "socket.io-client"
 
 
 // const socketInitialState = undefined
-const socketInitialState = {
+const initialState = {
     socket: io("http://localhost:3001")
 }
-console.log(socketInitialState.socket)
 
 
 const socket = createSlice({
     name: "socketAction",
-    initialState: {
-        socketContent: socketInitialState
-    },
+    initialState,
     reducers: {
         socketReducer: (state, { payload }): any => {
-            return { socketContent: payload }
+            return state = payload
         }
     }
 })

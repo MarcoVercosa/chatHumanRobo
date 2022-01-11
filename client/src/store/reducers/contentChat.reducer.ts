@@ -3,10 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface IChatContent {
     openChat: boolean;
-    chatName: string;
+    nameSource: any
+    emailSource: any;
+    chatNameDestination: string;
     avatar: String;
     color: string;
-    ID: number;
+    isRoom: boolean;
+    chatID: number | undefined;
     contentChat: [{
         content: string,
         author: string,
@@ -16,14 +19,17 @@ interface IChatContent {
 
 // interface IChatContent extends Array<IChatContent>{}
 
-const contentChatInitialState: IChatContent[] =
+const initialState: IChatContent[] =
     [
         {
             openChat: false,
-            chatName: "ROBÔ - IMC",
+            nameSource: localStorage.getItem("nome"),
+            emailSource: localStorage.getItem("email"),
+            chatNameDestination: "ROBÔ - IMC",
             avatar: "fas fa-3x fa-robot",
             color: "rgb(9, 9, 9)",
-            ID: 0,
+            isRoom: false,
+            chatID: undefined,
             contentChat: [{
                 content: "",
                 author: "",
@@ -32,10 +38,13 @@ const contentChatInitialState: IChatContent[] =
         },
         {
             openChat: false,
-            chatName: "ROBÔ - Reservatórios SP",
+            nameSource: localStorage.getItem("nome"),
+            emailSource: localStorage.getItem("email"),
+            chatNameDestination: "ROBÔ - Reservatórios SP",
             avatar: "fas fa-3x fa-hand-holding-water",
             color: "rgb(79, 135, 255)",
-            ID: 0,
+            chatID: undefined,
+            isRoom: false,
             contentChat: [{
                 content: "",
                 author: "",
@@ -47,12 +56,11 @@ const contentChatInitialState: IChatContent[] =
 
 const contentChat = createSlice({
     name: "chatContentAction",
-    initialState: {
-        contentChat: contentChatInitialState
-    },
+    initialState,
     reducers: {
-        contentChatReducer: (state, { payload }): any => {
-            return { contentChat: payload }
+        contentChatReducer(state: any, { payload }): any {            // return { contentChat: payload }
+
+            return state = payload
         }
     }
 })

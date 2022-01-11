@@ -6,10 +6,6 @@ import changeDadosTelaInicialReducer from "./reducers/telaInicial.reducer"
 import contentChatReducer from "./reducers/contentChat.reducer"
 import socketReducer from "./reducers/socket.reducer"
 
-// const customizedMiddleware = getDefaultMiddleware({
-//     serializableCheck: false
-//  })
-
 const reducer = combineReducers({
     changeDadosTelaInicialReducer,
     contentChatReducer,
@@ -28,7 +24,8 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: ["socketAction/socketReducer"]
+                ignoredActions: ["chatContentAction/contentChatReducer", "changeTelaInicialActions/changeDadosTelaInicialReducer"]
+                // ignoredActions: ["socketAction/socketReducer"]
             }
         })
 

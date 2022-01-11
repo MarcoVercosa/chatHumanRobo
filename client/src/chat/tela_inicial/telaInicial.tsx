@@ -24,9 +24,13 @@ function Tela_Inicial() {
     }
 
     function AtualizaComponenteStore(data: any) {
+        //atualiza nome e email tela inicial
         let temp = dadosTelaInicialReducer.telaInicial
         temp = { ...temp, [data.target.name]: data.target.value }
+        //salve no estado Redux
         dispatch(changeDadosTelaInicialReducer(temp))
+        //salva no Storage local
+        localStorage.setItem(data.target.name, data.target.value)
     }
 
     return (

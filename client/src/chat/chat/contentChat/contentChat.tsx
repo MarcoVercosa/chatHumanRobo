@@ -1,39 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { contentChatReducer } from '../../../store/reducers/contentChat.reducer'
-import { socketReducer } from "../../../store/reducers/socket.reducer"
-
 
 function ContentChat() {
+
+
     const [typeMessage, setTypeMessage] = useState<string>("")
-    const [message, setMessage] = useState<any>()
-
     const dispatch = useDispatch()
-    const contentChatData: any = useSelector((state: any) => state)
-    const { socket }: any = useSelector((state: any) => state.socketReducer.socketContent)
-    console.log(socket)
 
-    socket.on("received_message_from_robo", (data: any) => {
-        console.log(data)
+    const { socket }: any = useSelector((state: any) => state.socketReducer)
+    const contentChatData: any = useSelector((state: any) => state.contentChatReducer)
+
+    socket.once("received_message_from_robo", (message: any) => {
+        let temp = JSON.parse(JSON.stringify(contentChatData))
+        temp.map((data: any, index: any) => {
+            if (message.author === data.chatNameDestination) {
+                data.contentChat = [...data.contentChat, message]
+            }
+        })
+        dispatch(contentChatReducer(temp))
+
     })
 
-    function SendMessage() {
-        socket.emit("send_message_to_robo_imc", "Olá, sou humano")
+    function SendMessage({ message, author, destination }: any) {
+        let date = new Date()
+        let time = `${date.getHours()}:${date.getMinutes()}`
+
+        let temp = JSON.parse(JSON.stringify(contentChatData))
+        temp.map((data: any, index: number) => {
+            if (destination === data.chatNameDestination) {
+                data.contentChat = [...data.contentChat, { content: message, author, time }]
+            }
+        })
+        dispatch(contentChatReducer(temp))
+        socket.emit("send_message_to_robo_imc", { message, author, time })
     }
 
+    console.log("Renderizou")
     return (
         <div>
 
-            {contentChatData.contentChatReducer.contentChat.map((data: any, index: any) => {
+            {contentChatData.map((data: any, index: any) => {
                 if (data.openChat) {
+                    //o chat que tiver como true o obj "data.openChat", terá a conversa aberta abaixo
                     return (
                         <>
-                            <h1>{data.chatName}</h1>
+                            <h1>{data.chatNameDestination}</h1>
+                            {data.contentChat.map((data: any, index: number) => {
+                                return (
+                                    <p>{data.content} - {data.author} - {data.time}</p>
+                                )
+                            })}
                             <input type="text"
                                 onChange={(data: any) => { setTypeMessage(data.target.value) }}
                             />
                             <button
-                                onClick={SendMessage}
+                                onClick={() => { SendMessage({ message: typeMessage, author: data.nameSource, destination: data.chatNameDestination }) }}
                             >Enviar</button>
                         </>
                     )
@@ -44,5 +66,5 @@ function ContentChat() {
     )
 }
 
-export default ContentChat
+export default memo(ContentChat)
 

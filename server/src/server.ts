@@ -3,6 +3,8 @@ import cors from "cors"
 import http from "http"
 import { Server } from "socket.io"
 
+import { RoboIMC } from "./functionRoboIMC"
+
 const app = express()
 
 app.use(cors)
@@ -17,7 +19,7 @@ const io = new Server(server, {
     }
 })
 
-io.on("connection", (socket) => {
+io.on("connection", (socket: any) => {
     console.log("User Connected", socket.id, socket.data)
     //criar e juntar a sala criada
     socket.on("join_room", (id_room: string) => {
@@ -33,8 +35,17 @@ io.on("connection", (socket) => {
 
 
     socket.on("send_message_to_robo_imc", (data: any) => {
-        console.log(data)
-        socket.emit("received_message_from_robo", `olá. sou um robô IMC. Seu ID é: ${socket.id}`)
+        socket.optionsRoboIMC = [{ peso: undefined, altura: undefined, resultado: undefined }]
+        RoboIMC(socket, data)
+
+
+        // let time = new Date()
+        // socket.emit("received_message_from_robo", {
+        //     content: `olá. sou um robô IMC. Seu ID é: ${socket.id}`,
+        //     author: "ROBÔ - IMC",
+        //     time: `${time.getHours()}:${time.getMinutes()}`
+
+        // })
 
     })
     socket.on("send_message_to_robo_reservatorios", (data: any) => {
