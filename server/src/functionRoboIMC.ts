@@ -24,7 +24,7 @@ export function RoboIMC(socket: any, message: any) {
 
         if (message !== undefined) {
             socket.emit("received_message_from_robo", {
-                content: `Olá ${message.author}. Sou um robô IMC. \n
+                content: `Olá ${message.author}. Sou um robô IMC ! \n
         Vamos saber com está seu "Índice de massa corporal ?"`,
                 author: "ROBÔ - IMC",
                 time: `${time.getHours()}:${time.getMinutes()}`
