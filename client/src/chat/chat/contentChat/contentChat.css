@@ -1,0 +1,108 @@
+.contentChat-article{
+    background-color: rgb(255, 255, 255);
+    height: 91.0vh;
+    width: 100%;
+    margin:0 auto;
+    padding: 0 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    overflow-y: scroll;
+
+}
+
+.contentChat-article-div_nomechat{
+    background-color: rgb(240, 240, 240);
+    height: 60px;
+    width: 98%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 0.1px rgb(205, 205, 205) solid;
+}
+.contentChat-article-div-div_nomechat{
+
+}
+.contentChat-article-div-h1_nomechat{
+font-size: 25px;
+line-height: 29px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contentChat-article-div_content{
+   width: 98%;
+}
+.contentChat-article-div-div_content{
+display: flex;
+
+}
+.contentChat-article-div-div-div_content{
+background-color: rgb(147, 235, 229);
+border-radius: 15px;
+margin-bottom: 15px;
+padding: 8px;
+min-width: 2%;
+max-width: 50%;
+word-wrap: break-word;
+/* quebra a linha ao chegar no final da div */
+}
+
+.author_others{
+    justify-content: flex-end;
+}
+.author_myself{
+    justify-content: flex-start;
+}
+.contentChat-article-div-p_content{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14.2px;
+    margin: 0;
+    
+}
+.contentChat-article-div-p_author{
+    font-size: 12px;
+    margin: 0;
+    color:rgb(74, 74, 74)
+}
+.contentChat-article-div-p_time{
+    font-size: 12px;
+    margin: 0;
+    color:rgb(74, 74, 74)
+}
+.contentChat-article-div-img_content{
+    width: 100%;
+}
+
+
+/* seção digita e envia */
+
+.contentChat-section{
+height: 8.5vh;
+width: 98%;
+/* background-color: red; */
+}
+.contentChat-section-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8.5vh;
+
+}
+.contentChat-article-input-div{
+    height: 8.5vh;
+    width: 100%;
+}
+
+.contentChat-article-input-div-input{
+    width: 94%;
+    height: 3.6vh;
+    padding: 0px;
+    border-radius: 20px;
+    border: 2px solid rgb(106, 106, 242);
+    padding: 15px;
+    font-size: 20px;
+}
+input:focus, textarea:focus{
+     background-color: rgb(234, 234, 234);
+}

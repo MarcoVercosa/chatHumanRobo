@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
+
+
 interface IChatContent {
     openChat: boolean;
-    nameSource: any
-    emailSource: any;
     chatNameDestination: string;
     avatar: String;
     color: string;
@@ -23,8 +23,6 @@ const initialState: IChatContent[] =
     [
         {
             openChat: false,
-            nameSource: localStorage.getItem("nome"),
-            emailSource: localStorage.getItem("email"),
             chatNameDestination: "ROBÔ - IMC",
             avatar: "fas fa-3x fa-robot",
             color: "rgb(9, 9, 9)",
@@ -38,8 +36,6 @@ const initialState: IChatContent[] =
         },
         {
             openChat: false,
-            nameSource: localStorage.getItem("nome"),
-            emailSource: localStorage.getItem("email"),
             chatNameDestination: "ROBÔ - Reservatórios SP",
             avatar: "fas fa-3x fa-hand-holding-water",
             color: "rgb(79, 135, 255)",
