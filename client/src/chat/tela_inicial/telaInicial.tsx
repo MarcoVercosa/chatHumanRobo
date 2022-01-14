@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,6 +9,8 @@ import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.
 
 
 function Tela_Inicial() {
+
+    console.log("renderizou tela inicial")
 
     const dispatch = useDispatch()
     const dadosTelaInicialReducer: any = useSelector((state: any) => state.changeDadosTelaInicialReducer)

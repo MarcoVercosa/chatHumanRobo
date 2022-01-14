@@ -1,30 +1,19 @@
 import React, { } from 'react'
 import "./chatsRobo.css"
 import { useDispatch, useSelector } from "react-redux"
-import { contentChatReducer } from '../../../store/reducers/contentChat.reducer'
+import { openChatReducer } from '../../../store/reducers/contentChat.reducer'
 
 
 
 
 function ChatsRobo() {
     const dispatch = useDispatch()
-    const contentChatData: any = useSelector((state: any) => state)
-
+    // const contentChatData: any = useSelector((state: any) => state)
+    const contentChatData: any = useSelector((state: any) => state.listAllChatReducer)
+    console.log("renderizou chatsRobo")
 
     function OpenChatWindow(chatSelect: string) {
-
-        let temp: any[] = JSON.parse(JSON.stringify(contentChatData.contentChatReducer));
-        //Com as props JSON consigo clonar o obj com outra referência, desvinculando totalmente da memoria alocada
-
-
-        temp.map((data: any, index: number) => {
-            if (data.chatNameDestination === chatSelect) {
-                data.openChat = true
-            } else {
-                data.openChat = false
-            }
-        })
-        dispatch(contentChatReducer(temp))
+        dispatch(openChatReducer(chatSelect))
     }
 
     return (
@@ -34,8 +23,8 @@ function ChatsRobo() {
                 <i className="fas fa-3x fa-robot" style={{ color: "rgb(128, 128, 128)" }}></i>
             </div>
 
-            {contentChatData.contentChatReducer &&
-                contentChatData.contentChatReducer.map((data: any, index: any) => {
+            {contentChatData &&
+                contentChatData.map((data: any, index: any) => {
 
                     return (
                         <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatNameDestination) }}>
@@ -51,11 +40,7 @@ function ChatsRobo() {
                     )
                 })
             }
-
-
-
         </article>
-
     )
 }
 

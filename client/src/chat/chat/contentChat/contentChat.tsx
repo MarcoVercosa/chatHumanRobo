@@ -1,50 +1,33 @@
-import React, { useState, memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { contentChatReducer } from '../../../store/reducers/contentChat.reducer'
-import TextField from '@mui/material/TextField';
+import { receiveMessageReducer, sendMessageReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 
 import "./contentChat.css"
 
 function ContentChat() {
-
+    const { socket }: any = useSelector((state: any) => state.socketReducer)
     let nameTelaInicial = useSelector((state: any) => state.changeDadosTelaInicialReducer.telaInicial.nome)
-    const [typeMessage, setTypeMessage] = useState<string>("")
+    const contentChatData: any = useSelector((state: any) => state.openChatReducer)
+    console.log("renderizou content chat")
     const dispatch = useDispatch()
 
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
-    const contentChatData: any = useSelector((state: any) => state.contentChatReducer)
+    const [typeMessage, setTypeMessage] = useState<string>("")
 
-    socket.once("received_message_from_robo", (message: any) => {
-        let temp = JSON.parse(JSON.stringify(contentChatData))
-        temp.map((data: any, index: any) => {
-            if (message.author === data.chatNameDestination) {
-                data.contentChat = [...data.contentChat, message]
-            }
+    useEffect(() => {
+        // alert("Cer")
+        socket.on("received_message_from_robo", (message: any) => {
+            dispatch(receiveMessageReducer(message))
         })
-        dispatch(contentChatReducer(temp))
-    })
+    }, [socket])
 
-    function SendMessage({ message, author, destination }: any) {
-        if (typeMessage.length > 0) {
-            let date = new Date()
-            let time = `${date.getHours()}:${date.getMinutes()}`
-
-            let temp = JSON.parse(JSON.stringify(contentChatData))
-            temp.map((data: any, index: number) => {
-                if (destination === data.chatNameDestination) {
-                    data.contentChat = [...data.contentChat, { content: message, author, time }]
-                }
-            })
-            dispatch(contentChatReducer(temp))
-            socket.emit("send_message_to_robo_imc", { message, author, time })
-            setTypeMessage("")
-        } else {
-            alert("Digite algo para enviar")
-        }
+    function SendMessage({ message, author, destination, socketDestinatioString }: any) {
+        let date = new Date()
+        let time = `${date.getHours()}:${date.getMinutes()}`
+        dispatch(sendMessageReducer({ message, author, destination, socketDestinatioString }))
+        socket.emit(socketDestinatioString, { message, author, time })
+        setTypeMessage("")
     }
-
-    console.log("Renderizou")
     return (
         <>
             {contentChatData.map((data: any, index: any) => {
@@ -55,7 +38,7 @@ function ContentChat() {
                             <div
                             // style={{ height: "100vh" }}
                             >
-                                <article className="contentChat-article">
+                                <article className="contentChat-article"  >
                                     <div className="contentChat-article-div_nomechat">
                                         <div className="contentChat-article-div-div_nomechat">
                                             <h1 className="contentChat-article-div-h1_nomechat">{data.chatNameDestination}</h1>
@@ -82,13 +65,7 @@ function ContentChat() {
                                 <section className="contentChat-section">
                                     <div className="contentChat-section-div">
                                         <div className="contentChat-article-input-div">
-                                            {/* <TextField id="outlined-basic" label="Mensagem..." variant="outlined" name="message"
-                                                style={{
-                                                    width: "100%", height: "8.5vh"
-                                                }}
-                                                onChange={(data: any) => { setTypeMessage(data.target.value) }}
-                                            /> */}
-                                            <input type="text" className='contentChat-article-input-div-input'
+                                            <input type="text" className='contentChat-article-input-div-input' value={typeMessage}
                                                 onChange={(data: any) => { setTypeMessage(data.target.value) }}
                                             />
 
@@ -96,14 +73,19 @@ function ContentChat() {
                                         <div className="contentChat-article-botton-div">
 
                                             <Button variant="contained" size="large"
+                                                disabled={typeMessage.length < 1 ? true : false}
                                                 style={{ height: "8.5vh", borderRadius: "10px", marginBottom: "5px" }}
-                                                onClick={() => { SendMessage({ message: typeMessage, author: nameTelaInicial, destination: data.chatNameDestination }) }}
+                                                onClick={() => {
+                                                    SendMessage({
+                                                        message: typeMessage, author: nameTelaInicial,
+                                                        destination: data.chatNameDestination, socketDestinatioString: "send_message_to_robo_imc"
+                                                    })
+                                                }}
                                             >Enviar</Button>
                                         </div>
                                     </div>
                                 </section>
                             </div>
-
                         </>
                     )
                 }

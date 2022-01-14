@@ -35,8 +35,12 @@ io.on("connection", (socket: any) => {
 
 
     socket.on("send_message_to_robo_imc", (data: any) => {
-        socket.optionsRoboIMC = [{ peso: undefined, altura: undefined, resultado: undefined }]
+        console.log(data)
         RoboIMC(socket, data)
+        // console.log(socket.connected[socket.id])
+        // io.sockets.disconnectSockets(socket.id)
+
+
 
 
         // let time = new Date()
