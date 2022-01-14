@@ -6,6 +6,7 @@ import ContentChat from './contentChat/contentChat'
 
 
 function Chat() {
+    console.log("renderizou chat")
     return (
         <div className="div-chat">
             <menu className="div-chat-menu_conversas">
