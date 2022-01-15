@@ -19,11 +19,7 @@ async function RoboReservatoriosSP(socket: any, message: any) {
                 const agent = new https.Agent({
                     rejectUnauthorized: false
                 });
-                console.log("agent")
-                console.log("agent")
-                console.log(agent)
-                console.log("agent")
-                console.log("agent")
+
                 let response = await axios({
                     method: 'get',
                     url: `https://mananciais.sabesp.com.br/api/Mananciais/ResumoSistemas/${year}-${mouth}-${day}`,
