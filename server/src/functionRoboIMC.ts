@@ -16,7 +16,8 @@ export function RoboIMC(socket: any, message: any) {
     console.log(message)
 
     switch (message.message.toLowerCase()) {
-        case "não" || "nao":
+        case "não":
+        case "nao":
             socket.emit("received_message_from_robo", {
                 content: `OK ${message.author}. Se precisar de alguma informação relacionado ao seu IMC é só digitar sim a qualquer momento :)`,
                 author: "ROBÔ - IMC",
@@ -39,6 +40,7 @@ export function RoboIMC(socket: any, message: any) {
             break
 
         default:
+            //se nem sim e nem não, irá tentar identificar se mandou o peso e a altura
             try {
                 let dados = message.message.replace(",", ".")
                 //retira virgula e coloca ponto
@@ -85,7 +87,6 @@ export function RoboIMC(socket: any, message: any) {
             author: "ROBÔ - IMC",
             time: `${time.getHours()}:${time.getMinutes()}`
         })
-
     }
 }
 

@@ -31,7 +31,7 @@ const initialState: IChatContent[] =
             startTalkWithRobo: false,
             chatID: undefined,
             contentChat: [{
-                content: "Olá, tudo bem ? Sou o Robô- IMC. Posso lhe ajudar com seu IMC (Índice de Massa Corporal) ? \n Por favor, digite sim ou não",
+                content: "Olá, tudo bem ? Sou o Robô- IMC. Posso lhe ajudar com seu IMC (Índice de Massa Corporal) ?",
                 author: "ROBÔ - IMC",
                 time: ""
             }, {
