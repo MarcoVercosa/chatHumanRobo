@@ -4,6 +4,7 @@ import http from "http"
 import { Server } from "socket.io"
 
 import { RoboIMC } from "./functionRoboIMC"
+import { RoboReservatoriosSP } from "./functionRoboReservatoriosSP"
 
 const app = express()
 
@@ -37,21 +38,14 @@ io.on("connection", (socket: any) => {
     socket.on("send_message_to_robo_imc", (data: any) => {
         console.log(data)
         RoboIMC(socket, data)
-        // console.log(socket.connected[socket.id])
-        // io.sockets.disconnectSockets(socket.id)
-
-
-
-
-        // let time = new Date()
-        // socket.emit("received_message_from_robo", {
-        //     content: `olá. sou um robô IMC. Seu ID é: ${socket.id}`,
-        //     author: "ROBÔ - IMC",
-        //     time: `${time.getHours()}:${time.getMinutes()}`
-
-        // })
+        RoboReservatoriosSP(socket, data)
+    })
+    socket.on("send_message_to_robo_reservatorios_sp", (data: any) => {
+        console.log(data)
 
     })
+
+
     socket.on("send_message_to_robo_reservatorios", (data: any) => {
         console.log(data)
         socket.emit("received_message_from_robo", `olá. sou um robô Water. Seu ID é: ${socket.id}`)

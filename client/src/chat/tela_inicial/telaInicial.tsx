@@ -39,7 +39,7 @@ function Tela_Inicial() {
         <>
             {dadosTelaInicialReducer.telaInicial.componentTelaInicial &&
                 <main className='main-telainicial'>
-                    <h1 className='main-telainicial-h1'>Entrarrr no CHAT</h1>
+                    <h1 className='main-telainicial-h1'>Entrar no CHAT</h1>
                     <div className='main-telainicial-div'>
 
                         <div className='main-telainicial-div-email'>
