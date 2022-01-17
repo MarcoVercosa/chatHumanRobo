@@ -45,13 +45,6 @@ io.on("connection", (socket: any) => {
 
     })
 
-
-    socket.on("send_message_to_robo_reservatorios_sp", (data: any) => {
-        console.log(data)
-        socket.emit("received_message_from_robo", `olá. sou um robô Water. Seu ID é: ${socket.id}`)
-
-    })
-
     socket.on("send_message_to_single_person", (data: any) => {
         socket.emit("received_message_from_single_person", data)
     })
