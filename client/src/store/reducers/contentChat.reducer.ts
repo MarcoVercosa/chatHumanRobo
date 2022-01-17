@@ -9,6 +9,7 @@ interface IChatContent {
     avatar: String;
     color: string;
     isRoom: boolean;
+    socketDestination: string;
     startTalkWithRobo: boolean
     chatID: number | undefined;
     contentChat: Array<{
@@ -28,6 +29,7 @@ const initialState: IChatContent[] =
             avatar: "fas fa-3x fa-robot",
             color: "rgb(9, 9, 9)",
             isRoom: false,
+            socketDestination: "send_message_to_robo_imc",
             startTalkWithRobo: false,
             chatID: undefined,
             contentChat: [{
@@ -47,10 +49,11 @@ const initialState: IChatContent[] =
             color: "rgb(79, 135, 255)",
             chatID: undefined,
             isRoom: false,
+            socketDestination: "send_message_to_robo_reservatorios_sp",
             startTalkWithRobo: false,
             contentChat: [{
-                content: "",
-                author: "",
+                content: "Olá, tudo bem ? Sou o ROBÔ - Reservatórios SP. Digite sim par saber como está a situação dos nossos reservatórios ou digite não para cancelar",
+                author: "ROBÔ - Reservatórios SP",
                 time: ""
             }],
         }

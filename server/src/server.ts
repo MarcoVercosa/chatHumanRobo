@@ -38,17 +38,10 @@ io.on("connection", (socket: any) => {
     socket.on("send_message_to_robo_imc", (data: any) => {
         console.log(data)
         RoboIMC(socket, data)
+    })
+    socket.on("send_message_to_robo_reservatorios_sp", async (data: any) => {
+        console.log(data)
         RoboReservatoriosSP(socket, data)
-    })
-    socket.on("send_message_to_robo_reservatorios_sp", (data: any) => {
-        console.log(data)
-
-    })
-
-
-    socket.on("send_message_to_robo_reservatorios", (data: any) => {
-        console.log(data)
-        socket.emit("received_message_from_robo", `olá. sou um robô Water. Seu ID é: ${socket.id}`)
 
     })
 
