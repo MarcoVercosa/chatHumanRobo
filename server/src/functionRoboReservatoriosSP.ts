@@ -3,18 +3,18 @@ import https from "https"
 
 async function RoboReservatoriosSP(socket: any, message: any) {
 
+    let time = new Date()
+    let year = time.getFullYear()
+    let mouth = time.getMonth() + 1
+    let day = time.getDate()
+    console.log(time + "-" + mouth + "-" + year)
+
 
     switch (message.message.toLowerCase()) {
 
         case "sim":
 
             try {
-                let date = new Date()
-                let year = date.getFullYear()
-                let mouth = date.getMonth() + 1
-                let day = date.getDate()
-                console.log(date + "-" + mouth + "-" + year)
-
                 //rejeita uso de certificado ssl, mesmo sendo https
                 const agent = new https.Agent({
                     rejectUnauthorized: false
@@ -26,7 +26,19 @@ async function RoboReservatoriosSP(socket: any, message: any) {
                     httpsAgent: agent
                 })
 
-                console.log(response)
+                socket.emit("received_message_from_robo", {
+                    content: `${message.author}. Abaixo está a situação atual dos reservatórios SP`,
+                    author: "ROBÔ - Reservatórios SP",
+                    time: `${time.getHours()}:${time.getMinutes()}`,
+                    isCharts: [
+                        {
+                            currentDate: response.data.ReturnObj.DataString,
+                            reservatorios: response.data.ReturnObj.sistemas,
+                            total: response.data.ReturnObj.total,
+                            infoGrafico: response.data.ReturnObj.InfoGrafico
+                        }
+                    ]
+                })
             }
             catch (err) { }
 
@@ -36,10 +48,22 @@ async function RoboReservatoriosSP(socket: any, message: any) {
         case "não":
         case "nao":
 
+            socket.emit("received_message_from_robo", {
+                content: `OK. Se precisar das informações dos reservartórios, basta enviar "sim"`,
+                author: "ROBÔ - Reservatórios SP",
+                time: `${time.getHours()}:${time.getMinutes()}`,
+
+            })
+
             break
 
         default:
+            socket.emit("received_message_from_robo", {
+                content: `Não entendi o que você precisa. Digite sim para receber informações ou não para encerrar a conversa !`,
+                author: "ROBÔ - Reservatórios SP",
+                time: `${time.getHours()}:${time.getMinutes()}`,
 
+            })
             break
 
     }

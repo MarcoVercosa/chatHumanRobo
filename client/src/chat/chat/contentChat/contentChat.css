@@ -8,6 +8,10 @@
     flex-direction: column;
     align-items: center; 
     overflow-y: scroll;
+    background-image: url("gif_background_login.gif");
+    /* background-repeat: repeat; */
+    background-size: 100vh 100vh;
+    /* background-image: url("water.gif"); */
 
 }
 
@@ -36,6 +40,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 .contentChat-article-div-div_content{
 display: flex;
 
+
 }
 .contentChat-article-div-div-div_content{
 background-color: rgb(147, 235, 229);
@@ -48,9 +53,13 @@ word-wrap: break-word;
 /* quebra a linha ao chegar no final da div */
 }
 
+/* se mensagem vier de fora */
 .author_others{
     justify-content: flex-end;
+    
 }
+
+/* se mensagem vier da origem */
 .author_myself{
     justify-content: flex-start;
 }
@@ -73,6 +82,12 @@ word-wrap: break-word;
 .contentChat-article-div-img_content{
     width: 100%;
 }
+.contentChat-article-div-chart{
+   padding: 10px;
+   border-radius: 15px;
+   margin-bottom: 10px;
+   background-color: rgb(114, 188, 234);
+}
 
 
 /* seção digita e envia */
@@ -80,7 +95,7 @@ word-wrap: break-word;
 .contentChat-section{
 height: 8.5vh;
 width: 98%;
-/* background-color: red; */
+
 }
 .contentChat-section-div{
     display: flex;
