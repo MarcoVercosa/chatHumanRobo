@@ -3,19 +3,22 @@ import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 
 import changeDadosTelaInicialReducer from "./reducers/telaInicial.reducer"
-import receiveMessageReducer from "./reducers/contentChat.reducer"
-import openChatReducer from "./reducers/contentChat.reducer";
+import receiveMessageRoboReducer from "./reducers/contentChat.reducer"
+import openChatRoboReducer from "./reducers/contentChat.reducer";
 import socketReducer from "./reducers/socket.reducer"
 import listAllChatReducer from "./reducers/contentChat.reducer";
-import sendMessageReducer from "./reducers/contentChat.reducer";
-
+import sendMessageRoboReducer from "./reducers/contentChat.reducer";
+import addNewChatSingle from "./reducers/contentChat.reducer";
+import sendMessageSingleReducer from "./reducers/contentChat.reducer";
 const reducer = combineReducers({
     changeDadosTelaInicialReducer,
-    receiveMessageReducer,
-    sendMessageReducer,
-    openChatReducer,
+    receiveMessageRoboReducer,
+    sendMessageRoboReducer,
+    openChatRoboReducer,
     listAllChatReducer,
     socketReducer,
+    addNewChatSingle,
+    sendMessageSingleReducer
 
 })
 

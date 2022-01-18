@@ -4,12 +4,16 @@
     display: flex;  
     width: 100%;
     background-color: #FFFFFF ;
-    padding-top: 5px;
-    padding-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 7px;
     border-bottom: 1px solid rgb(216, 216, 216);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     cursor: pointer;
+    transition: all 0.5s;
+}
+.article-div-janelas_chat:hover{
+    background-color: rgb(218, 218, 218);
 }
 .article-janelas_chat-p{
     text-align: center;

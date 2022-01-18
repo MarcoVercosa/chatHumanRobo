@@ -2,26 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ITelaInicial {
     email: string;
-    nome: string;
+    name: string;
     componentChat: boolean;
     componentTelaInicial: boolean
 }
 
-const telaInicialInitialState: ITelaInicial = {
+const initialState: ITelaInicial = {
     email: "preencha seu email",
-    nome: "preencha seu nome",
+    name: "preencha seu nome",
     componentChat: false,
     componentTelaInicial: true
 }
 
 const dadosTelaInicial = createSlice({
     name: "changeTelaInicialActions",
-    initialState: {
-        telaInicial: telaInicialInitialState
-    },
+    initialState,
     reducers: {
         changeDadosTelaInicialReducer: (state, { payload }): any => {
-            return { telaInicial: payload }
+            return state = payload
+
         }
     }
 })
