@@ -56,7 +56,7 @@ function Charts({ data }: any) {
                 <h3>Nível dos Sistemas de Abastecimento de São Paulo (%) - {data[0].currentDate}</h3>
 
                 <BarChart
-                    width={345}
+                    width={408}
                     height={300}
                     data={chartData}
                     margin={{
@@ -81,7 +81,7 @@ function Charts({ data }: any) {
 
             </div>
             <div className="contentChat-article-div-chart">
-                <h3>Variação dia -(%) {data[0].currentDate}</h3>
+                <h3>Variação dia (%)  - {data[0].currentDate}</h3>
 
                 <BarChart
                     width={345}

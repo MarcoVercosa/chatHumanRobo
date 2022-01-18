@@ -1,8 +1,8 @@
 import React, { } from 'react'
-import "./chatsRobo.css"
+import "./chatsToSelect.css"
 import { useDispatch, useSelector } from "react-redux"
 import { openChatRoboReducer } from '../../../store/reducers/contentChat.reducer'
-
+import ModalCreatChat from './modalCreateChat';
 
 
 
@@ -10,6 +10,8 @@ function ChatsRobo() {
     const dispatch = useDispatch()
     // const contentChatData: any = useSelector((state: any) => state)
     const contentChatData: any = useSelector((state: any) => state.listAllChatReducer)
+    const { socket }: any = useSelector((state: any) => state.socketReducer)
+    console.log(socket)
     console.log("renderizou chatsRobo")
 
     function OpenChatWindow(chatSelect: string) {
@@ -19,6 +21,14 @@ function ChatsRobo() {
     return (
 
         <article className='article-janelas_chat'>
+            <div className='article-janelas_chat-profile'>
+                <p><span>User:</span> {localStorage.getItem("name")}</p>
+                <p><span>ID:</span> {socket.id}</p>
+            </div>
+            <div className='article-janelas_chat-p'>
+                <ModalCreatChat />
+
+            </div>
             <div className='article-janelas_chat-p'>
                 <i className="fas fa-2x fa-robot" style={{ color: "rgb(230, 104, 104)" }}></i>
             </div>

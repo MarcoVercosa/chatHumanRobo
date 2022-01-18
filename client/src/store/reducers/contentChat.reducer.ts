@@ -24,7 +24,7 @@ const initialState: IChatContent[] =
         {
             openChat: false,
             chatNameDestination: "ROBÔ - IMC",
-            avatar: "fas fa-3x fa-robot",
+            avatar: "fas fa-3x fa-drumstick-bite",
             color: "rgb(9, 9, 9)",
             isRoom: false,
             socketDestination: "send_message_to_robo_imc",

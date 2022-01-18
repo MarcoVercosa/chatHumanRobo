@@ -22,6 +22,7 @@ function Tela_Inicial() {
     function AbrirChat() {
 
         if (name.length > 3 && email.length > 5) {
+            //o server irá relacionar o user ao ID e irá armazenar 
             socket.emit("join_user_idSocket", ({ userName: name }))
             localStorage.setItem("name", name)
             localStorage.setItem("email", email)
@@ -39,7 +40,6 @@ function Tela_Inicial() {
                 }))
             } else {
                 alert(message)
-
             }
         })
     }, [socket])

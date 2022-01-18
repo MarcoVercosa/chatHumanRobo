@@ -1,4 +1,20 @@
 .article-janelas_chat{
+
+}
+.article-janelas_chat-profile{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+.article-janelas_chat-profile p{
+font-size: 12px;
+
+}
+.article-janelas_chat-profile span{
+    font-weight: bold;
+}
+.article-janelas_chat-button{
+  background-color: rgb(193, 254, 254);  
 }
 .article-div-janelas_chat{
     display: flex;  
@@ -21,8 +37,8 @@
     font-size: 25px;
     padding: 10px;
     border-bottom: 1px solid rgb(216, 216, 216);
-
 }
+
 .article-div-janelas_chat-avatar{
     margin-left: 6%;
     width: 19%;
