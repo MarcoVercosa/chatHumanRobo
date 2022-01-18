@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-
-
 interface IChatContent {
     openChat: boolean;
     chatNameDestination: string;
@@ -10,7 +8,7 @@ interface IChatContent {
     color: string;
     isRoom: boolean;
     socketDestination: string;
-    startTalkWithRobo: boolean
+    isRobo: boolean
     chatID: number | undefined;
     contentChat: Array<{
         content: string,
@@ -30,7 +28,7 @@ const initialState: IChatContent[] =
             color: "rgb(9, 9, 9)",
             isRoom: false,
             socketDestination: "send_message_to_robo_imc",
-            startTalkWithRobo: false,
+            isRobo: true,
             chatID: undefined,
             contentChat: [{
                 content: "Olá, tudo bem ? Sou o Robô- IMC. Posso lhe ajudar com seu IMC (Índice de Massa Corporal) ?",
@@ -50,7 +48,7 @@ const initialState: IChatContent[] =
             chatID: undefined,
             isRoom: false,
             socketDestination: "send_message_to_robo_reservatorios_sp",
-            startTalkWithRobo: false,
+            isRobo: true,
             contentChat: [{
                 content: "Olá, tudo bem ? Sou o ROBÔ - Reservatórios SP. Digite sim par saber como está a situação dos nossos reservatórios ou digite não para cancelar",
                 author: "ROBÔ - Reservatórios SP",
@@ -68,7 +66,7 @@ const contentChat = createSlice({
 
             return state
         },
-        receiveMessageReducer(state: any, { payload }): any {
+        receiveMessageRoboReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]
@@ -76,7 +74,7 @@ const contentChat = createSlice({
             })
             // return state
         },
-        sendMessageReducer(state: any, { payload }): any {
+        sendMessageRoboReducer(state: any, { payload }): any {
             state.map((data: any, index: number) => {
                 if (payload.destination === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: payload.time }]
@@ -84,7 +82,7 @@ const contentChat = createSlice({
             })
             // return state
         },
-        openChatReducer(state: any, { payload }): any {
+        openChatRoboReducer(state: any, { payload }): any {
             //recebe o nome do chat selecionado e deixa o respectivo obj do chat como True
             state.map((data: any, index: number) => {
                 if (data.chatNameDestination === payload) {
@@ -94,9 +92,37 @@ const contentChat = createSlice({
                 }
             })
             // return state
+        },
+        addNewChatSingle(state: any, { payload }): any {
+            state = [...state, {
+                openChat: false,
+                chatNameDestination: payload.chatNameDestination,
+                avatar: "",
+                color: "",
+                chatID: undefined,
+                isRoom: false,
+                socketDestination: "send_message_to_single_person",
+                isRobo: false,
+                contentChat: [{
+                    content: "Chat criado com sucesso",
+                    author: "Chat",
+                    time: ""
+                }]
+            }]
+        },
+        sendMessageSingleReducer(state: any, { payload }): any {
+            state.map((data: any, index: any) => {
+                if (payload.author === data.chatNameDestination) {
+                    data.contentChat = [...data.contentChat, payload]
+                }
+            })
         }
+
     }
 })
 
-export const { receiveMessageReducer, sendMessageReducer, openChatReducer, listAllChatReducer } = contentChat.actions
+export const { receiveMessageRoboReducer, sendMessageRoboReducer,
+    addNewChatSingle, sendMessageSingleReducer,
+    openChatRoboReducer, listAllChatReducer
+} = contentChat.actions
 export default contentChat.reducer

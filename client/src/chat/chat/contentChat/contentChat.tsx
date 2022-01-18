@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { receiveMessageReducer, sendMessageReducer } from '../../../store/reducers/contentChat.reducer'
+import { receiveMessageRoboReducer, sendMessageRoboReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 import Charts from './charts';
 
@@ -8,21 +8,20 @@ import "./contentChat.css"
 
 function ContentChat() {
     const { socket }: any = useSelector((state: any) => state.socketReducer)
-    let nameTelaInicial = useSelector((state: any) => state.changeDadosTelaInicialReducer.telaInicial.nome)
-    const contentChatData: any = useSelector((state: any) => state.openChatReducer)
+    let nameTelaInicial = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
+    const contentChatData: any = useSelector((state: any) => state.openChatRoboReducer)
     console.log("renderizou content chat")
     const dispatch = useDispatch()
 
     const [typeMessage, setTypeMessage] = useState<string>("")
 
     useEffect(() => {
-        // alert("Cer")
         socket.on("received_message_from_robo", (message: any) => {
-            dispatch(receiveMessageReducer(message))
+            dispatch(receiveMessageRoboReducer(message))
         })
 
         socket.on("send_message_to_robo_reservatorios_sp", (message: any) => {
-            dispatch(receiveMessageReducer(message))
+            dispatch(receiveMessageRoboReducer(message))
         })
 
     }, [socket])
@@ -31,7 +30,7 @@ function ContentChat() {
     function SendMessage({ message, author, destination, socketDestinatioString }: any) {
         let date = new Date()
         let time = `${date.getHours()}:${date.getMinutes()}`
-        dispatch(sendMessageReducer({ message, author, destination, socketDestinatioString }))
+        dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString }))
         socket.emit(socketDestinatioString, { message, author, time })
         setTypeMessage("")
     }
@@ -55,7 +54,7 @@ function ContentChat() {
                                             <div className={data.author === nameTelaInicial ? "contentChat-article-div-div_content author_myself" : "contentChat-article-div-div_content author_others"}>
 
                                                 <div className="contentChat-article-div-div-div_content"
-                                                    style={{ backgroundColor: data.author === nameTelaInicial ? "rgb(147, 235, 229)" : "rgb(227, 251, 122)" }}
+                                                    style={{ backgroundColor: data.author === nameTelaInicial ? "rgb(141, 244, 57)" : "rgb(227, 251, 122)" }}
                                                 >
                                                     <p className="contentChat-article-div-p_content">{data.content}</p>
                                                     <p className="contentChat-article-div-p_author">{data.author}</p>
