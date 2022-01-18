@@ -56,7 +56,7 @@ function Charts({ data }: any) {
                 <h3>Nível dos Sistemas de Abastecimento de São Paulo (%) - {data[0].currentDate}</h3>
 
                 <BarChart
-                    width={345}
+                    width={400}
                     height={300}
                     data={chartData}
                     margin={{
