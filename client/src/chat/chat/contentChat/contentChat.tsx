@@ -1,6 +1,6 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { receiveMessageRoboReducer, sendMessageRoboReducer } from '../../../store/reducers/contentChat.reducer'
+import { sendMessageRoboReducer, sendMessagePrivateReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 import Charts from './charts';
 
@@ -15,23 +15,16 @@ function ContentChat() {
 
     const [typeMessage, setTypeMessage] = useState<string>("")
 
-    useEffect(() => {
-        socket.on("received_message_from_robo", (message: any) => {
-            dispatch(receiveMessageRoboReducer(message))
-        })
-
-        socket.on("send_message_to_robo_reservatorios_sp", (message: any) => {
-            dispatch(receiveMessageRoboReducer(message))
-        })
-
-    }, [socket])
-
-
-    function SendMessage({ message, author, destination, socketDestinatioString }: any) {
+    function SendMessage({ message, author, destination, socketDestinatioString, chatID, isRobo }: any) {
         let date = new Date()
         let time = `${date.getHours()}:${date.getMinutes()}`
-        dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString }))
-        socket.emit(socketDestinatioString, { message, author, time })
+        //se isRobo for true, use o reducer para enviar email Robo, senão use o reducert para chat private
+        if (isRobo) {
+            dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString }))
+        } else {
+            dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString }))
+        }
+        socket.emit(socketDestinatioString, { message, author, time, chatID })
         setTypeMessage("")
     }
     return (
@@ -87,8 +80,8 @@ function ContentChat() {
                                             style={{ height: "8.5vh", borderRadius: "10px", marginBottom: "5px" }}
                                             onClick={() => {
                                                 SendMessage({
-                                                    message: typeMessage, author: nameTelaInicial,
-                                                    destination: data.chatNameDestination, socketDestinatioString: data.socketDestination
+                                                    message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo,
+                                                    destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
                                                 })
                                             }}
                                         >Enviar</Button>

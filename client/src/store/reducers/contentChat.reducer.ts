@@ -17,7 +17,8 @@ interface IChatContent {
     }>;
 }
 
-// interface IChatContent extends Array<IChatContent>{}
+let time = new Date()
+
 
 const initialState: IChatContent[] =
     [
@@ -25,7 +26,7 @@ const initialState: IChatContent[] =
             openChat: false,
             chatNameDestination: "ROBÔ - IMC",
             avatar: "fas fa-3x fa-drumstick-bite",
-            color: "rgb(9, 9, 9)",
+            color: "orange",
             isRoom: false,
             socketDestination: "send_message_to_robo_imc",
             isRobo: true,
@@ -67,6 +68,7 @@ const contentChat = createSlice({
             return state
         },
         receiveMessageRoboReducer(state: any, { payload }): any {
+            console.log("chamou reducer receiveMessageRoboReducer")
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]
@@ -75,6 +77,7 @@ const contentChat = createSlice({
             // return state
         },
         sendMessageRoboReducer(state: any, { payload }): any {
+            console.log("chamou reducer sendMessageRoboReducer")
             state.map((data: any, index: number) => {
                 if (payload.destination === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: payload.time }]
@@ -83,6 +86,7 @@ const contentChat = createSlice({
             // return state
         },
         openChatRoboReducer(state: any, { payload }): any {
+            console.log("chamou reducer openChatRoboReducer")
             //recebe o nome do chat selecionado e deixa o respectivo obj do chat como True
             state.map((data: any, index: number) => {
                 if (data.chatNameDestination === payload) {
@@ -91,26 +95,37 @@ const contentChat = createSlice({
                     data.openChat = false
                 }
             })
-            // return state
+            return state
         },
-        addNewChatSingle(state: any, { payload }): any {
+        addNewChatPrivateReducer(state: any, { payload }): any {
+            console.log("chamou reducer addNewChatPrivateReducer")
             state = [...state, {
                 openChat: false,
-                chatNameDestination: payload.chatNameDestination,
+                chatNameDestination: payload.userName,
                 avatar: "",
                 color: "",
-                chatID: undefined,
+                chatID: payload.id,
                 isRoom: false,
-                socketDestination: "send_message_to_single_person",
+                socketDestination: "send_message_to_private",
                 isRobo: false,
                 contentChat: [{
-                    content: "Chat criado com sucesso",
-                    author: "Chat",
+                    content: `${payload.userName} iniciou conversa com você`,
+                    author: payload.userName,
                     time: ""
                 }]
             }]
+            return state
         },
-        sendMessageSingleReducer(state: any, { payload }): any {
+        sendMessagePrivateReducer(state: any, { payload }): any {
+            console.log("chamou reducer sendMessagePrivateReducer")
+            state.map((data: any, index: any) => {
+                if (payload.destination === data.chatNameDestination) {
+                    data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
+                }
+            })
+        },
+        receiveMessagePrivateReducer(state: any, { payload }): any {
+            console.log("chamou reducer receiveMessagePrivateReducer")
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]
@@ -122,7 +137,7 @@ const contentChat = createSlice({
 })
 
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
-    addNewChatSingle, sendMessageSingleReducer,
-    openChatRoboReducer, listAllChatReducer
+    addNewChatPrivateReducer, sendMessagePrivateReducer,
+    openChatRoboReducer, listAllChatReducer, receiveMessagePrivateReducer
 } = contentChat.actions
 export default contentChat.reducer

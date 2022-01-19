@@ -14,6 +14,7 @@ const socket = createSlice({
     initialState,
     reducers: {
         socketReducer: (state, { payload }): any => {
+            console.log("chamou reducer socketReducer")
             return state = payload
         }
     }

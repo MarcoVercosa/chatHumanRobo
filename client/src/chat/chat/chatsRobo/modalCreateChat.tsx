@@ -6,8 +6,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-
-
+import { useSelector } from "react-redux"
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -28,7 +27,16 @@ export default function ModalCreatChat() {
     const handleClose = () => setOpen(false);
     const [checkedOpenRoom, setCheckedOpenRoom] = React.useState(false);
     const [checkedOpenPrivate, setCheckedOpenPrivate] = React.useState(true);
-    const [textType, setTextType] = React.useState("");
+    const [idType, setIdType] = React.useState("");
+    const [userNameType, setUsernameType] = React.useState("");
+
+    const { socket }: any = useSelector((state: any) => state.socketReducer)
+
+    function ChatCreate() {
+        if (checkedOpenPrivate && idType.length > 1) {
+            socket.emit("create_chat_private_server", ({ id: idType, userName: userNameType }))
+        }
+    }
 
     return (
         <div>
@@ -82,15 +90,27 @@ export default function ModalCreatChat() {
                     <div style={{ textAlign: "center", marginBottom: "10%" }}>
                         <TextField id="outlined-basic"
                             //se o checkbox room true... senão ...
-                            label={checkedOpenRoom ? "type new room name" : "type ID person "}
+                            label={checkedOpenRoom ? "type new room name" : "type ID friend"}
                             variant="outlined"
-                            onChange={(event: any) => { setTextType(event.target.value) }}
-                            value={textType}
+                            onChange={(event: any) => { setIdType(event.target.value) }}
+                            onClick={() => { setUsernameType("") }}
+                            value={idType}
+                        />
+                        <p>Or</p>
+                        <TextField id="outlined-basic"
+                            //se o checkbox room true... senão ...
+                            label="type User person friend"
+                            variant="outlined"
+                            onChange={(event: any) => { setUsernameType(event.target.value) }}
+                            onClick={() => { setIdType("") }}
+                            value={userNameType}
+                        // disabled={idType.length > 0 ? true : false}
                         />
                     </div>
                     <div style={{ textAlign: "center" }}>
-                        <Button onClick={handleOpen} variant="contained" size="large"
-                            style={{ width: "35%", marginBottom: "5%" }}>CREATE
+                        <Button onClick={ChatCreate} variant="contained" size="large"
+                            style={{ width: "35%", marginBottom: "5%" }}
+                        >CREATE
                         </Button>
                     </div>
                 </Box>

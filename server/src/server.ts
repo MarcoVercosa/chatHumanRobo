@@ -28,9 +28,7 @@ io.on("connection", (socket: any) => {
 
     //armazenar id e seus respectivo userName
     socket.on("join_user_idSocket", (data: any) => {
-
         console.log("socket join_user_idSocket")
-
         //checka se o user existe na var store. Se não, o adiciona
         let userAlreadyExists: any = false
         //key armazena a chave do obj e o value, o valor
@@ -54,6 +52,40 @@ io.on("connection", (socket: any) => {
         }
     })
 
+    socket.on("create_chat_private_server", (data: any) => {
+        console.log("Solicitado criação de chat private")
+        //checka se o ID ou o username passados existem
+        for (let temp in store) {
+            if (temp === data.id || store[temp] === data.userName) {
+                //se os dois ou um dos dois existirem, retorna abaixo
+                socket.emit("create_chat_private_client", ({
+                    sucess: true,
+                    id: temp,
+                    userName: store[temp]
+                }))
+                break
+            } else
+                socket.emit("create_chat_private_client", ({
+                    sucess: false,
+                    message: "UserName or ID invalid"
+                }))
+        }
+    })
+
+    //conversa com unica pessoa - Chat Privado
+    socket.on("send_message_to_private", (message: any) => {
+        console.log("solciitado mensagem privada")
+        let time = new Date()
+
+        // envia mensagem privada para o cliente
+        console.log(message)
+        socket.to(message.chatID).emit("received_message_private", {
+            content: message.message,
+            author: message.author,
+            time: `${time.getHours()}:${time.getMinutes()}`
+        });
+    })
+
     socket.on("join_room", (nameRoom: string) => {
         socket.joi(nameRoom)
         console.log(`User with ID ${socket.id} joined room: ${nameRoom}`)
@@ -65,14 +97,6 @@ io.on("connection", (socket: any) => {
         socket.in(data.room).emit("received_message_from_room", data)
     })
 
-    socket.on("send_message_to_single_person", (data: any) => {
-        // socket.emit("received_message_from_single_person", data)
-        socket.to("to").emit("received_message_from_single_person", {
-            content: "content",
-            from: socket.id,
-        });
-    })
-
 
     socket.on("send_message_to_robo_imc", (data: any) => {
         console.log(data)
@@ -81,7 +105,6 @@ io.on("connection", (socket: any) => {
     socket.on("send_message_to_robo_reservatorios_sp", async (data: any) => {
         console.log(data)
         RoboReservatoriosSP(socket, data)
-
     })
 
 
