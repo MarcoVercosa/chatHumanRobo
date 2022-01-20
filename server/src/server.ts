@@ -5,6 +5,8 @@ import { Server } from "socket.io"
 
 import { RoboIMC } from "./functionRoboIMC"
 import { RoboReservatoriosSP } from "./functionRoboReservatoriosSP"
+import { CreateChatPrivateServer } from "./functionCreateChatPrivate"
+import { SendMenssageToPrivate } from "./functionSendMessageToPrivate"
 
 const app = express()
 
@@ -20,17 +22,16 @@ const io = new Server(server, {
 })
 
 let store: any = {}
-//armazena id e seus respectivos userNames
+//var para armazenar id e seus respectivos userNames
+//a var é comporta por obj socket.id:userName
 
 io.on("connection", (socket: any) => {
     console.log("User Connected", socket.id)
 
-    //criar e juntar a sala criada
+    //armazenar id e seus respectivo userName
     socket.on("join_user_idSocket", (data: any) => {
-
         console.log("socket join_user_idSocket")
-
-        //checka se o user existe no store. Se não, o adiciona
+        //checka se o user existe na var store. Se não, o adiciona
         let userAlreadyExists: any = false
         //key armazena a chave do obj e o value, o valor
         // for (let [key, value] of Object.entries(store)) {
@@ -43,6 +44,7 @@ io.on("connection", (socket: any) => {
         }
         if (!userAlreadyExists) {
             console.log("User add no store")
+            //add no obj store socket.id:userName
             store[socket.id] = data.userName
             console.log(store)
 
@@ -52,23 +54,27 @@ io.on("connection", (socket: any) => {
         }
     })
 
-    socket.on("join_room", (id_room: string) => {
-        socket.join(id_room)
-        console.log(`User with ID ${socket.id} joined room: ${id_room}`)
+    socket.on("create_chat_private_server", (data: any) => {
+        console.log("Solicitado criação de chat private")
+        CreateChatPrivateServer(socket, data, store)
+    })
+
+    //conversa com unica pessoa - Chat Privado
+    socket.on("send_message_to_private", (message: any) => {
+        console.log("solciitado mensagem privada")
+        SendMenssageToPrivate(socket, message)
+
+    })
+
+    socket.on("join_room", (nameRoom: string) => {
+        socket.joi(nameRoom)
+        console.log(`User with ID ${socket.id} joined room: ${nameRoom}`)
     })
 
     //enviar mensagem a todos da sala
     socket.on("send_message_to_room", (data: any) => {
         console.log(data)
         socket.in(data.room).emit("received_message_from_room", data)
-    })
-
-    socket.on("send_message_to_single_person", (data: any) => {
-        // socket.emit("received_message_from_single_person", data)
-        socket.to("to").emit("received_message_from_single_person", {
-            content: "content",
-            from: socket.id,
-        });
     })
 
 
@@ -79,7 +85,6 @@ io.on("connection", (socket: any) => {
     socket.on("send_message_to_robo_reservatorios_sp", async (data: any) => {
         console.log(data)
         RoboReservatoriosSP(socket, data)
-
     })
 
 

@@ -56,7 +56,11 @@ function Charts({ data }: any) {
                 <h3>Nível dos Sistemas de Abastecimento de São Paulo (%) - {data[0].currentDate}</h3>
 
                 <BarChart
+<<<<<<< HEAD
                     width={400}
+=======
+                    width={408}
+>>>>>>> developer
                     height={300}
                     data={chartData}
                     margin={{
@@ -65,8 +69,6 @@ function Charts({ data }: any) {
                         left: 20,
                         bottom: 5,
                     }}
-
-
                 >
                     <CartesianGrid strokeDasharray="9 9" />
                     <XAxis dataKey="name" stroke="white" />
@@ -76,15 +78,14 @@ function Charts({ data }: any) {
 
                     {/* <ReferenceLine y={0} stroke="#000000" /> */}
                     <Bar dataKey="volume" fill="#4137fb" />
-
                 </BarChart>
 
             </div>
             <div className="contentChat-article-div-chart">
-                <h3>Variação dia -(%) {data[0].currentDate}</h3>
+                <h3>Variação dia (%)  - {data[0].currentDate}</h3>
 
                 <BarChart
-                    width={345}
+                    width={408}
                     height={300}
                     data={chartData}
                     margin={{
