@@ -25,16 +25,17 @@ function Tela_Inicial() {
             socket.emit("join_user_idSocket", ({ userName: name }))
             localStorage.setItem("name", name)
             localStorage.setItem("email", email)
-        } else alert("Preencha os campos para pode entrar")
+        } else alert("Preencha os campos para poder entrar")
     }
 
     useEffect(() => {
         //aqui é o retorno do servidor quando clicar no botao entrar. Será verificado
-        //se ja possui algun user com o nome solicitado
+        //se ja possui algun user com o nome solicitado.
         socket.on("receive_uservalidation_from_server", ({ sucess, message }: any) => {
             if (sucess === true) {
                 dispatch(changeDadosTelaInicialReducer({
-                    email: localStorage.getItem("email"), name: localStorage.getItem("name"), componentChat: true, componentTelaInicial: false
+                    email: localStorage.getItem("email"), name: localStorage.getItem("name"),
+                    componentChat: true, componentTelaInicial: false
                 }))
             } else {
                 alert(message)

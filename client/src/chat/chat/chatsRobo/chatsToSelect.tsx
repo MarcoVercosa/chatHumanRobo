@@ -34,7 +34,7 @@ function ChatsRobo() {
             dispatch(receiveMessageRoboReducer(message))
         })
 
-
+        //recebe mensagem privada
         socket.on("received_message_private", (message: any) => {
             console.log("Recebido mensagem privada")
             dispatch(receiveMessagePrivateReducer(message))

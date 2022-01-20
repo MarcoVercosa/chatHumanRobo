@@ -99,6 +99,7 @@ const contentChat = createSlice({
         },
         addNewChatPrivateReducer(state: any, { payload }): any {
             console.log("chamou reducer addNewChatPrivateReducer")
+            console.log(payload)
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.userName,
@@ -111,7 +112,7 @@ const contentChat = createSlice({
                 contentChat: [{
                     content: `${payload.userName} iniciou conversa com você`,
                     author: payload.userName,
-                    time: ""
+                    time: payload.time
                 }]
             }]
             return state
@@ -123,9 +124,11 @@ const contentChat = createSlice({
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
                 }
             })
+
         },
         receiveMessagePrivateReducer(state: any, { payload }): any {
             console.log("chamou reducer receiveMessagePrivateReducer")
+            console.log(payload)
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]

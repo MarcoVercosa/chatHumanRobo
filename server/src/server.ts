@@ -5,6 +5,8 @@ import { Server } from "socket.io"
 
 import { RoboIMC } from "./functionRoboIMC"
 import { RoboReservatoriosSP } from "./functionRoboReservatoriosSP"
+import { CreateChatPrivateServer } from "./functionCreateChatPrivate"
+import { SendMenssageToPrivate } from "./functionSendMessageToPrivate"
 
 const app = express()
 
@@ -54,36 +56,14 @@ io.on("connection", (socket: any) => {
 
     socket.on("create_chat_private_server", (data: any) => {
         console.log("Solicitado criação de chat private")
-        //checka se o ID ou o username passados existem
-        for (let temp in store) {
-            if (temp === data.id || store[temp] === data.userName) {
-                //se os dois ou um dos dois existirem, retorna abaixo
-                socket.emit("create_chat_private_client", ({
-                    sucess: true,
-                    id: temp,
-                    userName: store[temp]
-                }))
-                break
-            } else
-                socket.emit("create_chat_private_client", ({
-                    sucess: false,
-                    message: "UserName or ID invalid"
-                }))
-        }
+        CreateChatPrivateServer(socket, data, store)
     })
 
     //conversa com unica pessoa - Chat Privado
     socket.on("send_message_to_private", (message: any) => {
         console.log("solciitado mensagem privada")
-        let time = new Date()
+        SendMenssageToPrivate(socket, message)
 
-        // envia mensagem privada para o cliente
-        console.log(message)
-        socket.to(message.chatID).emit("received_message_private", {
-            content: message.message,
-            author: message.author,
-            time: `${time.getHours()}:${time.getMinutes()}`
-        });
     })
 
     socket.on("join_room", (nameRoom: string) => {

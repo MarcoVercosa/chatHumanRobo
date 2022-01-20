@@ -34,7 +34,11 @@ export default function ModalCreatChat() {
 
     function ChatCreate() {
         if (checkedOpenPrivate && idType.length > 1) {
-            socket.emit("create_chat_private_server", ({ id: idType, userName: userNameType }))
+            socket.emit("create_chat_private_server", ({
+                id: idType, userName: userNameType,
+                userNameSource: localStorage.getItem("name")
+
+            }))
         }
     }
 
@@ -89,7 +93,7 @@ export default function ModalCreatChat() {
                     </div>
                     <div style={{ textAlign: "center", marginBottom: "10%" }}>
                         <TextField id="outlined-basic"
-                            //se o checkbox room true... senão ...
+                            //se o checkbox room for true... senão ...
                             label={checkedOpenRoom ? "type new room name" : "type ID friend"}
                             variant="outlined"
                             onChange={(event: any) => { setIdType(event.target.value) }}
@@ -104,7 +108,7 @@ export default function ModalCreatChat() {
                             onChange={(event: any) => { setUsernameType(event.target.value) }}
                             onClick={() => { setIdType("") }}
                             value={userNameType}
-                        // disabled={idType.length > 0 ? true : false}
+                            disabled={!checkedOpenRoom}
                         />
                     </div>
                     <div style={{ textAlign: "center" }}>
