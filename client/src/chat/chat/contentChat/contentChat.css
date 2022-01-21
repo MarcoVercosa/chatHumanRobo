@@ -33,6 +33,10 @@ font-size: 25px;
 line-height: 29px;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.contentChat-article-div-div_modaladd{
+    margin-left: 5%;
+
+}
 
 .contentChat-article-div_content{
    width: 98%;
