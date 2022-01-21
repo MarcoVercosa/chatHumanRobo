@@ -19,7 +19,6 @@ const dadosTelaInicial = createSlice({
     initialState,
     reducers: {
         changeDadosTelaInicialReducer: (state, { payload }): any => {
-            console.log("chamou reducer changeDadosTelaInicialReducer")
             return state = payload
 
         }

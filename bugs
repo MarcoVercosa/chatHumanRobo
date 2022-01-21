@@ -1,0 +1,13 @@
+permitir add amigo na chat room
+ao Add, o amigo adicionado receberá uma mensagem que foi add no grupo e será
+    criado uma janela pronta para o uso
+não permitir add mais de um chat private ou room com mesmo nome ou id
+procurar por erros de duplicidades tambem no server
+fechar os modals ao usá-los e limpar seus campos
+remover console.logs
+organizar código:{
+    client: organizar os componentes e o código.
+    tornar mais fácil de dar manutenção e ser entendido
+    server:organizar o código por funções ou classes
+    adicionar mais segurança
+}

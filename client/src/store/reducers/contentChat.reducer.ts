@@ -68,7 +68,6 @@ const contentChat = createSlice({
             return state
         },
         receiveMessageRoboReducer(state: any, { payload }): any {
-            console.log("chamou reducer receiveMessageRoboReducer")
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]
@@ -77,7 +76,6 @@ const contentChat = createSlice({
             // return state
         },
         sendMessageRoboReducer(state: any, { payload }): any {
-            console.log("chamou reducer sendMessageRoboReducer")
             state.map((data: any, index: number) => {
                 if (payload.destination === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: payload.time }]
@@ -86,7 +84,6 @@ const contentChat = createSlice({
             // return state
         },
         openChatRoboReducer(state: any, { payload }): any {
-            console.log("chamou reducer openChatRoboReducer")
             //recebe o nome do chat selecionado e deixa o respectivo obj do chat como True
             state.map((data: any, index: number) => {
                 if (data.chatNameDestination === payload) {
@@ -98,8 +95,6 @@ const contentChat = createSlice({
             return state
         },
         addNewChatPrivateReducer(state: any, { payload }): any {
-            console.log("chamou reducer addNewChatPrivateReducer")
-            console.log(payload)
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.userName,
@@ -118,7 +113,6 @@ const contentChat = createSlice({
             return state
         },
         sendMessagePrivateReducer(state: any, { payload }): any {
-            console.log("chamou reducer sendMessagePrivateReducer")
             state.map((data: any, index: any) => {
                 if (payload.destination === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
@@ -127,20 +121,37 @@ const contentChat = createSlice({
 
         },
         receiveMessagePrivateReducer(state: any, { payload }): any {
-            console.log("chamou reducer receiveMessagePrivateReducer")
-            console.log(payload)
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]
                 }
             })
-        }
+        },
+        addNewChatRoomReducer(state: any, { payload }): any {
+            state = [...state, {
+                openChat: false,
+                chatNameDestination: payload.roomName,
+                avatar: "",
+                color: "",
+                chatID: payload.roomName,
+                isRoom: true,
+                socketDestination: "send_message_to_chat_room",
+                isRobo: false,
+                contentChat: [{
+                    content: `${payload.userName} criou a sala`,
+                    author: payload.userName,
+                    time: payload.time
+                }]
+            }]
+            return state
+        },
 
     }
 })
 
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
-    openChatRoboReducer, listAllChatReducer, receiveMessagePrivateReducer
+    openChatRoboReducer, listAllChatReducer, receiveMessagePrivateReducer,
+    addNewChatRoomReducer
 } = contentChat.actions
 export default contentChat.reducer

@@ -2,9 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
 
@@ -21,36 +18,21 @@ const style = {
     p: 4,
 };
 
-export default function ModalCreatChat() {
+export default function ModalAddFriendToRoom() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [checkedOpenRoom, setCheckedOpenRoom] = React.useState(false);
-    const [checkedOpenPrivate, setCheckedOpenPrivate] = React.useState(true);
     const [idType, setIdType] = React.useState("");
     const [userNameType, setUsernameType] = React.useState("");
 
     const { socket }: any = useSelector((state: any) => state.socketReducer)
 
-    function ChatCreate() {
-        if (idType.length < 1) {
+    function AddFriendToChat() {
+        if (idType.length < 1 || userNameType.length < 1) {
             alert("Digite um ID ou nome válido")
             return
         }
-        if (checkedOpenPrivate) {
-            socket.emit("create_chat_private_server", ({
-                id: idType, userName: userNameType,
-                userNameSource: localStorage.getItem("name")
 
-            }))
-            return
-        } else {
-            socket.emit("create_room", ({
-                id: socket.id,
-                roomName: idType,
-                userName: localStorage.getItem("name")
-            }))
-        }
 
     }
 
@@ -59,7 +41,7 @@ export default function ModalCreatChat() {
             <Button onClick={handleOpen} variant="contained" size="large"
                 style={{ width: "35%" }}
             >
-                <i className="far fa-2x fa-plus-square"></i>
+                <i className="fas fa-user-plus"></i>
             </Button>
             <Modal
                 keepMounted
@@ -71,42 +53,15 @@ export default function ModalCreatChat() {
                 <Box sx={style}>
                     <div style={{ marginBottom: "10%" }}>
                         <h1 style={{ textAlign: "center" }}>
-                            Create a chat: {checkedOpenRoom ? "ROOM" : "PRIVATE"}
+                            Add friend:
                         </h1>
 
                     </div>
-                    <div style={{
-                        marginBottom: "10%", display: "flex", justifyContent: "space-around"
-                    }}>
-                        <FormGroup aria-label="position" row>
-                            <FormControlLabel
-                                value="top"
-                                control={<Switch color="secondary" />}
-                                label="ROOM"
-                                labelPlacement="start"
-                                checked={checkedOpenRoom}
-                                onChange={(event: any) => {
-                                    setCheckedOpenRoom(event.target.checked)
-                                    setCheckedOpenPrivate(!event.target.checked)
-                                }}
-                            />
-                            <FormControlLabel
-                                value="start"
-                                control={<Switch color="secondary" />}
-                                label="PRIVATE"
-                                labelPlacement="start"
-                                checked={checkedOpenPrivate}
-                                onChange={(event: any) => {
-                                    setCheckedOpenPrivate(event.target.checked)
-                                    setCheckedOpenRoom(!event.target.checked)
-                                }}
-                            />
-                        </FormGroup>
-                    </div>
+
                     <div style={{ textAlign: "center", marginBottom: "10%" }}>
                         <TextField id="outlined-basic"
                             //se o checkbox room for true... senão ...
-                            label={checkedOpenRoom ? "type new room name" : "type ID friend"}
+                            label="type new room name"
                             variant="outlined"
                             onChange={(event: any) => { setIdType(event.target.value) }}
                             onClick={() => { setUsernameType("") }}
@@ -120,11 +75,11 @@ export default function ModalCreatChat() {
                             onChange={(event: any) => { setUsernameType(event.target.value) }}
                             onClick={() => { setIdType("") }}
                             value={userNameType}
-                            disabled={checkedOpenRoom}
+
                         />
                     </div>
                     <div style={{ textAlign: "center" }}>
-                        <Button onClick={ChatCreate} variant="contained" size="large"
+                        <Button onClick={AddFriendToChat} variant="contained" size="large"
                             style={{ width: "35%", marginBottom: "5%" }}
                         >CREATE
                         </Button>

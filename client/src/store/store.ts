@@ -10,7 +10,8 @@ import listAllChatReducer from "./reducers/contentChat.reducer";
 import sendMessageRoboReducer from "./reducers/contentChat.reducer";
 import addNewChatPrivateReducer from "./reducers/contentChat.reducer";
 import sendMessagePrivateReducer from "./reducers/contentChat.reducer";
-import { receiveMessagePrivateReducer } from "./reducers/contentChat.reducer";
+import receiveMessagePrivateReducer from "./reducers/contentChat.reducer";
+import addNewChatRoomReducer from "./reducers/contentChat.reducer";
 const reducer = combineReducers({
     changeDadosTelaInicialReducer,
     receiveMessageRoboReducer,
@@ -20,7 +21,8 @@ const reducer = combineReducers({
     socketReducer,
     addNewChatPrivateReducer,
     sendMessagePrivateReducer,
-    receiveMessagePrivateReducer
+    receiveMessagePrivateReducer,
+    addNewChatRoomReducer
 
 })
 

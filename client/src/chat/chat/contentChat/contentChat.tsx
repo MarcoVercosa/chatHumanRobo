@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { sendMessageRoboReducer, sendMessagePrivateReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 import Charts from './charts';
+import ModalAddFriendToRoom from "./modalAddFriendToRoom"
 
 import "./contentChat.css"
 
@@ -40,22 +41,26 @@ function ContentChat() {
                                     <div className="contentChat-article-div-div_nomechat">
                                         <h1 className="contentChat-article-div-h1_nomechat">{data.chatNameDestination}</h1>
                                     </div>
+                                    <div className="contentChat-article-div-div_modaladd"><ModalAddFriendToRoom /></div>
+
                                 </div>
                                 <div className="contentChat-article-div_content">
-                                    {data.contentChat.map((data: any, index: number) => {//faz um map na array de conversa da janela aberta
+                                    {data.contentChat.map((data: any, index: number) => {
+                                        //faz um map na array de conversa da janela aberta
                                         return (
                                             <div className={data.author === nameTelaInicial ? "contentChat-article-div-div_content author_myself" : "contentChat-article-div-div_content author_others"}>
 
                                                 <div className="contentChat-article-div-div-div_content"
-                                                    style={{ backgroundColor: data.author === nameTelaInicial ? "rgb(141, 244, 57)" : "rgb(227, 251, 122)" }}
+                                                    style={{ backgroundColor: data.author === nameTelaInicial ? "rgb(128, 247, 30)" : "rgb(227, 251, 122)" }}
                                                 >
                                                     <p className="contentChat-article-div-p_content">{data.content}</p>
                                                     <p className="contentChat-article-div-p_author">{data.author}</p>
                                                     <p className="contentChat-article-div-p_time"> {data.time}</p>
                                                     <img className="contentChat-article-div-img_content" src={data?.image} />
-                                                    {/* se houver conteudo objeto isChar (dados para os graficos) */}
+
                                                     <div className="contentChat-article-div-chartS" style={{ backgroundImage: "url(gif_background_login.gif)" }}>
                                                         {data.isCharts &&
+                                                            // se houver no conteudo do server o objeto isChart (dados para os graficos)
                                                             <Charts data={data.isCharts} />
                                                         }
                                                     </div>

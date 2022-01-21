@@ -54,6 +54,9 @@ io.on("connection", (socket: any) => {
         }
     })
 
+    //checa se o id ou user existem, devolve as info para o solicitante
+    // para que o client crie um chat no navegador
+    // e envia para o destinatario a solicitaçao para criar um chat no navegador
     socket.on("create_chat_private_server", (data: any) => {
         console.log("Solicitado criação de chat private")
         CreateChatPrivateServer(socket, data, store)
@@ -63,11 +66,27 @@ io.on("connection", (socket: any) => {
     socket.on("send_message_to_private", (message: any) => {
         console.log("solciitado mensagem privada")
         SendMenssageToPrivate(socket, message)
-
     })
 
+    //cria uma sala
+    socket.on("create_room", (data: any) => {
+        console.log("create_room")
+        console.log(data)
+        let time = new Date()
+        socket.join(data.roomName)
+        socket.emit("confirm_create_room", {
+            sucess: true,
+            id: socket.id,
+            userName: data.userName,
+            roomName: data.roomName,
+            time: `${time.getHours()}:${time.getMinutes()}`
+        })
+        console.log(`User with ID ${socket.id} joined room: ${data.roomName}`)
+    })
+
+    //adiciona o usuario a uma sala
     socket.on("join_room", (nameRoom: string) => {
-        socket.joi(nameRoom)
+        socket.join(nameRoom)
         console.log(`User with ID ${socket.id} joined room: ${nameRoom}`)
     })
 
