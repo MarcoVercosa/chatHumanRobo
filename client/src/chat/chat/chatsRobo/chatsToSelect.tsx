@@ -4,18 +4,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { openChatRoboReducer } from '../../../store/reducers/contentChat.reducer'
 import {
     receiveMessageRoboReducer, addNewChatPrivateReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer
+    addNewChatRoomReducer, receiveMessageRoomReducer
 }
     from '../../../store/reducers/contentChat.reducer'
 
 import ModalCreatChat from './modalCreateChat';
+import ModalJoinToRoom from "../contentChat/modalJoinRoom"
 
 function ChatsRobo() {
     const dispatch = useDispatch()
     // const contentChatData: any = useSelector((state: any) => state)
     const contentChatData: any = useSelector((state: any) => state.listAllChatReducer)
     const { socket }: any = useSelector((state: any) => state.socketReducer)
-    console.log("renderizou chatToSelect")
 
     function OpenChatWindow(chatSelect: string) {
         dispatch(openChatRoboReducer(chatSelect))
@@ -25,44 +25,52 @@ function ChatsRobo() {
         //recebe do servidor dados (se sucesso) para criar conversa privada
         //poder ser por solicicitação da origem ao criar uma sala privada, ou do destino
         socket.on("create_chat_private_client", (message: any) => {
-            console.log("recebido pedido de criação de chat")
             if (message.sucess) {
                 dispatch(addNewChatPrivateReducer(message))
                 alert(`Iniciado uma conversa com ${message.userName}. Check o painel a esquerda`)
             } else {
-                console.log("User or ID dont exists")
+                alert(message.message)
             }
         })
 
         //recebe mensagem robo 
         socket.on("received_message_from_robo", (message: any) => {
-            console.log("Recebido mensagem do robo")
             dispatch(receiveMessageRoboReducer(message))
         })
 
         //recebe mensagem privada
         socket.on("received_message_private", (message: any) => {
-            console.log("Recebido mensagem privada")
             dispatch(receiveMessagePrivateReducer(message))
         })
 
         //recebe do servidor quando o solicitante cria um room Chat
         socket.on("confirm_create_room", (message: any) => {
             if (message.sucess) {
-                alert("O usuário " + message.userName + " adicionou uma CHAT ROOM chamada " + message.roomName)
                 dispatch(addNewChatRoomReducer(message))
-                console.log("Recebido criação de CHAT com sucesso")
+                alert("O usuário " + message.userName + " adicionou uma CHAT ROOM chamada " + message.roomName)
                 return
             }
-            console.log("Recebido criação de CHAT sem sucesso")
+            alert(message.message)
+        })
+        //recebe se o cliente solicitar ingressar em um chatRoom
+        //poder ser por solicitação da origem ao criar uma sala privada, ou do destino
+        socket.on("add_chat_room", (message: any) => {
+            if (message.sucess) {
+                dispatch(addNewChatRoomReducer(message))
+                alert("O usuário " + message.userName + " adicionou uma CHAT ROOM chamada " + message.roomName)
+                return
+            }
+            alert(message.message)
+        })
 
+        socket.on("received_message_room", (message: any) => {
+            dispatch(receiveMessageRoomReducer(message))
         })
 
     }, [socket])
 
 
     return (
-
         <article className='article-janelas_chat'>
             <div className='article-janelas_chat-profile'>
                 <p><span>User:</span> {localStorage.getItem("name")}</p>
@@ -71,6 +79,10 @@ function ChatsRobo() {
             <div className='article-janelas_chat-p'>
                 {/* modal que permite crir sala ou chamar private */}
                 <ModalCreatChat />
+            </div>
+            <div className='article-janelas_chat-p'>
+                {/* modal que permite crir sala ou chamar private */}
+                <ModalJoinToRoom />
 
             </div>
 

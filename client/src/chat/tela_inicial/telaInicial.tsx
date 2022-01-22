@@ -9,7 +9,6 @@ import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.
 
 
 function Tela_Inicial() {
-    console.log("renderizou tela inicial")
 
     const [email, setEmail] = useState<string>("")
     const [name, setNome] = useState<string>("")
