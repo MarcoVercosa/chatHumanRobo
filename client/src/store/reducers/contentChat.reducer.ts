@@ -9,6 +9,7 @@ interface IChatContent {
     isRoom: boolean;
     socketDestination: string;
     isRobo: boolean
+    isPrivate: boolean
     chatID: number | undefined;
     contentChat: Array<{
         content: string,
@@ -30,6 +31,7 @@ const initialState: IChatContent[] =
             isRoom: false,
             socketDestination: "send_message_to_robo_imc",
             isRobo: true,
+            isPrivate: false,
             chatID: undefined,
             contentChat: [{
                 content: "Olá, tudo bem ? Sou o Robô- IMC. Posso lhe ajudar com seu IMC (Índice de Massa Corporal) ?",
@@ -48,6 +50,7 @@ const initialState: IChatContent[] =
             color: "rgb(79, 135, 255)",
             chatID: undefined,
             isRoom: false,
+            isPrivate: false,
             socketDestination: "send_message_to_robo_reservatorios_sp",
             isRobo: true,
             contentChat: [{
@@ -63,10 +66,12 @@ const contentChat = createSlice({
     name: "chatContentAction",
     initialState,
     reducers: {
+        //usado para listar todos os chats
         listAllChatReducer(state: any, { payload }): any {            // return { contentChat: payload }
 
             return state
         },
+        //recebe mensagens enviadas pelo "client" e armazena
         receiveMessageRoboReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
@@ -75,14 +80,16 @@ const contentChat = createSlice({
             })
             // return state
         },
+        //recebe mensagens automáticas do "server" e as armazena
         sendMessageRoboReducer(state: any, { payload }): any {
             state.map((data: any, index: number) => {
                 if (payload.destination === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: payload.time }]
                 }
             })
-            // return state
+
         },
+        //altera a array de conversa para true e assim renderizar a janela de conversa
         openChatRoboReducer(state: any, { payload }): any {
             //recebe o nome do chat selecionado e deixa o respectivo obj do chat como True
             state.map((data: any, index: number) => {
@@ -94,6 +101,7 @@ const contentChat = createSlice({
             })
             return state
         },
+        //cria uma nova janela para conversa particular
         addNewChatPrivateReducer(state: any, { payload }): any {
             state = [...state, {
                 openChat: false,
@@ -104,6 +112,7 @@ const contentChat = createSlice({
                 isRoom: false,
                 socketDestination: "send_message_to_private",
                 isRobo: false,
+                isPrivate: true,
                 contentChat: [{
                     content: `${payload.userName} iniciou conversa com você`,
                     author: payload.userName,
@@ -112,6 +121,7 @@ const contentChat = createSlice({
             }]
             return state
         },
+        //recebe mensagens enviadas pelo "client" e armazena
         sendMessagePrivateReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
                 if (payload.destination === data.chatNameDestination) {
@@ -120,6 +130,7 @@ const contentChat = createSlice({
             })
 
         },
+        //recebe mensagens privadas do "server" e as armazena
         receiveMessagePrivateReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
@@ -127,31 +138,48 @@ const contentChat = createSlice({
                 }
             })
         },
+        //add uma nova roomChat para criar ou add já existente no server
         addNewChatRoomReducer(state: any, { payload }): any {
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.roomName,
                 avatar: "",
                 color: "",
-                chatID: payload.roomName,
+                chatID: payload.id,
                 isRoom: true,
                 socketDestination: "send_message_to_chat_room",
                 isRobo: false,
+                isPrivate: false,
                 contentChat: [{
-                    content: `${payload.userName} criou a sala`,
+                    content: payload.message,
                     author: payload.userName,
                     time: payload.time
                 }]
             }]
             return state
         },
+        sendMessageRoomReducer(state: any, { payload }): any {
+            state.map((data: any, index: any) => {
+                if (payload.destination === data.chatNameDestination) {
+                    data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
+                }
+            })
 
+        },
+        receiveMessageRoomReducer(state: any, { payload }): any {
+            state.map((data: any, index: any) => {
+                if (payload.destination === data.chatNameDestination) {
+                    data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
+                }
+            })
+
+        },
     }
 })
 
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
     openChatRoboReducer, listAllChatReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer
+    addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer
 } = contentChat.actions
 export default contentChat.reducer

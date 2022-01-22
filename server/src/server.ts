@@ -7,6 +7,8 @@ import { RoboIMC } from "./functionRoboIMC"
 import { RoboReservatoriosSP } from "./functionRoboReservatoriosSP"
 import { CreateChatPrivateServer } from "./functionCreateChatPrivate"
 import { SendMenssageToPrivate } from "./functionSendMessageToPrivate"
+import { CreateRoom } from "./functionCreateRoom"
+import { JoinRoom } from "./functionJoinRoom"
 
 const app = express()
 
@@ -23,12 +25,18 @@ const io = new Server(server, {
 
 let store: any = {}
 //var para armazenar id e seus respectivos userNames
-//a var é comporta por obj socket.id:userName
+//a var é composta por obj socket.id:userName
+//ex: 389389e9cdc8cdc8dcd:Marco vercosa
+
+let storeRooms: any = {}
+//var para armazenar id e seus respectivos rooms
+//a var é composta por obj roomName:socket.id:
+//ex: NewRoom:2j32k32323kknjjnj3
 
 io.on("connection", (socket: any) => {
     console.log("User Connected", socket.id)
 
-    //armazenar id e seus respectivo userName
+    //Tela de login - armazenar id e seus respectivo userName
     socket.on("join_user_idSocket", (data: any) => {
         console.log("socket join_user_idSocket")
         //checka se o user existe na var store. Se não, o adiciona
@@ -56,7 +64,7 @@ io.on("connection", (socket: any) => {
 
     //checa se o id ou user existem, devolve as info para o solicitante
     // para que o client crie um chat no navegador
-    // e envia para o destinatario a solicitaçao para criar um chat no navegador
+    // e envia para o destinatario a solicitaçao para criar um chat no navegador dle tambem
     socket.on("create_chat_private_server", (data: any) => {
         console.log("Solicitado criação de chat private")
         CreateChatPrivateServer(socket, data, store)
@@ -71,29 +79,20 @@ io.on("connection", (socket: any) => {
     //cria uma sala
     socket.on("create_room", (data: any) => {
         console.log("create_room")
-        console.log(data)
-        let time = new Date()
-        socket.join(data.roomName)
-        socket.emit("confirm_create_room", {
-            sucess: true,
-            id: socket.id,
-            userName: data.userName,
-            roomName: data.roomName,
-            time: `${time.getHours()}:${time.getMinutes()}`
-        })
-        console.log(`User with ID ${socket.id} joined room: ${data.roomName}`)
+        CreateRoom(data, storeRooms, socket)
     })
 
     //adiciona o usuario a uma sala
-    socket.on("join_room", (nameRoom: string) => {
-        socket.join(nameRoom)
-        console.log(`User with ID ${socket.id} joined room: ${nameRoom}`)
+    socket.on("join_room", (data: any) => {
+        console.log("join_room")
+        JoinRoom(data, storeRooms, socket)
+
     })
 
     //enviar mensagem a todos da sala
-    socket.on("send_message_to_room", (data: any) => {
+    socket.on("send_message_to_chat_room", (data: any) => {
         console.log(data)
-        socket.in(data.room).emit("received_message_from_room", data)
+        socket.in(data.destination).emit("received_message_room", data)
     })
 
 
@@ -105,7 +104,6 @@ io.on("connection", (socket: any) => {
         console.log(data)
         RoboReservatoriosSP(socket, data)
     })
-
 
     //disconectar
     socket.on("disconnect", () => {

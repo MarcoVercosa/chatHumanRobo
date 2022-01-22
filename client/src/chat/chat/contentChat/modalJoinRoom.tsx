@@ -18,21 +18,34 @@ const style = {
     p: 4,
 };
 
-export default function ModalAddFriendToRoom() {
+export default function ModalJointToRoom() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [idType, setIdType] = React.useState("");
-    const [userNameType, setUsernameType] = React.useState("");
+    const [idType, setIdType] = React.useState("")
 
     const { socket }: any = useSelector((state: any) => state.socketReducer)
+    const contentAllChats: any = useSelector((state: any) => state.listAllChatReducer)
 
-    function AddFriendToChat() {
-        if (idType.length < 1 || userNameType.length < 1) {
+    function JointToRoom() {
+        //verifica se há caracteres digitados
+        if (idType.length < 1) {
             alert("Digite um ID ou nome válido")
             return
         }
-
+        let temp = undefined
+        //verifica se já existe algum chat ja add com o ID
+        temp = contentAllChats.find((data: any) => data.chatID === idType)
+        if (temp) {
+            alert("Já existe esse grupo em seu painel. Favor checar !")
+            return
+        }
+        socket.emit("join_room", (
+            {
+                id: idType,
+                userNameSource: localStorage.getItem("name")
+            }
+        ))
 
     }
 
@@ -41,7 +54,7 @@ export default function ModalAddFriendToRoom() {
             <Button onClick={handleOpen} variant="contained" size="large"
                 style={{ width: "35%" }}
             >
-                <i className="fas fa-user-plus"></i>
+                <i className="fas fa-2x fa-users"></i>
             </Button>
             <Modal
                 keepMounted
@@ -53,7 +66,7 @@ export default function ModalAddFriendToRoom() {
                 <Box sx={style}>
                     <div style={{ marginBottom: "10%" }}>
                         <h1 style={{ textAlign: "center" }}>
-                            Add friend:
+                            Join a Room:
                         </h1>
 
                     </div>
@@ -61,27 +74,21 @@ export default function ModalAddFriendToRoom() {
                     <div style={{ textAlign: "center", marginBottom: "10%" }}>
                         <TextField id="outlined-basic"
                             //se o checkbox room for true... senão ...
-                            label="type new room name"
+                            label="type ID room"
                             variant="outlined"
                             onChange={(event: any) => { setIdType(event.target.value) }}
-                            onClick={() => { setUsernameType("") }}
                             value={idType}
                         />
-                        <p>Or</p>
-                        <TextField id="outlined-basic"
-                            //se o checkbox room true... senão ...
-                            label="type User person friend"
-                            variant="outlined"
-                            onChange={(event: any) => { setUsernameType(event.target.value) }}
-                            onClick={() => { setIdType("") }}
-                            value={userNameType}
 
-                        />
                     </div>
                     <div style={{ textAlign: "center" }}>
-                        <Button onClick={AddFriendToChat} variant="contained" size="large"
-                            style={{ width: "35%", marginBottom: "5%" }}
+                        <Button onClick={JointToRoom} variant="contained" size="large"
+                            style={{ width: "30%", marginBottom: "5%", marginRight: "5%" }}
                         >CREATE
+                        </Button>
+                        <Button onClick={handleClose} variant="contained" size="large" color="error"
+                            style={{ width: "30%", marginBottom: "5%" }}
+                        >FECHAR
                         </Button>
                     </div>
                 </Box>

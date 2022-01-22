@@ -6,8 +6,6 @@ import {
     from 'recharts';
 
 function Charts({ data }: any) {
-    console.log("charts")
-
 
     const chartData: any = [
         {

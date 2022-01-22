@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
+import { unstable_detectScrollType } from '@mui/utils';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -31,13 +32,21 @@ export default function ModalCreatChat() {
     const [userNameType, setUsernameType] = React.useState("");
 
     const { socket }: any = useSelector((state: any) => state.socketReducer)
+    const contentAllChats: any = useSelector((state: any) => state.listAllChatReducer)
 
     function ChatCreate() {
         if (idType.length < 1) {
             alert("Digite um ID ou nome válido")
             return
         }
+        //se a solicitação for para criar chat privado
         if (checkedOpenPrivate) {
+            //checa se ja existe esse chat criado com esse id
+            let temp = contentAllChats.find((data: any) => data.chatID === idType)
+            if (temp) {
+                alert("Esse nome já existe em sua lista de amigos")
+                return
+            }
             socket.emit("create_chat_private_server", ({
                 id: idType, userName: userNameType,
                 userNameSource: localStorage.getItem("name")
@@ -45,6 +54,13 @@ export default function ModalCreatChat() {
             }))
             return
         } else {
+            //solicitação para criação de chat ROOM
+            //checa se ja existe esse chat ROOM criado com esse id
+            let temp = contentAllChats.find((state: any) => state.chatID === idType)
+            if (temp) {
+                alert("Este CHAT ROOM já existe em sua lista de amigos")
+                return
+            }
             socket.emit("create_room", ({
                 id: socket.id,
                 roomName: idType,
@@ -125,8 +141,12 @@ export default function ModalCreatChat() {
                     </div>
                     <div style={{ textAlign: "center" }}>
                         <Button onClick={ChatCreate} variant="contained" size="large"
-                            style={{ width: "35%", marginBottom: "5%" }}
+                            style={{ width: "30%", marginBottom: "5%", marginRight: "5%" }}
                         >CREATE
+                        </Button>
+                        <Button onClick={handleClose} variant="contained" size="large" color="error"
+                            style={{ width: "30%", marginBottom: "5%" }}
+                        >FECHAR
                         </Button>
                     </div>
                 </Box>

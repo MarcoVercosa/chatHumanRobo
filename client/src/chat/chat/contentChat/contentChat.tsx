@@ -1,9 +1,9 @@
 import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { sendMessageRoboReducer, sendMessagePrivateReducer } from '../../../store/reducers/contentChat.reducer'
+import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 import Charts from './charts';
-import ModalAddFriendToRoom from "./modalAddFriendToRoom"
+import ModalAddFriendToRoom from "./modalJoinRoom"
 
 import "./contentChat.css"
 
@@ -11,21 +11,26 @@ function ContentChat() {
     const { socket }: any = useSelector((state: any) => state.socketReducer)
     let nameTelaInicial = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
     const contentChatData: any = useSelector((state: any) => state.openChatRoboReducer)
-    console.log("renderizou content chat")
     const dispatch = useDispatch()
 
     const [typeMessage, setTypeMessage] = useState<string>("")
 
-    function SendMessage({ message, author, destination, socketDestinatioString, chatID, isRobo }: any) {
+    function SendMessage({ message, author, destination, socketDestinatioString, chatID, isRobo, isRoom, isPrivate }: any) {
         let date = new Date()
         let time = `${date.getHours()}:${date.getMinutes()}`
-        //se isRobo for true, use o reducer para enviar email Robo, senão use o reducert para chat private
+        // oq eque for true, será o tipo de conversa que quer mandar mensagem
         if (isRobo) {
             dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString }))
-        } else {
+            return
+        }
+        if (isPrivate) {
             dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString }))
         }
-        socket.emit(socketDestinatioString, { message, author, time, chatID })
+        if (isRoom) {
+            dispatch(sendMessageRoomReducer({ message, author, destination, socketDestinatioString }))
+        }
+        //todo evento de botão irá passar socketDestinatioString, que é o socket string do servidor q será chamado
+        socket.emit(socketDestinatioString, { message, author, time, chatID, destination })
         setTypeMessage("")
     }
     return (
@@ -40,8 +45,15 @@ function ContentChat() {
                                 <div className="contentChat-article-div_nomechat">
                                     <div className="contentChat-article-div-div_nomechat">
                                         <h1 className="contentChat-article-div-h1_nomechat">{data.chatNameDestination}</h1>
+
                                     </div>
-                                    <div className="contentChat-article-div-div_modaladd"><ModalAddFriendToRoom /></div>
+                                    <div className="contentChat-article-div-div_idChatRom">
+                                        <span
+                                        >{data.isRoom ? `ID ROOM: ${data.chatID}` : ""}</span>
+                                    </div>
+
+
+                                    {/* <div className="contentChat-article-div-div_modaladd"><ModalAddFriendToRoom /></div> */}
 
                                 </div>
                                 <div className="contentChat-article-div_content">
@@ -85,7 +97,7 @@ function ContentChat() {
                                             style={{ height: "8.5vh", borderRadius: "10px", marginBottom: "5px" }}
                                             onClick={() => {
                                                 SendMessage({
-                                                    message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo,
+                                                    message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,
                                                     destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
                                                 })
                                             }}

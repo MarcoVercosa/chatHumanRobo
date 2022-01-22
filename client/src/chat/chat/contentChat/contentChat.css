@@ -18,9 +18,10 @@
 .contentChat-article-div_nomechat{
     background-color: rgb(240, 240, 240);
     height: 60px;
-    width: 98%;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: center  ;
     align-items: center;
     border-radius: 10px;
     border: 0.1px rgb(205, 205, 205) solid;
@@ -28,6 +29,14 @@
 .contentChat-article-div-div_nomechat{
 
 }
+.contentChat-article-div-div_nomechat h1{
+    margin: 0
+}
+.contentChat-article-div-div_idChatRom{
+    font-size: 12px;
+    color: rgb(132, 132, 132);
+}
+
 .contentChat-article-div-h1_nomechat{
 font-size: 25px;
 line-height: 29px;
