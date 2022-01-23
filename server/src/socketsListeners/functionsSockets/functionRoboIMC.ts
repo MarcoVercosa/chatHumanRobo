@@ -13,7 +13,7 @@
 
 export function RoboIMC(socket: any, message: any) {
     let time = new Date()
-    console.log(message)
+    console.log("Received Robo IMC")
 
     switch (message.message.toLowerCase()) {
         case "não":

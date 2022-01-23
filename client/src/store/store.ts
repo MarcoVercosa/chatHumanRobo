@@ -1,6 +1,4 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import { getDefaultMiddleware } from '@reduxjs/toolkit';
-
 
 import changeDadosTelaInicialReducer from "./reducers/telaInicial.reducer"
 import receiveMessageRoboReducer from "./reducers/contentChat.reducer"

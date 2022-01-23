@@ -1,13 +1,16 @@
 function JoinRoom(data: any, storeRooms: any, socket: any) {
+    console.log("join_room2")
+
     let temp: any = undefined
     for (temp in storeRooms) {
         //se existir uma key no obj com o nome da sala solicitado
         //quer dizer que a sala existe de fato, então pode ser add o id nesta sala
         if (storeRooms[temp] === data.id) {
+            console.log("Sala encontrada")
             //add o id na sala solicitada
             socket.join(temp)
-            console.log(`User with ID ${socket.id} joined room: ${data.temp}`)
-            //envia para o solicitante a confirmação e os dados para criar renderizar a sala             
+            console.log(`User with ID ${socket.id} joined room: ${temp}`)
+            //envia para o solicitante a confirmação e os dados para criar e renderizar a sala             
             let time = new Date()
             socket.emit("add_chat_room", {
                 sucess: true,
@@ -17,18 +20,24 @@ function JoinRoom(data: any, storeRooms: any, socket: any) {
                 message: `${data.userNameSource} ingressou na sala`,
                 time: `${time.getHours()}:${time.getMinutes()}`
             })
-            //emvia para a sala criada que o solicitante ingressou na sala
+            //emvia para todos da sala criada que o solicitante ingressou na sala
             socket.in(temp).emit("received_message_room", {
                 author: data.userNameSource,//nome do solicitante q quer ingressar na sala
                 destination: temp,//a key do objeto storeRoom que tem o nome da sala
                 message: `${data.userNameSource} ingressou na sala`,
                 time: `${time.getHours()}:${time.getMinutes()}`
             })
-            break
+            return
             //sai do loop if e for                
         }
+
     }
     //criar mensagem de sala não encontrada
+    console.log("Sala não encontrada")
+    socket.emit("add_chat_room", {
+        sucess: false,
+        message: `Não foi encontrado esse ID ROOM: ${data.id} `
+    })
 }
 
 export { JoinRoom }

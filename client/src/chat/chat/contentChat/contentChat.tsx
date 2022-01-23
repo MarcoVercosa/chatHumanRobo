@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 import Charts from './charts';
-import ModalAddFriendToRoom from "./modalJoinRoom"
 
 import "./contentChat.css"
 
@@ -18,10 +17,11 @@ function ContentChat() {
     function SendMessage({ message, author, destination, socketDestinatioString, chatID, isRobo, isRoom, isPrivate }: any) {
         let date = new Date()
         let time = `${date.getHours()}:${date.getMinutes()}`
-        // oq eque for true, será o tipo de conversa que quer mandar mensagem
+
+        // oq for true, será o tipo de conversa que quer mandar mensagem
         if (isRobo) {
             dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString }))
-            return
+
         }
         if (isPrivate) {
             dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString }))
@@ -33,6 +33,7 @@ function ContentChat() {
         socket.emit(socketDestinatioString, { message, author, time, chatID, destination })
         setTypeMessage("")
     }
+
     return (
         <>
             {contentChatData.map((data: any, index: any) => {
@@ -51,9 +52,6 @@ function ContentChat() {
                                         <span
                                         >{data.isRoom ? `ID ROOM: ${data.chatID}` : ""}</span>
                                     </div>
-
-
-                                    {/* <div className="contentChat-article-div-div_modaladd"><ModalAddFriendToRoom /></div> */}
 
                                 </div>
                                 <div className="contentChat-article-div_content">

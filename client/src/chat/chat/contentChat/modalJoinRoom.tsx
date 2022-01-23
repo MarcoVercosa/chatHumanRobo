@@ -46,7 +46,7 @@ export default function ModalJointToRoom() {
                 userNameSource: localStorage.getItem("name")
             }
         ))
-
+        handleClose()
     }
 
     return (

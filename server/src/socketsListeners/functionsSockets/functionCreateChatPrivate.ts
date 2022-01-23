@@ -1,6 +1,6 @@
 function CreateChatPrivateServer(socket: any, data: any, store: any) {
+    console.log("Solicitado criação de chat private")
     let time = new Date()
-    console.log(data)
 
     //checka se o ID ou o username passados existem
     for (let temp in store) {

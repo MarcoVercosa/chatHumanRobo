@@ -1,6 +1,7 @@
 import crypto from "crypto"
 
 function CreateRoom(data: any, storeRooms: any, socket: any) {
+    console.log("create_room")
     let temp = undefined
     //checka se ja existe uma sala com o nome solicitado
     for (temp in storeRooms) {

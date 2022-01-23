@@ -1,4 +1,5 @@
 function SendMenssageToPrivate(socket: any, message: any) {
+    console.log("Solicitado mensagem privada")
     let time = new Date()
 
     // envia mensagem privada para o cliente

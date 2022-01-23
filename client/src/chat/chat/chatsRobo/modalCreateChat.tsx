@@ -7,7 +7,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
-import { unstable_detectScrollType } from '@mui/utils';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -29,7 +28,6 @@ export default function ModalCreatChat() {
     const [checkedOpenRoom, setCheckedOpenRoom] = React.useState(false);
     const [checkedOpenPrivate, setCheckedOpenPrivate] = React.useState(true);
     const [idType, setIdType] = React.useState("");
-    const [userNameType, setUsernameType] = React.useState("");
 
     const { socket }: any = useSelector((state: any) => state.socketReducer)
     const contentAllChats: any = useSelector((state: any) => state.listAllChatReducer)
@@ -43,15 +41,17 @@ export default function ModalCreatChat() {
         if (checkedOpenPrivate) {
             //checa se ja existe esse chat criado com esse id
             let temp = contentAllChats.find((data: any) => data.chatID === idType)
-            if (temp) {
+            //se temp for verdadeiro, já existe esse ID friend add, e o socket se tentar add ele mesmo
+            if (temp || idType === socket.id) {
                 alert("Esse nome já existe em sua lista de amigos")
                 return
             }
             socket.emit("create_chat_private_server", ({
-                id: idType, userName: userNameType,
+                id: idType,
                 userNameSource: localStorage.getItem("name")
 
             }))
+            handleClose()
             return
         } else {
             //solicitação para criação de chat ROOM
@@ -66,8 +66,8 @@ export default function ModalCreatChat() {
                 roomName: idType,
                 userName: localStorage.getItem("name")
             }))
+            handleClose()
         }
-
     }
 
     return (
@@ -125,18 +125,7 @@ export default function ModalCreatChat() {
                             label={checkedOpenRoom ? "type new room name" : "type ID friend"}
                             variant="outlined"
                             onChange={(event: any) => { setIdType(event.target.value) }}
-                            onClick={() => { setUsernameType("") }}
                             value={idType}
-                        />
-                        <p>Or</p>
-                        <TextField id="outlined-basic"
-                            //se o checkbox room true... senão ...
-                            label="type User person friend"
-                            variant="outlined"
-                            onChange={(event: any) => { setUsernameType(event.target.value) }}
-                            onClick={() => { setIdType("") }}
-                            value={userNameType}
-                            disabled={checkedOpenRoom}
                         />
                     </div>
                     <div style={{ textAlign: "center" }}>
