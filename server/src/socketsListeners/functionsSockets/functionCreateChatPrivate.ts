@@ -26,14 +26,14 @@ function CreateChatPrivateServer(socket: Socket, data: any, store: any) {
                 time: `${time.getHours()}:${time.getMinutes()}`
 
             });
-            break
-        } else {
-            socket.emit("create_chat_private_client", ({
-                sucess: false,
-                message: "UserName or ID invalid"
-            }))
+            return
         }
     }
+    //se não encontrar nada
+    socket.emit("create_chat_private_client", ({
+        sucess: false,
+        message: "UserName or ID invalid"
+    }))
 }
 
 export { CreateChatPrivateServer }

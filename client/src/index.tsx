@@ -6,7 +6,7 @@ import store from "./store/store"
 
 import './index.css';
 import App from './App';
-import Chat from "../src/chat/chat/chat"
+
 
 console.log("Index.tsx")
 
@@ -15,7 +15,6 @@ ReactDOM.render(
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/chat" element={<Chat />} />
       </Routes>
     </Provider>
   </BrowserRouter>

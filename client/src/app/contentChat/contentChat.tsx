@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer } from '../../../store/reducers/contentChat.reducer'
+import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer } from '../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
 import Charts from './charts/charts';
 
@@ -24,10 +24,10 @@ function ContentChat() {
 
         }
         if (isPrivate) {
-            dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString, time }))
+            dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString, time, chatID }))
         }
         if (isRoom) {
-            dispatch(sendMessageRoomReducer({ message, author, destination, socketDestinatioString, time }))
+            dispatch(sendMessageRoomReducer({ message, author, destination, socketDestinatioString, time, chatID }))
         }
         //todo evento de botão irá passar socketDestinatioString, que é o socket string do servidor q será chamado
         socket.emit(socketDestinatioString, { message, author, time, chatID, destination })
@@ -86,6 +86,7 @@ function ContentChat() {
                                         <input type="text" className='contentChat-article-input-div-input' value={typeMessage}
                                             onChange={(data: any) => { setTypeMessage(data.target.value) }}
                                             onKeyPress={(event: any) => {
+                                                if (typeMessage.length < 1) { return }
                                                 event.key === "Enter" &&
                                                     SendMessage({
                                                         message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,

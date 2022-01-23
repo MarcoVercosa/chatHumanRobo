@@ -6,7 +6,7 @@ import {
     receiveMessageRoboReducer, addNewChatPrivateReducer, receiveMessagePrivateReducer,
     addNewChatRoomReducer, receiveMessageRoomReducer, openChatRoboReducer
 }
-    from '../../../store/reducers/contentChat.reducer'
+    from '../../store/reducers/contentChat.reducer'
 
 import ModalCreatChat from './modalCreateChat';
 import ModalJoinToRoom from "../contentChat/modalJoinRoom"
@@ -91,7 +91,7 @@ function ChatsRobo() {
             {contentChatData.map((data: any, index: any) => {
                 if (data.isRobo)//se o chat for de robo
                     return (
-                        <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatNameDestination) }}>
+                        <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatID) }}>
                             <div className='article-div-janelas_chat-avatar'>
                                 <div className='article-div-janelas_chat-avatar-image'>
                                     <i className={data.avatar} style={{ color: `${data.color}` }}></i>
@@ -105,7 +105,7 @@ function ChatsRobo() {
                 if (!data.isRobo)
                     return (
                         <>
-                            <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatNameDestination) }}>
+                            <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatID) }}>
                                 <div className='article-div-janelas_chat-avatar'>
                                     <div className='article-div-janelas_chat-avatar-image'>
                                         {/* se for sala, use o ícone X, se for privado, use o ícone Y */}

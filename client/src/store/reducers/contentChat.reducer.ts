@@ -93,7 +93,7 @@ const contentChat = createSlice({
         openChatRoboReducer(state: any, { payload }): any {
             //recebe o nome do chat selecionado e deixa o respectivo obj do chat como True
             state.map((data: any, index: number) => {
-                if (data.chatNameDestination === payload) {
+                if (data.chatID === payload) {
                     data.openChat = true
                 } else {
                     data.openChat = false
@@ -124,7 +124,7 @@ const contentChat = createSlice({
         //recebe mensagens enviadas pelo "client" e armazena
         sendMessagePrivateReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
-                if (payload.destination === data.chatNameDestination) {
+                if (payload.chatID === data.chatID) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
                 }
             })
@@ -133,7 +133,7 @@ const contentChat = createSlice({
         //recebe mensagens privadas do "server" e as armazena
         receiveMessagePrivateReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
-                if (payload.author === data.chatNameDestination) {
+                if (payload.idSource === data.chatID) {
                     data.contentChat = [...data.contentChat, payload]
                 }
             })
@@ -160,7 +160,7 @@ const contentChat = createSlice({
         },
         sendMessageRoomReducer(state: any, { payload }): any {
             state.map((data: any, index: any) => {
-                if (payload.destination === data.chatNameDestination) {
+                if (payload.chatID === data.chatID) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
                 }
             })

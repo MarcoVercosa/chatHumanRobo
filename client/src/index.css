@@ -1,7 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: blue orange;   /* scroll thumb and track */
 }
+::-webkit-scrollbar { width: 4px; height: 10px;}
+::-webkit-scrollbar-thumb:vertical { background-color: #acacac;
+  border-radius: 20px;  }
+
 
 

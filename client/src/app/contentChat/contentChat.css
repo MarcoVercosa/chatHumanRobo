@@ -1,7 +1,7 @@
 .contentChat-article{
 
     height: 91.0vh;
-    width: 100%;
+    width: 99%;
     margin:0 auto;
     padding: 0 ;
     display: flex;
@@ -23,11 +23,13 @@
     border: 2px rgb(255, 255, 255) solid;
     position: fixed;
     min-height: 60px;
-    width: 68.9%;
-    z-index: 10;
-    
-    
-    
+    width: 69.0%;
+    z-index: 10;  
+    opacity: 0.7;
+    transition: all 0.5s;
+}
+.contentChat-article-div_nomechat:hover{
+    opacity: 1;
 }
 .contentChat-article-div-div_nomechat{
 

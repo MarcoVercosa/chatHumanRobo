@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import "./telaInicial.css"
-import Chat from '../chat/chat';
 import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.reducer';
 
 

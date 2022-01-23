@@ -1,8 +1,8 @@
 import React from 'react'
 import "./chat.css"
 
-import ChatsToSelect from './chatsRobo/chatsToSelect'
-import ContentChat from './contentChat/contentChat'
+import ChatsToSelect from '../chatsToSelect/chatsToSelect'
+import ContentChat from '../contentChat/contentChat'
 
 
 function Chat() {

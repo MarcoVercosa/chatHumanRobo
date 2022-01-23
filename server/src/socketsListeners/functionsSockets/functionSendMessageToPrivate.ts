@@ -9,7 +9,8 @@ function SendMenssageToPrivate(socket: Socket, message: any) {
         content: message.message,
         author: message.author,
         time: `${time.getHours()}:${time.getMinutes()}`,
-        id: message.chatID
+        idDestiny: message.chatID,
+        idSource: socket.id
     });
 }
 

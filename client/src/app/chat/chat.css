@@ -12,7 +12,11 @@
     height: 100vh;
     width: 30%;
     border-right: 2px solid rgb(138, 138, 138);;
+    overflow-y: scroll;
 }
+
+
+
 .div-chat-menu-conteudo{
     background-color: #FFFFFF ;
     margin: 0;

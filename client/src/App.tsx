@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from "react-redux"
 
-import Tela_Inicial from './chat/tela_inicial/telaInicial';
-import Chat from './chat/chat/chat';
+import Tela_Inicial from './app/tela_inicial/telaInicial';
+import Chat from './app/chat/chat';
 import { changeDadosTelaInicialReducer } from './store/reducers/telaInicial.reducer';
 
 
