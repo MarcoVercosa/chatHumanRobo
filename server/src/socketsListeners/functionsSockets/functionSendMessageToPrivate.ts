@@ -1,4 +1,6 @@
-function SendMenssageToPrivate(socket: any, message: any) {
+import { Socket } from "socket.io"
+
+function SendMenssageToPrivate(socket: Socket, message: any) {
     console.log("Solicitado mensagem privada")
     let time = new Date()
 

@@ -1,17 +1,6 @@
-// class ArmazenaRespostasIMC{
-//     idSocket:any
+import { Socket } from "socket.io"
 
-//     constructor(idSocket:any){
-//         this.idSocket = idSocket
-//     }
-
-//     ChecarIDJaConectado(){
-
-//     }
-
-// }
-
-export function RoboIMC(socket: any, message: any) {
+export function RoboIMC(socket: Socket, message: any) {
     let time = new Date()
     console.log("Received Robo IMC")
 

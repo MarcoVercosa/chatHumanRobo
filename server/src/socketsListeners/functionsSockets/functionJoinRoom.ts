@@ -1,4 +1,6 @@
-function JoinRoom(data: any, storeRooms: any, socket: any) {
+import { Socket } from "socket.io"
+
+function JoinRoom(data: any, storeRooms: any, socket: Socket) {
     console.log("join_room2")
 
     let temp: any = undefined

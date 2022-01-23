@@ -1,5 +1,6 @@
+import { Socket } from "socket.io"
 
-function UserConnected(socket: any, store: any, data: any) {
+function UserConnected(socket: Socket, store: any, data: any) {
     console.log("socket join_user_idSocket")
 
     //checka se o user existe na var store. Se não, o adiciona

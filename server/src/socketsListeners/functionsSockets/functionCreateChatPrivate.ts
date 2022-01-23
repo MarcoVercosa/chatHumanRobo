@@ -1,4 +1,6 @@
-function CreateChatPrivateServer(socket: any, data: any, store: any) {
+import { Server, Socket } from "socket.io"
+
+function CreateChatPrivateServer(socket: Socket, data: any, store: any) {
     console.log("Solicitado criação de chat private")
     let time = new Date()
 

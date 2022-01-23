@@ -1,7 +1,8 @@
 import axios from "axios"
 import https from "https"
+import { Socket } from "socket.io"
 
-async function RoboReservatoriosSP(socket: any, message: any) {
+async function RoboReservatoriosSP(socket: Socket, message: any) {
 
     let time = new Date()
     let year = time.getFullYear()
