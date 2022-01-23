@@ -31,10 +31,12 @@ function Tela_Inicial() {
         //aqui é o retorno do servidor quando clicar no botao entrar. Será verificado
         //se ja possui algun user com o nome solicitado.
         socket.on("receive_uservalidation_from_server", ({ sucess, message }: any) => {
+            //recebe o ok do server após atrelar o id com o userName e torna true o activeComponentChat
+            //com essa prop como true, o component Chat é ativado
             if (sucess === true) {
                 dispatch(changeDadosTelaInicialReducer({
                     email: localStorage.getItem("email"), name: localStorage.getItem("name"),
-                    componentChat: true, componentTelaInicial: false
+                    activeComponentChat: true, componentTelaInicial: false
                 }))
             } else {
                 alert(message)
@@ -68,9 +70,6 @@ function Tela_Inicial() {
 
 
                 </main>
-            }
-            {dadosTelaInicialReducer.componentChat &&
-                <Chat />
             }
         </>
     )

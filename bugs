@@ -1,6 +1,5 @@
 organizar código:{
     client: organizar os componentes e o código.
     tornar mais fácil de dar manutenção e ser entendido
-    server:organizar o código por funções ou classes
     adicionar mais segurança
 }

@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer } from '../../../store/reducers/contentChat.reducer'
 import Button from '@mui/material/Button';
-import Charts from './charts';
+import Charts from './charts/charts';
 
 import "./contentChat.css"
 
@@ -20,14 +20,14 @@ function ContentChat() {
 
         // oq for true, será o tipo de conversa que quer mandar mensagem
         if (isRobo) {
-            dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString }))
+            dispatch(sendMessageRoboReducer({ message, author, destination, socketDestinatioString, time }))
 
         }
         if (isPrivate) {
-            dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString }))
+            dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString, time }))
         }
         if (isRoom) {
-            dispatch(sendMessageRoomReducer({ message, author, destination, socketDestinatioString }))
+            dispatch(sendMessageRoomReducer({ message, author, destination, socketDestinatioString, time }))
         }
         //todo evento de botão irá passar socketDestinatioString, que é o socket string do servidor q será chamado
         socket.emit(socketDestinatioString, { message, author, time, chatID, destination })
@@ -99,7 +99,7 @@ function ContentChat() {
 
                                         <Button variant="contained" size="large"
                                             disabled={typeMessage.length < 1 ? true : false}
-                                            style={{ height: "8.5vh", borderRadius: "10px", marginBottom: "5px" }}
+                                            style={{ height: "7.5vh", borderRadius: "10px", marginBottom: "5px" }}
                                             onClick={() => {
                                                 SendMessage({
                                                     message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,

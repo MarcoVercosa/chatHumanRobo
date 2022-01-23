@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 interface ITelaInicial {
     email: string;
     name: string;
-    componentChat: boolean;
+    activeComponentChat: boolean;
     componentTelaInicial: boolean
 }
 
 const initialState: ITelaInicial = {
     email: "preencha seu email",
     name: "preencha seu nome",
-    componentChat: false,
+    activeComponentChat: false,
     componentTelaInicial: true
 }
 

@@ -13,13 +13,11 @@ font-size: 12px;
 .article-janelas_chat-profile span{
     font-weight: bold;
 }
-.article-janelas_chat-button{
-  background-color: rgb(193, 254, 254);  
-}
+
 .article-div-janelas_chat{
     display: flex;  
     width: 100%;
-    background-color: #FFFFFF ;
+    background-color: #ffffff ;
     padding-top: 3px;
     padding-bottom: 7px;
     border-bottom: 1px solid rgb(216, 216, 216);
