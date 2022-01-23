@@ -18,6 +18,7 @@ const io = new Server(server, {
     }
 })
 
+//listeners dos Sockets
 Sockets(io)
 
 server.listen(3001, () => {

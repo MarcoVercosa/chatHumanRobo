@@ -50,7 +50,7 @@ function ContentChat() {
                                     </div>
                                     <div className="contentChat-article-div-div_idChatRom">
                                         <span
-                                        >{data.isRoom ? `ID ROOM: ${data.chatID}` : ""}</span>
+                                        >{`ID: ${data.chatID}`}</span>
                                     </div>
 
                                 </div>
@@ -85,6 +85,13 @@ function ContentChat() {
                                     <div className="contentChat-article-input-div">
                                         <input type="text" className='contentChat-article-input-div-input' value={typeMessage}
                                             onChange={(data: any) => { setTypeMessage(data.target.value) }}
+                                            onKeyPress={(event: any) => {
+                                                event.key === "Enter" &&
+                                                    SendMessage({
+                                                        message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,
+                                                        destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
+                                                    })
+                                            }}
                                         />
 
                                     </div>

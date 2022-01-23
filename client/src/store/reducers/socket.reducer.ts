@@ -13,7 +13,7 @@ const socket = createSlice({
     name: "socketAction",
     initialState,
     reducers: {
-        socketReducer: (state, { payload }): any => {
+        socketReducer: (state: any, { payload }: any): any => {
             return state = payload
         }
     }

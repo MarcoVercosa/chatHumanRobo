@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
 import "./chatsToSelect.css"
 import { useDispatch, useSelector } from "react-redux"
-import { openChatRoboReducer } from '../../../store/reducers/contentChat.reducer'
+// import { openChatRoboReducer } from '../../../store/reducers/contentChat.reducer'
 import {
     receiveMessageRoboReducer, addNewChatPrivateReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer, receiveMessageRoomReducer
+    addNewChatRoomReducer, receiveMessageRoomReducer, openChatRoboReducer
 }
     from '../../../store/reducers/contentChat.reducer'
 
 import ModalCreatChat from './modalCreateChat';
 import ModalJoinToRoom from "../contentChat/modalJoinRoom"
+
 
 function ChatsRobo() {
     const dispatch = useDispatch()
@@ -22,8 +23,8 @@ function ChatsRobo() {
     }
 
     useEffect(() => {
-        //recebe do servidor dados (se sucesso) para criar conversa privada
-        //poder ser por solicicitação da origem ao criar uma sala privada, ou do destino
+        //recebe do servidor dados (se sucesso) para criar conversa privada. O client inicia o ciclo
+        //poder ser por solicicitação da outra ponta, pois o amigo ao add, a outra ponta recebe a solicitação para criar o chat
         socket.on("create_chat_private_client", (message: any) => {
             if (message.sucess) {
                 dispatch(addNewChatPrivateReducer(message))

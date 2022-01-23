@@ -8,6 +8,8 @@ import './index.css';
 import App from './App';
 import Chat from "../src/chat/chat/chat"
 
+console.log("Index.tsx")
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

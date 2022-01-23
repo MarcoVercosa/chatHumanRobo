@@ -32,7 +32,7 @@ const initialState: IChatContent[] =
             socketDestination: "send_message_to_robo_imc",
             isRobo: true,
             isPrivate: false,
-            chatID: undefined,
+            chatID: 1,
             contentChat: [{
                 content: "Olá, tudo bem ? Sou o Robô- IMC. Posso lhe ajudar com seu IMC (Índice de Massa Corporal) ?",
                 author: "ROBÔ - IMC",
@@ -48,7 +48,7 @@ const initialState: IChatContent[] =
             chatNameDestination: "ROBÔ - Reservatórios SP",
             avatar: "fas fa-3x fa-hand-holding-water",
             color: "rgb(79, 135, 255)",
-            chatID: undefined,
+            chatID: 2,
             isRoom: false,
             isPrivate: false,
             socketDestination: "send_message_to_robo_reservatorios_sp",

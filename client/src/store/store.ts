@@ -47,6 +47,10 @@ const store = configureStore({
                         "chatContentAction/openChatReducer",
                         "chatContentAction/sendMessageReducer",
                         "chatContentAction/receiveMessageReducer",
+                        "chatContentAction/sendMessageRoboReducer",
+                        "chatContentAction/receiveMessageRoboReducer",
+                        "chatContentAction/openChatRoboReducer"
+
 
                     ]
             }
