@@ -1,4 +1,4 @@
-import { Server, Socket } from "socket.io"
+import { Socket } from "socket.io"
 
 function CreateChatPrivateServer(socket: Socket, data: any, store: any) {
     console.log("Solicitado criação de chat private")

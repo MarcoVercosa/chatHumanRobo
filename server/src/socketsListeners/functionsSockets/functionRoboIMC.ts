@@ -17,7 +17,7 @@ export function RoboIMC(socket: Socket, message: any) {
         case "sim":
             socket.emit("received_message_from_robo", {
                 content: `Olá ${message.author}. Tudo bem ? \n
-                Vamos saber com está seu "Índice de massa corporal ?"`,
+                Vamos saber com está seu "Índice de Massa Corporal ?"`,
                 author: "ROBÔ - IMC",
                 time: `${time.getHours()}:${time.getMinutes()}`
             })
@@ -31,10 +31,13 @@ export function RoboIMC(socket: Socket, message: any) {
         default:
             //se nem sim e nem não, irá tentar identificar se mandou o peso e a altura
             try {
-                let dados = message.message.replace(",", ".")
-                //retira virgula e coloca ponto
-                dados = message.message.split("-").map((result: any) => Number(result).toFixed(2))
-                //divide em 2 arrays, pelo traço e a transforma em numero com 2 casas decimais
+                //Replace: se vier virgula, substitui pelo ponto
+                //split: dividi a string em 1 array de duas casas separando pelo traço
+                //faz um map nessas 2 arrays e a transforma em numero com 2 dígitos após o ponto
+                let dados =
+                    message.message.replace(",", ".")
+                        .split("-")
+                        .map((result: any) => Number(result).toFixed(2))
 
                 if (dados.length === 2 && !isNaN(dados[0]) && !isNaN(dados[1])) {
                     //se de fato der 2 indices, e ambos resultados forem numeros
@@ -50,7 +53,7 @@ export function RoboIMC(socket: Socket, message: any) {
                         time: `${time.getHours()}:${time.getMinutes()}`
                     })
                     socket.emit("received_message_from_robo", {
-                        content: `Esse é um dado para saber melhor onde vc se encaixa`,
+                        content: `Esse é um dado para saber melhor onde você se encaixa`,
                         author: "ROBÔ - IMC",
                         time: `${time.getHours()}:${time.getMinutes()}`,
                         image: "https://www.ricardogozzano.com.br/wp-content/uploads/2020/03/tabela_imc-1024x726.png"

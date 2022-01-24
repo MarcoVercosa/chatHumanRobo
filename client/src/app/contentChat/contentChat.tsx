@@ -9,7 +9,7 @@ import "./contentChat.css"
 function ContentChat() {
     const { socket }: any = useSelector((state: any) => state.socketReducer)
     let nameTelaInicial = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
-    const contentChatData: any = useSelector((state: any) => state.openChatRoboReducer)
+    const contentChatData: any = useSelector((state: any) => state.activeWindowChat)
     const dispatch = useDispatch()
 
     const [typeMessage, setTypeMessage] = useState<string>("")
@@ -24,10 +24,10 @@ function ContentChat() {
 
         }
         if (isPrivate) {
-            dispatch(sendMessagePrivateReducer({ message, author, destination, socketDestinatioString, time, chatID }))
+            dispatch(sendMessagePrivateReducer({ message, author, chatID }))
         }
         if (isRoom) {
-            dispatch(sendMessageRoomReducer({ message, author, destination, socketDestinatioString, time, chatID }))
+            dispatch(sendMessageRoomReducer({ message, author, destination, chatID }))
         }
         //todo evento de botão irá passar socketDestinatioString, que é o socket string do servidor q será chamado
         socket.emit(socketDestinatioString, { message, author, time, chatID, destination })

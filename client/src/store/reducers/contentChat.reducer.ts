@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import {
+    IsendMessageRoboReducer, IreceiveMessagePrivateReducer, IsendMessageRoomReducer,
+    IreceiveMessageRoboReducer, IactiveWindowChat, IaddNewChatPrivateReducer,
+    IsendMessagePrivateReducer, IaddNewChatRoomReducer, IreceiveMessageRoomReducer
+} from "./contentChat.reducer.interface"
+
 
 interface IChatContent {
     openChat: boolean;
@@ -54,7 +60,7 @@ const initialState: IChatContent[] =
             socketDestination: "send_message_to_robo_reservatorios_sp",
             isRobo: true,
             contentChat: [{
-                content: "Olá, tudo bem ? Sou o ROBÔ - Reservatórios SP. Digite sim par saber como está a situação dos nossos reservatórios ou digite não para cancelar",
+                content: "Olá, tudo bem ? Sou o ROBÔ - Reservatórios SP. Digite sim para saber como está a situação dos nossos reservatórios ou digite não para cancelar",
                 author: "ROBÔ - Reservatórios SP",
                 time: ""
             }],
@@ -72,7 +78,7 @@ const contentChat = createSlice({
             return state
         },
         //recebe mensagens enviadas pelo "client" e armazena
-        receiveMessageRoboReducer(state: any, { payload }): any {
+        receiveMessageRoboReducer(state: any, { payload }: IreceiveMessageRoboReducer): any {
             state.map((data: any, index: any) => {
                 if (payload.author === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, payload]
@@ -81,7 +87,7 @@ const contentChat = createSlice({
             // return state
         },
         //recebe mensagens automáticas do "server" e as armazena
-        sendMessageRoboReducer(state: any, { payload }): any {
+        sendMessageRoboReducer(state: any, { payload }: IsendMessageRoboReducer): any {
             state.map((data: any, index: number) => {
                 if (payload.destination === data.chatNameDestination) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: payload.time }]
@@ -90,7 +96,7 @@ const contentChat = createSlice({
 
         },
         //altera a array de conversa para true e assim renderizar a janela de conversa
-        openChatRoboReducer(state: any, { payload }): any {
+        activeWindowChat(state: any, { payload }: IactiveWindowChat): any {
             //recebe o nome do chat selecionado e deixa o respectivo obj do chat como True
             state.map((data: any, index: number) => {
                 if (data.chatID === payload) {
@@ -102,7 +108,7 @@ const contentChat = createSlice({
             return state
         },
         //cria uma nova janela para conversa particular
-        addNewChatPrivateReducer(state: any, { payload }): any {
+        addNewChatPrivateReducer(state: any, { payload }: IaddNewChatPrivateReducer): any {
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.userName,
@@ -122,7 +128,7 @@ const contentChat = createSlice({
             return state
         },
         //recebe mensagens enviadas pelo "client" e armazena
-        sendMessagePrivateReducer(state: any, { payload }): any {
+        sendMessagePrivateReducer(state: any, { payload }: IsendMessagePrivateReducer): any {
             state.map((data: any, index: any) => {
                 if (payload.chatID === data.chatID) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
@@ -131,7 +137,7 @@ const contentChat = createSlice({
 
         },
         //recebe mensagens privadas do "server" e as armazena
-        receiveMessagePrivateReducer(state: any, { payload }): any {
+        receiveMessagePrivateReducer(state: any, { payload }: IreceiveMessagePrivateReducer): any {
             state.map((data: any, index: any) => {
                 if (payload.idSource === data.chatID) {
                     data.contentChat = [...data.contentChat, payload]
@@ -139,7 +145,7 @@ const contentChat = createSlice({
             })
         },
         //add uma nova roomChat para criar ou add já existente no server
-        addNewChatRoomReducer(state: any, { payload }): any {
+        addNewChatRoomReducer(state: any, { payload }: IaddNewChatRoomReducer): any {
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.roomName,
@@ -158,7 +164,7 @@ const contentChat = createSlice({
             }]
             return state
         },
-        sendMessageRoomReducer(state: any, { payload }): any {
+        sendMessageRoomReducer(state: any, { payload }: IsendMessageRoomReducer): any {
             state.map((data: any, index: any) => {
                 if (payload.chatID === data.chatID) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
@@ -166,9 +172,9 @@ const contentChat = createSlice({
             })
 
         },
-        receiveMessageRoomReducer(state: any, { payload }): any {
+        receiveMessageRoomReducer(state: any, { payload }: IreceiveMessageRoomReducer): any {
             state.map((data: any, index: any) => {
-                if (payload.destination === data.chatNameDestination) {
+                if (payload.chatID === data.chatID) {
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: `${time.getHours()}:${time.getMinutes()}` }]
                 }
             })
@@ -179,7 +185,7 @@ const contentChat = createSlice({
 
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
-    openChatRoboReducer, listAllChatReducer, receiveMessagePrivateReducer,
+    activeWindowChat, listAllChatReducer, receiveMessagePrivateReducer,
     addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer
 } = contentChat.actions
 export default contentChat.reducer

@@ -28,7 +28,7 @@ async function RoboReservatoriosSP(socket: Socket, message: any) {
                 })
 
                 socket.emit("received_message_from_robo", {
-                    content: `${message.author}. Abaixo está a situação atual dos reservatórios SP`,
+                    content: `${message.author}. Abaixo está a situação atual dos reservatórios de SP`,
                     author: "ROBÔ - Reservatórios SP",
                     time: `${time.getHours()}:${time.getMinutes()}`,
                     isCharts: [

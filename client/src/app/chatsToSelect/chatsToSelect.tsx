@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import "./chatsToSelect.css"
 import { useDispatch, useSelector } from "react-redux"
-// import { openChatRoboReducer } from '../../../store/reducers/contentChat.reducer'
 import {
     receiveMessageRoboReducer, addNewChatPrivateReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer, receiveMessageRoomReducer, openChatRoboReducer
+    addNewChatRoomReducer, receiveMessageRoomReducer, activeWindowChat
 }
     from '../../store/reducers/contentChat.reducer'
 
@@ -19,57 +18,56 @@ function ChatsRobo() {
     const { socket }: any = useSelector((state: any) => state.socketReducer)
 
     function OpenChatWindow(chatSelect: string) {
-        dispatch(openChatRoboReducer(chatSelect))
+        dispatch(activeWindowChat(chatSelect))
     }
 
     useEffect(() => {
         //recebe do servidor dados (se sucesso) para criar conversa privada. O client inicia o ciclo
         //poder ser por solicicitação da outra ponta, pois o amigo ao add, a outra ponta recebe a solicitação para criar o chat
-        socket.on("create_chat_private_client", (message: any) => {
-            if (message.sucess) {
-                dispatch(addNewChatPrivateReducer(message))
-                alert(`Iniciado uma conversa com ${message.userName}. Check o painel a esquerda`)
+        socket.on("create_chat_private_client", ({ sucess, message, userName, id, time }: any) => {
+            if (sucess) {
+                dispatch(addNewChatPrivateReducer({ sucess, userName, id, time }))
+                alert(`Iniciado uma conversa com ${userName}. Check o painel a esquerda`)
             } else {
-                alert(message.message)
+                alert(message)
             }
         })
 
         //recebe mensagem robo 
-        socket.on("received_message_from_robo", (message: any) => {
-            dispatch(receiveMessageRoboReducer(message))
+        socket.on("received_message_from_robo", ({ content, author, time, image, isCharts }: any) => {
+            dispatch(receiveMessageRoboReducer({ content, author, time, image, isCharts }))
         })
-
         //recebe mensagem privada
-        socket.on("received_message_private", (message: any) => {
-            dispatch(receiveMessagePrivateReducer(message))
+        socket.on("received_message_private", ({ content, author, time, idDestiny, idSource }: any) => {
+            dispatch(receiveMessagePrivateReducer({ content, author, time, idDestiny, idSource }))
         })
 
+        //usado pelo server quando solciita criação de uma sala
         //recebe do servidor quando o solicitante cria um room Chat
-        socket.on("confirm_create_room", (message: any) => {
-            if (message.sucess) {
-                dispatch(addNewChatRoomReducer(message))
-                alert("O usuário " + message.userName + " adicionou uma CHAT ROOM chamada " + message.roomName)
+        socket.on("confirm_create_room", ({ sucess, roomName, id, message, userName, time }: any) => {
+            if (sucess) {
+                dispatch(addNewChatRoomReducer({ roomName, id, message, userName, time }))
+                alert("O usuário " + userName + " adicionou uma CHAT ROOM chamada " + roomName)
                 return
             }
-            alert(message.message)
+            alert(message)
         })
         //recebe se o cliente solicitar ingressar em um chatRoom
         //poder ser por solicitação da origem ao criar uma sala privada, ou do destino
-        socket.on("add_chat_room", (message: any) => {
-            if (message.sucess) {
-                dispatch(addNewChatRoomReducer(message))
-                alert("O usuário " + message.userName + " adicionou uma CHAT ROOM chamada " + message.roomName)
+        socket.on("add_chat_room", ({ sucess, roomName, id, message, userName, time }: any) => {
+            if (sucess) {
+                dispatch(addNewChatRoomReducer({ roomName, id, message, userName, time }))
+                alert("O usuário " + userName + " adicionou uma CHAT ROOM chamada " + roomName)
                 return
             }
-            alert(message.message)
+            alert(message)
         })
 
-        socket.on("received_message_room", (message: any) => {
-            dispatch(receiveMessageRoomReducer(message))
+        socket.on("received_message_room", ({ destination, message, author, chatID }: any) => {
+            dispatch(receiveMessageRoomReducer({ destination, message, author, chatID }))
         })
 
     }, [socket])
-
 
     return (
         <article className='article-janelas_chat'>
