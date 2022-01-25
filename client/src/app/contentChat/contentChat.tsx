@@ -6,10 +6,10 @@ import Charts from './charts/charts';
 
 import "./contentChat.css"
 
-function ContentChat() {
+function ContentChat(): JSX.Element {
     const { socket }: any = useSelector((state: any) => state.socketReducer)
-    let nameTelaInicial = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
-    const contentChatData: any = useSelector((state: any) => state.activeWindowChat)
+    let nameTelaInicial: string = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
+    const contentChatData: Array<{}> = useSelector((state: any) => state.activeWindowChat)
     const dispatch = useDispatch()
 
     const [typeMessage, setTypeMessage] = useState<string>("")

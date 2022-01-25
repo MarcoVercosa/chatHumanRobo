@@ -78,3 +78,8 @@ export interface IaddNewChatRoomReducer {
         time: string
     }
 }
+export interface IdeleteChatReducer {
+    payload: {
+        chatID: string
+    }
+}

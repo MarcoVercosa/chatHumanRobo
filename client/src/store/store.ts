@@ -12,6 +12,7 @@ import receiveMessagePrivateReducer from "./reducers/contentChat.reducer";
 import addNewChatRoomReducer from "./reducers/contentChat.reducer";
 import receiveMessageRoomReducer from "./reducers/contentChat.reducer";
 import sendMessageRoomReducer from "./reducers/contentChat.reducer";
+import deleteChatReducer from "./reducers/contentChat.reducer";
 
 const reducer = combineReducers({
     changeDadosTelaInicialReducer,
@@ -25,7 +26,8 @@ const reducer = combineReducers({
     receiveMessagePrivateReducer,
     addNewChatRoomReducer,
     receiveMessageRoomReducer,
-    sendMessageRoomReducer
+    sendMessageRoomReducer,
+    deleteChatReducer
 
 })
 
@@ -49,7 +51,14 @@ const store = configureStore({
                         "chatContentAction/receiveMessageReducer",
                         "chatContentAction/sendMessageRoboReducer",
                         "chatContentAction/receiveMessageRoboReducer",
-                        "chatContentAction/openChatRoboReducer"
+                        "chatContentAction/openChatRoboReducer",
+                        "chatContentAction/activeWindowChat",
+                        "chatContentAction/addNewChatPrivateReducer",
+                        "chatContentAction/sendMessagePrivateReducer",
+                        "chatContentAction/addNewChatRoomReducer",
+                        "chatContentAction/receiveMessageRoomReducer",
+                        "chatContentAction/deleteChatReducer",
+                        "chatContentAction/sendMessageRoomReducer"
                     ]
             }
         })

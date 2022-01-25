@@ -18,14 +18,14 @@ const style = {
     p: 4,
 };
 
-export default function ModalJointToRoom() {
+export default function ModalJointToRoom(): JSX.Element {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [idType, setIdType] = React.useState("")
 
     const { socket }: any = useSelector((state: any) => state.socketReducer)
-    const contentAllChats: any = useSelector((state: any) => state.listAllChatReducer)
+    const contentAllChats: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
 
     function JointToRoom() {
         //verifica se há caracteres digitados

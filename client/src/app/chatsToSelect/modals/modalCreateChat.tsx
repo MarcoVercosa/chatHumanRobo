@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -21,16 +21,16 @@ const style = {
     p: 4,
 };
 
-export default function ModalCreatChat() {
-    const [open, setOpen] = React.useState(false);
+export default function ModalCreatChat(): JSX.Element {
+    const [open, setOpen] = useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [checkedOpenRoom, setCheckedOpenRoom] = React.useState(false);
-    const [checkedOpenPrivate, setCheckedOpenPrivate] = React.useState(true);
-    const [idType, setIdType] = React.useState("");
+    const [checkedOpenRoom, setCheckedOpenRoom] = useState<boolean>(false);
+    const [checkedOpenPrivate, setCheckedOpenPrivate] = useState<boolean>(true);
+    const [idType, setIdType] = useState<string>("");
 
     const { socket }: any = useSelector((state: any) => state.socketReducer)
-    const contentAllChats: any = useSelector((state: any) => state.listAllChatReducer)
+    const contentAllChats: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
 
     function ChatCreate() {
         if (idType.length < 1) {

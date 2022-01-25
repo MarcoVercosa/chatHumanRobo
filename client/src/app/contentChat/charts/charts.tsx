@@ -2,12 +2,28 @@ import React, { memo } from 'react'
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, Legend, ReferenceLine
+} from 'recharts';
+
+interface ICharts {
+    data: Array<{
+        currentDate: string;
+        reservatorios: Array<{
+            Nome: String;
+            VolumePorcentagemAR: String;
+            VolumeVariacaoStr: String;
+        }>
+    }>
 }
-    from 'recharts';
 
-function Charts({ data }: any) {
+interface IChartData {
+    name: String;
+    volume: String;
+    variacao: String;
+}
 
-    const chartData: any = [
+function Charts({ data }: ICharts): JSX.Element {
+
+    const chartData: Array<IChartData> = [
         {
             name: data[0].reservatorios[0].Nome,
             volume: data[0].reservatorios[0].VolumePorcentagemAR.replace(",", "."),
@@ -50,9 +66,7 @@ function Charts({ data }: any) {
 
         <>
             <div className="contentChat-article-div-chart" style={{}}>
-
                 <h3>Nível dos Sistemas de Abastecimento de São Paulo (%) - {data[0].currentDate}</h3>
-
                 <BarChart
                     width={408}
                     height={300}
@@ -100,9 +114,6 @@ function Charts({ data }: any) {
                 </BarChart>
             </div>
         </>
-
-
-
     )
 }
 

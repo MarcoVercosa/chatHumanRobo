@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     IsendMessageRoboReducer, IreceiveMessagePrivateReducer, IsendMessageRoomReducer,
     IreceiveMessageRoboReducer, IactiveWindowChat, IaddNewChatPrivateReducer,
-    IsendMessagePrivateReducer, IaddNewChatRoomReducer, IreceiveMessageRoomReducer
+    IsendMessagePrivateReducer, IaddNewChatRoomReducer, IreceiveMessageRoomReducer,
+    IdeleteChatReducer,
 } from "./contentChat.reducer.interface"
 
 
@@ -140,7 +141,7 @@ const contentChat = createSlice({
         receiveMessagePrivateReducer(state: any, { payload }: IreceiveMessagePrivateReducer): any {
             state.map((data: any, index: any) => {
                 if (payload.idSource === data.chatID) {
-                    data.contentChat = [...data.contentChat, payload]
+                    data.contentChat = [...data.contentChat, { content: payload.content, author: payload.author, time: payload.time }]
                 }
             })
         },
@@ -180,12 +181,17 @@ const contentChat = createSlice({
             })
 
         },
+        deleteChatReducer(state: any, { payload }: IdeleteChatReducer) {
+            state = state.filter((data: any, index: number, array: any) => data.chatID !== payload)
+            return state
+        }
     }
 })
 
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
     activeWindowChat, listAllChatReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer
+    addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer,
+    deleteChatReducer
 } = contentChat.actions
 export default contentChat.reducer

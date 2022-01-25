@@ -1,21 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./chatsToSelect.css"
 import { useDispatch, useSelector } from "react-redux"
 import {
     receiveMessageRoboReducer, addNewChatPrivateReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer, receiveMessageRoomReducer, activeWindowChat
+    addNewChatRoomReducer, receiveMessageRoomReducer, activeWindowChat, deleteChatReducer
 }
     from '../../store/reducers/contentChat.reducer'
 
-import ModalCreatChat from './modalCreateChat';
-import ModalJoinToRoom from "../contentChat/modalJoinRoom"
+import ModalCreatChat from './modals/modalCreateChat';
+import ModalJoinToRoom from "./modals/modalJoinRoom"
+import ModalDeleteChat from './modals/modalDeleteChat';
+import IconDelete from "./icons-delete.png"
 
 
-function ChatsRobo() {
+function ChatsRobo(): JSX.Element {
     const dispatch = useDispatch()
-    // const contentChatData: any = useSelector((state: any) => state)
-    const contentChatData: any = useSelector((state: any) => state.listAllChatReducer)
+    const contentChatData: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
     const { socket }: any = useSelector((state: any) => state.socketReducer)
+    // let activedisablebuttonDelete: string = "none"
+    const [activeDisableButtonDelete, setActiveDisableButtonDelete] = useState<boolean>(false)
 
     function OpenChatWindow(chatSelect: string) {
         dispatch(activeWindowChat(chatSelect))
@@ -69,6 +72,7 @@ function ChatsRobo() {
 
     }, [socket])
 
+
     return (
         <article className='article-janelas_chat'>
             <div className='article-janelas_chat-profile'>
@@ -76,7 +80,7 @@ function ChatsRobo() {
                 <p><span>ID:</span> {socket.id}</p>
             </div>
             <div className='article-janelas_chat-p'>
-                {/* modal que permite crir sala ou chamar private */}
+                {/* modal que permite criar sala ou chamar private */}
                 <ModalCreatChat />
             </div>
             <div className='article-janelas_chat-p'>
@@ -85,11 +89,12 @@ function ChatsRobo() {
 
             </div>
 
-
             {contentChatData.map((data: any, index: any) => {
                 if (data.isRobo)//se o chat for de robo
                     return (
-                        <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatID) }}>
+                        <div className='article-div-janelas_chat' key={index}
+                            onClick={() => { OpenChatWindow(data.chatID) }}
+                        >
                             <div className='article-div-janelas_chat-avatar'>
                                 <div className='article-div-janelas_chat-avatar-image'>
                                     <i className={data.avatar} style={{ color: `${data.color}` }}></i>
@@ -103,7 +108,9 @@ function ChatsRobo() {
                 if (!data.isRobo)
                     return (
                         <>
-                            <div className='article-div-janelas_chat' key={index} onClick={() => { OpenChatWindow(data.chatID) }}>
+                            <div className='article-div-janelas_chat' key={index}
+                                onClick={() => { OpenChatWindow(data.chatID) }}
+                            >
                                 <div className='article-div-janelas_chat-avatar'>
                                     <div className='article-div-janelas_chat-avatar-image'>
                                         {/* se for sala, use o ícone X, se for privado, use o ícone Y */}
@@ -111,13 +118,16 @@ function ChatsRobo() {
                                     </div>
                                 </div>
                                 <div className='article-div-janelas_chat-nome'>
-                                    <p>{data.chatNameDestination.toUpperCase()}</p>
+                                    <p>{data.chatNameDestination}</p>
+                                </div>
+                                <div className='article-div-janelas_chat-remove'>
+                                    <ModalDeleteChat data={data} />
                                 </div>
                             </div>
                         </>
                     )
             })}
-        </article>
+        </article >
     )
 }
 

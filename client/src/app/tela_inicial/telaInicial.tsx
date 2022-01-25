@@ -7,7 +7,7 @@ import "./telaInicial.css"
 import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.reducer';
 
 
-function Tela_Inicial() {
+function Tela_Inicial(): JSX.Element {
 
     const [email, setEmail] = useState<string>("")
     const [name, setNome] = useState<string>("")

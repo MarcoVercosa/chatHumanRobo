@@ -22,17 +22,17 @@ function JoinRoom(data: any, storeRooms: any, socket: Socket) {
                 message: `${data.userNameSource} ingressou na sala`,
                 time: `${time.getHours()}:${time.getMinutes()}`
             })
-            //emvia para todos da sala criada que o solicitante ingressou na sala
+            //envia para todos da sala criada que o solicitante ingressou na sala
             socket.in(temp).emit("received_message_room", {
                 author: data.userNameSource,//nome do solicitante q quer ingressar na sala
-                destination: temp,//a key do objeto storeRoom que tem o nome da sala
-                message: `${data.userNameSource} ingressou na sala`,
-                time: `${time.getHours()}:${time.getMinutes()}`
+                destination: temp,//a key do objeto storeRoom que tem o "nome" da sala
+                message: `${data.userNameSource} ingressou na sala`,//avisa a todos que há um novo participante
+                time: `${time.getHours()}:${time.getMinutes()}`,//hora da mensagem
+                chatID: storeRooms[temp]//o ID do chat, o cliente usará para identificar qual chat se trata
             })
             return
             //sai do loop if e for                
         }
-
     }
     //criar mensagem de sala não encontrada
     console.log("Sala não encontrada")
