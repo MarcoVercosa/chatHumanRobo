@@ -6,6 +6,7 @@ import IconLogoff from "./logoff.png"
 
 import { useDispatch, useSelector } from "react-redux"
 import { logoffChatReducer } from '../../../store/reducers/telaInicial.reducer'
+import { socketReconnectReducer } from '../../../store/reducers/socket.reducer';
 
 
 const style = {
@@ -30,8 +31,15 @@ export default function ModalLogoffChat({ data }: any): JSX.Element {
 
 
     function Logoff() {
+        //altera o estado para renderizar a tela inicial
         dispatch(logoffChatReducer(true))
+        //desloga a conexão com o socket
         socket.disconnect();
+        //reconecta novamente
+        dispatch(socketReconnectReducer(true))
+
+
+
         handleClose()
     }
 
@@ -50,10 +58,16 @@ export default function ModalLogoffChat({ data }: any): JSX.Element {
             >
                 <Box sx={style}>
                     <div style={{ marginBottom: "10%" }}>
-                        <h3 style={{ textAlign: "center" }}>
-                            Ao deslogar suas conversas e grupos criados serão perdidos !
-                            Os grupos permanecerão criados no servidor !
-                        </h3>
+                        <p style={{ textAlign: "center" }}>
+                            <ul>
+                                <li>Ao deslogar, sua sessão ficará guardada localmente!</li>
+                                <li>Para recuperar sua sessão, basta usar o mesmo nome e email.</li>
+                                <li>Por segurança, se a página for atualizada (reload page), os dados serão perdidos.</li>
+                                <li>Se outro nome  ou email logar no sistema, a sessão anterior
+                                    será apagada e uma nova será criada.
+                                </li>
+                            </ul>
+                        </p>
 
                     </div>
 

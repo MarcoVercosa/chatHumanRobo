@@ -184,6 +184,10 @@ const contentChat = createSlice({
         deleteChatReducer(state: any, { payload }: IdeleteChatReducer) {
             state = state.filter((data: any, index: number, array: any) => data.chatID !== payload)
             return state
+        },
+        initialStateReconnect(state: any, { payload }) {
+            console.log(initialState)
+            return state = initialState
         }
     }
 })
@@ -192,6 +196,6 @@ export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
     activeWindowChat, listAllChatReducer, receiveMessagePrivateReducer,
     addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer,
-    deleteChatReducer
+    deleteChatReducer, initialStateReconnect
 } = contentChat.actions
 export default contentChat.reducer

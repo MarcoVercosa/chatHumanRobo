@@ -15,6 +15,7 @@ import sendMessageRoomReducer from "./reducers/contentChat.reducer";
 import deleteChatReducer from "./reducers/contentChat.reducer";
 import logoffChatReducer from "./reducers/telaInicial.reducer";
 import socketReconnectReducer from "./reducers/socket.reducer";
+import initialStateReconnect from "./reducers/contentChat.reducer";
 
 const reducer = combineReducers({
     changeDadosTelaInicialReducer,
@@ -31,7 +32,8 @@ const reducer = combineReducers({
     sendMessageRoomReducer,
     deleteChatReducer,
     logoffChatReducer,
-    socketReconnectReducer
+    socketReconnectReducer,
+    initialStateReconnect
 
 })
 

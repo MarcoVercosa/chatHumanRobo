@@ -15,7 +15,12 @@ function App() {
 
   return (
     <div className="App">
-      <Tela_Inicial />
+
+      {/* se true, o component Tela Inicial é renderizado  */}
+      {dadosTelaInicialReducer.componentTelaInicial &&
+        <Tela_Inicial />
+      }
+
       {/* se true, o component Chat é renderizado  */}
       {dadosTelaInicialReducer.activeComponentChat &&
         <Chat />
