@@ -1,5 +1,4 @@
 .contentChat-article{
-
     height: 91.0vh;
     width: 99%;
     margin:0 auto;
@@ -10,7 +9,20 @@
     overflow-y: scroll;
     background-color: rgb(71, 69, 69);
     border-radius: 20px;
+    animation-duration: 0.5s;
+    animation-name: slidein;
+}
 
+/* move a div da direita para a  esquerda */
+@keyframes slidein {
+  from {
+    margin-left: 90%;
+    width: 100%
+  }  
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
 }
 
 .contentChat-article-div_nomechat{

@@ -5,8 +5,6 @@ import Button from '@mui/material/Button';
 
 import "./telaInicial.css"
 import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.reducer';
-import { initialStateReconnect } from "../../store/reducers/contentChat.reducer"
-
 
 function Tela_Inicial(): JSX.Element {
 
@@ -21,21 +19,10 @@ function Tela_Inicial(): JSX.Element {
     function AbrirChat() {
         //checa se os campos não estão vazios
         if (name.length > 3 && email.length > 5) {
-            //quando o usuário desloga, ao relogar checa se ele digitou o mesmo user e email da ultima sessão
-            //se sim, permite recuperar o estado do redux, onde estão as conversas e grupos add/criados
-            if (name === localStorage.getItem("name") && email === localStorage.getItem("email")) {
-                //o server irá relacionar o user ao ID e irá armazenar 
-                socket.emit("join_user_idSocket", ({ userName: name }))
-                localStorage.setItem("name", name)
-                localStorage.setItem("email", email)
-            } else {
-                //irá zerar o estado do redux, para ter o chat do zero
-                dispatch(initialStateReconnect(true))
-                //o server irá relacionar o user ao ID e irá armazenar 
-                socket.emit("join_user_idSocket", ({ userName: name }))
-                localStorage.setItem("name", name)
-                localStorage.setItem("email", email)
-            }
+            //o server irá atrelar o id socket com o username
+            socket.emit("join_user_idSocket", ({ userName: name }))
+            localStorage.setItem("name", name)
+            localStorage.setItem("email", email)
 
         } else alert("Preencha os campos para poder entrar")
     }

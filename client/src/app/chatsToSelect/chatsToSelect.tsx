@@ -11,6 +11,12 @@ import ModalCreatChat from './modals/modalCreateChat';
 import ModalJoinToRoom from "./modals/modalJoinRoom"
 import ModalDeleteChat from './modals/modalDeleteChat';
 import ModalLogoffChat from './modals/modalLogoffChat';
+import IconPerson from "./person.png"
+import IconGroup from "./group.png"
+import IconFood from "./food.png"
+import IconWater from "./water.png"
+
+
 
 
 function ChatsRobo(): JSX.Element {
@@ -98,7 +104,9 @@ function ChatsRobo(): JSX.Element {
                         >
                             <div className='article-div-janelas_chat-avatar'>
                                 <div className='article-div-janelas_chat-avatar-image'>
-                                    <i className={data.avatar} style={{ color: `${data.color}` }}></i>
+                                    {/* <i className={data.avatar} style={{ color: `${data.color}` }}></i> */}
+                                    {data.chatNameDestination === "ROBÔ - IMC" && <img alt="robo imc" src={IconFood} />}
+                                    {data.chatNameDestination === "ROBÔ - Reservatórios SP" && <img alt="robo reservatorios" src={IconWater} />}
                                 </div>
                             </div>
                             <div className='article-div-janelas_chat-nome'>
@@ -115,7 +123,8 @@ function ChatsRobo(): JSX.Element {
                                 <div className='article-div-janelas_chat-avatar'>
                                     <div className='article-div-janelas_chat-avatar-image'>
                                         {/* se for sala, use o ícone X, se for privado, use o ícone Y */}
-                                        <i className={data.isRoom ? "fas fa-3x fa-users" : "fas fa-3x fa-user-friends"} style={{ color: "rgb(103, 103, 103)" }}></i>
+                                        {data.isRoom && <img alt="chat privado" src={IconGroup} />}
+                                        {!data.isRoom && <img alt="chat grupo" src={IconPerson} />}
                                     </div>
                                 </div>
                                 <div className='article-div-janelas_chat-nome'>

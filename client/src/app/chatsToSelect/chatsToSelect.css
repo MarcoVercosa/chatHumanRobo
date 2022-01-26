@@ -42,11 +42,20 @@ font-size: 12px;
     max-width: 19%;
     min-width: 19%;
 }
+.article-div-janelas_chat-avatar img{
+    width: 100%;
+    border-radius: 60px;
+}
 
 .article-div-janelas_chat-nome{
     max-width: 60%;
     min-width: 60%;
     word-wrap: break-word;
+    color: rgb(38, 38, 38);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;
+    /* line-height: 35px; */
+    
 }
 
 /* a classe -remove configura o componente do nome desse css e img no  modal delete */

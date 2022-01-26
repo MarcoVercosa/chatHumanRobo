@@ -7,6 +7,7 @@ import IconLogoff from "./logoff.png"
 import { useDispatch, useSelector } from "react-redux"
 import { logoffChatReducer } from '../../../store/reducers/telaInicial.reducer'
 import { socketReconnectReducer } from '../../../store/reducers/socket.reducer';
+import { initialStateReconnect } from '../../../store/reducers/contentChat.reducer';
 
 
 const style = {
@@ -33,12 +34,12 @@ export default function ModalLogoffChat({ data }: any): JSX.Element {
     function Logoff() {
         //altera o estado para renderizar a tela inicial
         dispatch(logoffChatReducer(true))
-        //desloga a conexão com o socket
+        //retorna os chat ao estado de inicialização no Redux
+        dispatch(initialStateReconnect(true))
+        //desloga a conexão com o socket server
         socket.disconnect();
         //reconecta novamente
         dispatch(socketReconnectReducer(true))
-
-
 
         handleClose()
     }
@@ -59,14 +60,9 @@ export default function ModalLogoffChat({ data }: any): JSX.Element {
                 <Box sx={style}>
                     <div style={{ marginBottom: "10%" }}>
                         <p style={{ textAlign: "center" }}>
-                            <ul>
-                                <li>Ao deslogar, sua sessão ficará guardada localmente!</li>
-                                <li>Para recuperar sua sessão, basta usar o mesmo nome e email.</li>
-                                <li>Por segurança, se a página for atualizada (reload page), os dados serão perdidos.</li>
-                                <li>Se outro nome  ou email logar no sistema, a sessão anterior
-                                    será apagada e uma nova será criada.
-                                </li>
-                            </ul>
+                            <p>Ao deslogar, sua sessão será apagada !</p>
+                            <p>Por segurança, seus Private Chats serão apagados, sendo necessário adicioná-los novamente</p>
+                            <p>Seus grupos serão apagados, mas você poderá ingressar neles novamente</p>
                         </p>
 
                     </div>

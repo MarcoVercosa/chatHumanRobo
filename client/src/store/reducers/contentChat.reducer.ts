@@ -11,8 +11,6 @@ import {
 interface IChatContent {
     openChat: boolean;
     chatNameDestination: string;
-    avatar: String;
-    color: string;
     isRoom: boolean;
     socketDestination: string;
     isRobo: boolean
@@ -33,8 +31,6 @@ const initialState: IChatContent[] =
         {
             openChat: false,
             chatNameDestination: "ROBÔ - IMC",
-            avatar: "fas fa-3x fa-drumstick-bite",
-            color: "orange",
             isRoom: false,
             socketDestination: "send_message_to_robo_imc",
             isRobo: true,
@@ -53,8 +49,8 @@ const initialState: IChatContent[] =
         {
             openChat: false,
             chatNameDestination: "ROBÔ - Reservatórios SP",
-            avatar: "fas fa-3x fa-hand-holding-water",
-            color: "rgb(79, 135, 255)",
+            // avatar: "fas fa-3x fa-hand-holding-water",
+            // color: "rgb(79, 135, 255)",
             chatID: 2,
             isRoom: false,
             isPrivate: false,
@@ -113,8 +109,6 @@ const contentChat = createSlice({
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.userName,
-                avatar: "",
-                color: "",
                 chatID: payload.id,
                 isRoom: false,
                 socketDestination: "send_message_to_private",
@@ -150,8 +144,6 @@ const contentChat = createSlice({
             state = [...state, {
                 openChat: false,
                 chatNameDestination: payload.roomName,
-                avatar: "",
-                color: "",
                 chatID: payload.id,
                 isRoom: true,
                 socketDestination: "send_message_to_chat_room",
