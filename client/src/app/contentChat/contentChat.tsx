@@ -7,6 +7,7 @@ import Charts from './charts/charts';
 import "./contentChat.css"
 
 function ContentChat(): JSX.Element {
+    console.log("Carregou content chat")
     const { socket }: any = useSelector((state: any) => state.socketReducer)
     let nameTelaInicial: string = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
     const contentChatData: Array<{}> = useSelector((state: any) => state.activeWindowChat)
@@ -29,7 +30,7 @@ function ContentChat(): JSX.Element {
         if (isRoom) {
             dispatch(sendMessageRoomReducer({ message, author, destination, chatID }))
         }
-        //todo evento de botão irá passar socketDestinatioString, que é o socket string do servidor q será chamado
+        //todo evento de botão irá passar socketDestinatioString, que é o socket destino do servidor q será chamado
         socket.emit(socketDestinatioString, { message, author, time, chatID, destination })
         setTypeMessage("")
     }
@@ -80,6 +81,7 @@ function ContentChat(): JSX.Element {
                                     })}
                                 </div>
                             </article>
+                            {/* input da mensagem  */}
                             <section className="contentChat-section">
                                 <div className="contentChat-section-div">
                                     <div className="contentChat-article-input-div">
@@ -96,8 +98,8 @@ function ContentChat(): JSX.Element {
                                         />
 
                                     </div>
+                                    {/* botao de enviar */}
                                     <div className="contentChat-article-botton-div">
-
                                         <Button variant="contained" size="large"
                                             disabled={typeMessage.length < 1 ? true : false}
                                             style={{ height: "7.5vh", borderRadius: "10px", marginBottom: "5px" }}

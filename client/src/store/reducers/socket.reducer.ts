@@ -15,9 +15,13 @@ const socket = createSlice({
     reducers: {
         socketReducer: (state: any, { payload }: any): any => {
             return state = payload
-        }
+        },
+        socketReconnectReducer: (state: any, { payload }: any): any => {
+            state.socket = io("http://localhost:3001")
+        },
+
     }
 })
 
-export const { socketReducer } = socket.actions
+export const { socketReducer, socketReconnectReducer } = socket.actions
 export default socket.reducer

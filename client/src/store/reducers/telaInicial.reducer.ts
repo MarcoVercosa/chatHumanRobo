@@ -8,8 +8,8 @@ interface ITelaInicial {
 }
 
 const initialState: ITelaInicial = {
-    email: "preencha seu email",
-    name: "preencha seu nome",
+    email: "",
+    name: "",
     activeComponentChat: false,
     componentTelaInicial: true
 }
@@ -21,9 +21,16 @@ const dadosTelaInicial = createSlice({
         changeDadosTelaInicialReducer: (state, { payload }): any => {
             return state = payload
 
-        }
+        },
+        logoffChatReducer: (state: any, { payload }): any => {
+            state.email = ""
+            state.name = ""
+            state.activeComponentChat = false
+            state.componentTelaInicial = true
+        },
+
     }
 })
 
-export const { changeDadosTelaInicialReducer } = dadosTelaInicial.actions
+export const { changeDadosTelaInicialReducer, logoffChatReducer } = dadosTelaInicial.actions
 export default dadosTelaInicial.reducer

@@ -10,15 +10,15 @@ import {
 import ModalCreatChat from './modals/modalCreateChat';
 import ModalJoinToRoom from "./modals/modalJoinRoom"
 import ModalDeleteChat from './modals/modalDeleteChat';
-import IconDelete from "./icons-delete.png"
+import ModalLogoffChat from './modals/modalLogoffChat';
 
 
 function ChatsRobo(): JSX.Element {
+    console.log("carregou Chat To Select")
     const dispatch = useDispatch()
     const contentChatData: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
     const { socket }: any = useSelector((state: any) => state.socketReducer)
     // let activedisablebuttonDelete: string = "none"
-    const [activeDisableButtonDelete, setActiveDisableButtonDelete] = useState<boolean>(false)
 
     function OpenChatWindow(chatSelect: string) {
         dispatch(activeWindowChat(chatSelect))
@@ -78,6 +78,7 @@ function ChatsRobo(): JSX.Element {
             <div className='article-janelas_chat-profile'>
                 <p><span>User:</span> {localStorage.getItem("name")}</p>
                 <p><span>ID:</span> {socket.id}</p>
+                <p><ModalLogoffChat /></p>
             </div>
             <div className='article-janelas_chat-p'>
                 {/* modal que permite criar sala ou chamar private */}

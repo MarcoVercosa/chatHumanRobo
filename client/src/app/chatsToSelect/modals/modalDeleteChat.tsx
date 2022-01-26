@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import IconDelete from "../icons-delete.png"
+import IconDelete from "./icons-delete.png"
 
 import { useDispatch, useSelector } from "react-redux"
 import { deleteChatReducer } from '../../../store/reducers/contentChat.reducer';
@@ -76,7 +76,7 @@ export default function ModalDeleteChat({ data }: any): JSX.Element {
                 <Box sx={style}>
                     <div style={{ marginBottom: "10%" }}>
                         <h1 style={{ textAlign: "center" }}>
-                            Você realmente quer deletar o chat {data.chatNameDestination}:
+                            Você realmente quer deletar o chat {data.chatNameDestination} ?
                         </h1>
 
                     </div>
