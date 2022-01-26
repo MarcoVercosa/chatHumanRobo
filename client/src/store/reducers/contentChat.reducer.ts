@@ -177,7 +177,7 @@ const contentChat = createSlice({
             state = state.filter((data: any, index: number, array: any) => data.chatID !== payload)
             return state
         },
-        initialStateReconnect(state: any, { payload }) {
+        initialStateReconnect(state: any, { payload }: any) {
             console.log(initialState)
             return state = initialState
         }

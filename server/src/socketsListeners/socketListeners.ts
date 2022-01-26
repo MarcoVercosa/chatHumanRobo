@@ -7,12 +7,12 @@ import { CreateRoom } from "./functionsSockets/functionCreateRoom"
 import { JoinRoom } from "./functionsSockets/functionJoinRoom"
 import { Server, Socket } from "socket.io"
 
-let store: any = {}
+let store: {} | any = {}
 //var para armazenar id e seus respectivos userNames
 //a var é composta por obj socket.id:userName
 //ex: 389389e9cdc8cdc8dcd:Marco vercosa
 
-let storeRooms: any = {}
+let storeRooms: {} | any = {}
 //var para armazenar id e seus respectivos rooms
 //a var é composta por obj roomName:socket.id:
 //ex: NewRoom:2j32k32323kknjjnj3
@@ -70,7 +70,6 @@ function Sockets(io: Server) {
             delete store[socket.id]
             console.log("User Disconnecteddd", socket.id)
         })
-
     })
 
 }

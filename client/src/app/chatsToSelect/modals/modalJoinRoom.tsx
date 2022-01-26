@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
+import IconGroup from "../../../icons/people.png"
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -51,11 +52,15 @@ export default function ModalJointToRoom(): JSX.Element {
 
     return (
         <div>
-            <Button onClick={handleOpen} variant="contained" size="large"
+            {/* <Button onClick={handleOpen} variant="contained" size="large"
                 style={{ width: "35%" }}
             >
                 <i className="fas fa-2x fa-users"></i>
-            </Button>
+            </Button> */}
+
+            <img alt="entrar na sala" src={IconGroup}
+                onClick={handleOpen}
+            />
             <Modal
                 keepMounted
                 open={open}

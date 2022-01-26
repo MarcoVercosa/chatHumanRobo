@@ -32,8 +32,14 @@ font-size: 12px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
-    padding: 10px;
+    padding: 3px;
     border-bottom: 1px solid rgb(216, 216, 216);
+}
+.article-janelas_chat-p img{
+    width: 22%;
+    cursor: pointer;
+    border-radius: 30px;
+
 }
 
 .article-div-janelas_chat-avatar{

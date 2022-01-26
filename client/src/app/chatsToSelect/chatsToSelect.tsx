@@ -11,10 +11,10 @@ import ModalCreatChat from './modals/modalCreateChat';
 import ModalJoinToRoom from "./modals/modalJoinRoom"
 import ModalDeleteChat from './modals/modalDeleteChat';
 import ModalLogoffChat from './modals/modalLogoffChat';
-import IconPerson from "./person.png"
-import IconGroup from "./group.png"
-import IconFood from "./food.png"
-import IconWater from "./water.png"
+import IconPerson from "../../icons/person.png"
+import IconGroup from "../../icons/group.png"
+import IconFood from "../../icons/food.png"
+import IconWater from "../../icons/water.png"
 
 
 

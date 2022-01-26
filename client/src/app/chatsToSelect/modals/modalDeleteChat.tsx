@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import IconDelete from "./icons-delete.png"
+import IconDelete from "../../../icons/icons-delete.png"
 
 import { useDispatch, useSelector } from "react-redux"
 import { deleteChatReducer } from '../../../store/reducers/contentChat.reducer';

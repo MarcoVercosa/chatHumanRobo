@@ -1,6 +1,12 @@
 import { Socket } from "socket.io"
 
-export function RoboIMC(socket: Socket, message: any) {
+interface IRoboIMC {
+    message: string;
+    author: string;
+
+}
+
+export function RoboIMC(socket: Socket, message: IRoboIMC) {
     let time = new Date()
     console.log("Received Robo IMC")
 
@@ -34,14 +40,14 @@ export function RoboIMC(socket: Socket, message: any) {
                 //Replace: se vier virgula, substitui pelo ponto
                 //split: dividi a string em 1 array de duas casas separando pelo traço
                 //faz um map nessas 2 arrays e a transforma em numero com 2 dígitos após o ponto
-                let dados =
+                let dados: number[] | any =
                     message.message.replace(",", ".")
                         .split("-")
                         .map((result: any) => Number(result).toFixed(2))
 
                 if (dados.length === 2 && !isNaN(dados[0]) && !isNaN(dados[1])) {
                     //se de fato der 2 indices, e ambos resultados forem numeros
-                    let imc = Number(dados[1] / (dados[0] * dados[0])).toFixed(2)
+                    let imc: string = Number(dados[1] / (dados[0] * dados[0])).toFixed(2)
                     socket.emit("received_message_from_robo", {
                         content: `Sua Altura é de ${dados[0]} cm e seu peso é ${dados[1]} kg`,
                         author: "ROBÔ - IMC",

@@ -1,7 +1,12 @@
 import crypto from "crypto"
 import { Socket } from "socket.io"
 
-function CreateRoom(data: any, storeRooms: any, socket: Socket) {
+interface ICreateRoom {
+    roomName: string;
+    userName: string;
+}
+
+function CreateRoom(data: ICreateRoom, storeRooms: {} | any, socket: Socket) {
     console.log("create_room")
     let temp = undefined
     //checka se ja existe uma sala com o nome solicitado

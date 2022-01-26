@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import IconLogoff from "./logoff.png"
+import IconLogoff from "../../../icons/logoff.png"
 
 import { useDispatch, useSelector } from "react-redux"
 import { logoffChatReducer } from '../../../store/reducers/telaInicial.reducer'

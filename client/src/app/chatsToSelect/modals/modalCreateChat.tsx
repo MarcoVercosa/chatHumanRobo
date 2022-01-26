@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
+import IconPlus from "../../../icons/plus.png"
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -72,11 +73,14 @@ export default function ModalCreatChat(): JSX.Element {
 
     return (
         <div>
-            <Button onClick={handleOpen} variant="contained" size="large"
+            {/* <Button onClick={handleOpen} variant="contained" size="large"
                 style={{ width: "35%" }}
             >
                 <i className="far fa-2x fa-plus-square"></i>
-            </Button>
+            </Button> */}
+            <img alt="adicionar private ou room" src={IconPlus}
+                onClick={handleOpen}
+            />
             <Modal
                 keepMounted
                 open={open}

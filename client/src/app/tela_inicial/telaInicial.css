@@ -39,20 +39,18 @@
 
 }
 .main-telainicial-div:after{
-     content: "";
-     width: 0;
-     height: 0; 
-     position: absolute; 
-     border-left: 30px solid transparent;
-     border-right: 30px solid transparent;
-     border-top: 40px solid rgb(112, 181, 254);
+  content: "";
+  width: 0;
+  height: 0; 
+  position: absolute; 
+  border-left: 5px solid transparent;
+  border-right: 35px solid transparent;
+  border-top: 40px solid rgb(112, 181, 254);
  
-     top: 40px; /*localização. Experimente alterar para 'bottom'*/
-     left: -15%;
-     transform:rotate(90deg);
+  top: 25px; /*localização. Experimente alterar para 'bottom'*/
+  left: -12.5%;
+  transform:rotate(90deg);
 }
-
-
 
 .main-telainicial-div-email{
     margin-bottom: 30px;

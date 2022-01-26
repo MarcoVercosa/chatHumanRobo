@@ -2,13 +2,29 @@ import axios from "axios"
 import https from "https"
 import { Socket } from "socket.io"
 
-async function RoboReservatoriosSP(socket: Socket, message: any) {
+interface IRoboReservatoriosSP {
+    message: string;
+    author: string;
+}
 
-    let time = new Date()
-    let year = time.getFullYear()
-    let mouth = time.getMonth() + 1
-    let day = time.getDate()
-    console.log(time + "-" + mouth + "-" + year)
+interface IRetorno {
+    content: string;
+    author: string
+    time: string;
+    isCharts: Array<{
+        currentDate: string;
+        reservatorios: string;
+        total: string;
+        infoGrafico: string;
+    }>
+}
+
+async function RoboReservatoriosSP(socket: Socket, message: IRoboReservatoriosSP) {
+
+    let time: Date = new Date()
+    let year: number = time.getFullYear()
+    let mouth: number = time.getMonth() + 1
+    let day: number = time.getDate()
 
 
     switch (message.message.toLowerCase()) {
@@ -17,7 +33,7 @@ async function RoboReservatoriosSP(socket: Socket, message: any) {
 
             try {
                 //rejeita uso de certificado ssl, mesmo sendo https
-                const agent = new https.Agent({
+                const agent: any = new https.Agent({
                     rejectUnauthorized: false
                 });
 
@@ -39,7 +55,7 @@ async function RoboReservatoriosSP(socket: Socket, message: any) {
                             infoGrafico: response.data.ReturnObj.InfoGrafico
                         }
                     ]
-                })
+                } as IRetorno)
             }
             catch (err) { }
 
@@ -55,7 +71,6 @@ async function RoboReservatoriosSP(socket: Socket, message: any) {
                 time: `${time.getHours()}:${time.getMinutes()}`,
 
             })
-
             break
 
         default:
