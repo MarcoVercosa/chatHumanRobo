@@ -15,15 +15,15 @@
 
 /* move a div da direita para a  esquerda */
 @keyframes slidein {
-  from {
-    margin-left: 90%;
-    width: 100%
-  }  
-  to {
-    margin-left: 0%;
-    width: 100%;
+    from {
+      margin-left: 90%;
+      width: 100%
+    }  
+    to {
+      margin-left: 1%;
+      width: 100%;
+    }
   }
-}
 
 .contentChat-article-div_nomechat{
     background-color: rgb(87, 87, 87);
