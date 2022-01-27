@@ -70,7 +70,7 @@ function Charts({ data }: ICharts): JSX.Element {
 
         <>
             <div className="contentChat-article-div-chart" style={{}}>
-                <h3>Nível dos Sistemas de Abastecimento de São Paulo (%) - {data[0].currentDate}</h3>
+                <h3>Níveis dos Sistemas de Abastecimento de São Paulo (%) - {data[0].currentDate}</h3>
                 <BarChart
                     width={408}
                     height={300}
@@ -94,7 +94,7 @@ function Charts({ data }: ICharts): JSX.Element {
 
             </div>
             <div className="contentChat-article-div-chart">
-                <h3>Variação dia (%)  - {data[0].currentDate}</h3>
+                <h3>Variações dia (%)  - {data[0].currentDate}</h3>
                 <BarChart
                     width={408}
                     height={300}

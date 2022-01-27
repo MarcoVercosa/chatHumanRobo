@@ -26,7 +26,7 @@ function CreateRoom(data: ICreateRoom, storeRooms: {} | any, socket: Socket) {
     storeRooms[data.roomName] = idRoom
 
     let time = new Date()
-    //trela o id com a sala
+    //relaciona o idsocket com a sala
     socket.join(data.roomName)
     //retorna para o solicitante as infos para criação da sala
     socket.emit("confirm_create_room", {

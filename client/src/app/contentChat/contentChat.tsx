@@ -69,7 +69,7 @@ function ContentChat(): JSX.Element {
                                                     <p className="contentChat-article-div-p_time"> {data.time}</p>
                                                     <img className="contentChat-article-div-img_content" src={data?.image} />
 
-                                                    <div className="contentChat-article-div-chartS" style={{ backgroundImage: "url(gif_background_login.gif)" }}>
+                                                    <div className="contentChat-article-div-charts" style={{ backgroundImage: "url(gif_background_login.gif)" }}>
                                                         {data.isCharts &&
                                                             // se houver no conteudo do server o objeto isChart (dados para os graficos)
                                                             <Charts data={data.isCharts} />

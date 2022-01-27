@@ -19,18 +19,19 @@ let storeRooms: {} | any = {}
 
 
 function Sockets(io: Server) {
-    console.log("Função Sockets iniciada")
+    //ao Carregar a página de login, o socket ja será conectado
     io.on("connection", (socket: Socket) => {
         console.log("User Connected", socket.id)
 
-        //Tela de login - armazenar id e seus respectivo userName
+        //Tela de login - Ao clicar no botao entrar
+        //armazenar id e seus respectivo userName
         socket.on("join_user_idSocket", (data: any) => {
             UserConnected(socket, store, data)
         })
 
         //checa se o id ou user existem, devolve as info para o solicitante
         // para que o client crie um chat no navegador
-        // e envia para o destinatario a solicitaçao para criar um chat no navegador dle tambem
+        // e envia para o destinatario a solicitaçao para criar um chat no navegador e notificá-lo
         socket.on("create_chat_private_server", (data: any) => {
             CreateChatPrivateServer(socket, data, store)
         })
@@ -41,11 +42,15 @@ function Sockets(io: Server) {
         })
 
         //cria uma sala
+        //gera um ID por fora do socket.io, relacionao ao nome e devolve para o solicitante
         socket.on("create_room", (data: any) => {
             CreateRoom(data, storeRooms, socket)
         })
 
-        //adiciona o usuario a uma sala
+        //adiciona o usuario a uma sala já criada
+        //checka primeiro se a sala já existe
+        //devolve as infos para o client criar a janela de conversa do grupo
+        //envia para todos da sala a notificação do novo participante
         socket.on("join_room", (data: any) => {
             JoinRoom(data, storeRooms, socket)
         })

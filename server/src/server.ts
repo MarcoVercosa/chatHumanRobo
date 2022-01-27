@@ -21,7 +21,7 @@ const io = new Server(server, {
 //listeners dos Sockets
 Sockets(io)
 
-server.listen(3001, () => {
-    console.log("Server is running");
+server.listen(8889, () => {
+    console.log("Server is running 8889");
 })
 

@@ -5,7 +5,7 @@ import io from "socket.io-client"
 
 // const socketInitialState = undefined
 const initialState = {
-    socket: io("http://localhost:3001")
+    socket: io("http://localhost:8889")
 }
 
 
@@ -17,7 +17,7 @@ const socket = createSlice({
             return state = payload
         },
         socketReconnectReducer: (state: any, { payload }: any): any => {
-            state.socket = io("http://localhost:3001")
+            state.socket = io("http://localhost:8889")
         },
 
     }
