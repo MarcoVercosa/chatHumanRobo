@@ -26,7 +26,7 @@ font-size: 12px;
     transition: all 0.5s;
 }
 .article-div-janelas_chat:hover{
-    background-color: rgb(228, 228, 228);
+    background-color: rgb(235, 235, 235);
 }
 .article-janelas_chat-p{
     text-align: center;
@@ -38,8 +38,13 @@ font-size: 12px;
 .article-janelas_chat-p img{
     width: 22%;
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 50px;
+    transition: all 0.5s;
+}
 
+.article-janelas_chat-p:hover img{
+    border-radius: 50px;
+    background-color: rgb(210, 210, 210);
 }
 
 .article-div-janelas_chat-avatar{
