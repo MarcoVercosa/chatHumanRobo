@@ -1,8 +1,13 @@
 import React, { memo } from 'react'
+// import {
+//     BarChart, Bar, XAxis, YAxis, CartesianGrid,
+//     Tooltip, Legend, ReferenceLine
+// } from 'recharts';
+
 import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid,
-    Tooltip, Legend, ReferenceLine
+    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
+
 
 interface ICharts {
     data: Array<{
@@ -18,7 +23,7 @@ interface ICharts {
 interface IChartData {
     name: String;
     volume: String;
-    variacao: String;
+    variacao: Number;
 }
 
 function Charts({ data }: ICharts): JSX.Element {
@@ -27,40 +32,39 @@ function Charts({ data }: ICharts): JSX.Element {
         {
             name: data[0].reservatorios[0].Nome,
             volume: data[0].reservatorios[0].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[0].VolumeVariacaoStr.replace(",", ".")
+            variacao: Number(data[0].reservatorios[0].VolumeVariacaoStr.replace(",", "."))
         },
         {
             name: data[0].reservatorios[1].Nome,
             volume: data[0].reservatorios[1].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[1].VolumeVariacaoStr.replace(",", "."),
+            variacao: Number(data[0].reservatorios[1].VolumeVariacaoStr.replace(",", "."),)
         },
         {
             name: data[0].reservatorios[2].Nome,
             volume: data[0].reservatorios[2].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[2].VolumeVariacaoStr.replace(",", ".")
+            variacao: Number(data[0].reservatorios[2].VolumeVariacaoStr.replace(",", "."))
         },
         {
             name: data[0].reservatorios[3].Nome,
             volume: data[0].reservatorios[3].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[3].VolumeVariacaoStr.replace(",", ".")
+            variacao: Number(data[0].reservatorios[3].VolumeVariacaoStr.replace(",", "."))
         },
         {
             name: data[0].reservatorios[4].Nome,
             volume: data[0].reservatorios[4].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[4].VolumeVariacaoStr.replace(",", ".")
+            variacao: Number(data[0].reservatorios[4].VolumeVariacaoStr.replace(",", "."))
         },
         {
             name: data[0].reservatorios[5].Nome,
             volume: data[0].reservatorios[5].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[5].VolumeVariacaoStr.replace(",", ".")
+            variacao: Number(data[0].reservatorios[5].VolumeVariacaoStr.replace(",", "."))
         },
         {
             name: data[0].reservatorios[6].Nome,
             volume: data[0].reservatorios[6].VolumePorcentagemAR.replace(",", "."),
-            variacao: data[0].reservatorios[6].VolumeVariacaoStr.replace(",", "."),
+            variacao: Number(data[0].reservatorios[6].VolumeVariacaoStr.replace(",", "."),)
         }
-
-    ]
+    ];
 
     return (
 
@@ -91,7 +95,6 @@ function Charts({ data }: ICharts): JSX.Element {
             </div>
             <div className="contentChat-article-div-chart">
                 <h3>Variação dia (%)  - {data[0].currentDate}</h3>
-
                 <BarChart
                     width={408}
                     height={300}
@@ -107,11 +110,18 @@ function Charts({ data }: ICharts): JSX.Element {
                     <XAxis dataKey="name" stroke="white" />
                     <YAxis stroke="white" />
                     <Tooltip />
-                    <Legend />
+                    <Legend stroke="white" />
 
-                    <ReferenceLine y={0} stroke="#e40000" />
-                    <Bar dataKey="variacao" fill="#4137fb" />
+                    <Bar dataKey='variacao' >
+                        {chartData.map((datum: any, entry, index) => (
+                            <Cell
+                                key={`cell-${index}`}
+                                fill={datum.variacao > 0 ? 'blue' : 'red'}
+                            />
+                        ))}
+                    </Bar>
                 </BarChart>
+
             </div>
         </>
     )
