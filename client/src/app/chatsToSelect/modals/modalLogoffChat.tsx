@@ -57,7 +57,9 @@ export default function ModalLogoffChat({ data }: any): JSX.Element {
                 aria-labelledby="keep-mounted-modal-title"
                 aria-describedby="keep-mounted-modal-description"
             >
+
                 <Box sx={style}>
+
                     <div style={{ marginBottom: "10%" }}>
                         <p style={{ textAlign: "center" }}>
                             <p>Ao deslogar, sua sessão será apagada !</p>
@@ -79,7 +81,9 @@ export default function ModalLogoffChat({ data }: any): JSX.Element {
                         >NÃO
                         </Button>
                     </div>
+
                 </Box>
+
             </Modal>
         </div>
     );

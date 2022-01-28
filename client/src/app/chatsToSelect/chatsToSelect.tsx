@@ -80,64 +80,66 @@ function ChatsRobo(): JSX.Element {
 
 
     return (
-        <article className='article-janelas_chat'>
-            <div className='article-janelas_chat-profile'>
-                <p><span>User:</span> {localStorage.getItem("name")}</p>
-                <p><span>ID:</span> {socket.id}</p>
-                <p><ModalLogoffChat /></p>
-            </div>
-            <div className='article-janelas_chat-p'>
-                {/* modal que permite criar sala ou chamar private */}
-                <ModalCreatChat />
-            </div>
-            <div className='article-janelas_chat-p'>
-                {/* modal que permite crir sala ou chamar private */}
-                <ModalJoinToRoom />
+        <>
+            <article className='article-janelas_chat'>
+                <div className='article-janelas_chat-profile'>
+                    <p><span>User:</span> {localStorage.getItem("name")}</p>
+                    <p><span>ID:</span> {socket.id}</p>
+                    <div className="article-janelas_chat-p " ><ModalLogoffChat /></div>
+                </div>
+                <div className='article-janelas_chat-p modalcreatchat'>
+                    {/* modal que permite criar sala ou chamar private */}
+                    <ModalCreatChat />
+                </div>
+                <div className='article-janelas_chat-p modaljointoroom'>
+                    {/* modal que permite crir sala ou chamar private */}
+                    <ModalJoinToRoom />
 
-            </div>
+                </div>
 
-            {contentChatData.map((data: any, index: any) => {
-                if (data.isRobo)//se o chat for de robo
-                    return (
-                        <div className='article-div-janelas_chat' key={index}
-                            onClick={() => { OpenChatWindow(data.chatID) }}
-                        >
-                            <div className='article-div-janelas_chat-avatar'>
-                                <div className='article-div-janelas_chat-avatar-image'>
-                                    {/* <i className={data.avatar} style={{ color: `${data.color}` }}></i> */}
-                                    {data.chatNameDestination === "ROBÔ - IMC" && <img alt="robo imc" src={IconFood} />}
-                                    {data.chatNameDestination === "ROBÔ - Reservatórios SP" && <img alt="robo reservatorios" src={IconWater} />}
-                                </div>
-                            </div>
-                            <div className='article-div-janelas_chat-nome'>
-                                <p>{data.chatNameDestination}</p>
-                            </div>
-                        </div>
-                    )
-                if (!data.isRobo)
-                    return (
-                        <>
+                {contentChatData.map((data: any, index: any) => {
+                    if (data.isRobo)//se o chat for de robo
+                        return (
                             <div className='article-div-janelas_chat' key={index}
                                 onClick={() => { OpenChatWindow(data.chatID) }}
                             >
                                 <div className='article-div-janelas_chat-avatar'>
                                     <div className='article-div-janelas_chat-avatar-image'>
-                                        {/* se for sala, use o ícone X, se for privado, use o ícone Y */}
-                                        {data.isRoom && <img alt="chat privado" src={IconGroup} />}
-                                        {!data.isRoom && <img alt="chat grupo" src={IconPerson} />}
+                                        {/* <i className={data.avatar} style={{ color: `${data.color}` }}></i> */}
+                                        {data.chatNameDestination === "ROBÔ - IMC" && <img alt="robo imc" src={IconFood} />}
+                                        {data.chatNameDestination === "ROBÔ - Reservatórios SP" && <img alt="robo reservatorios" src={IconWater} />}
                                     </div>
                                 </div>
                                 <div className='article-div-janelas_chat-nome'>
                                     <p>{data.chatNameDestination}</p>
                                 </div>
-                                <div className='article-div-janelas_chat-remove'>
-                                    <ModalDeleteChat data={data} />
-                                </div>
                             </div>
-                        </>
-                    )
-            })}
-        </article >
+                        )
+                    if (!data.isRobo)
+                        return (
+                            <>
+                                <div className='article-div-janelas_chat' key={index}
+                                    onClick={() => { OpenChatWindow(data.chatID) }}
+                                >
+                                    <div className='article-div-janelas_chat-avatar'>
+                                        <div className='article-div-janelas_chat-avatar-image'>
+                                            {/* se for sala, use o ícone X, se for privado, use o ícone Y */}
+                                            {data.isRoom && <img alt="chat privado" src={IconGroup} />}
+                                            {!data.isRoom && <img alt="chat grupo" src={IconPerson} />}
+                                        </div>
+                                    </div>
+                                    <div className='article-div-janelas_chat-nome'>
+                                        <p>{data.chatNameDestination}</p>
+                                    </div>
+                                    <div className='article-div-janelas_chat-remove'>
+                                        <ModalDeleteChat data={data} />
+                                    </div>
+                                </div>
+                            </>
+                        )
+                })}
+            </article >
+        </>
     )
 }
 

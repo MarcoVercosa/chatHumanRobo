@@ -47,7 +47,7 @@ const initialState: IChatContent[] =
             }]
         },
         {
-            openChat: false,
+            openChat: true,
             chatNameDestination: "ROBÔ - Reservatórios SP",
             // avatar: "fas fa-3x fa-hand-holding-water",
             // color: "rgb(79, 135, 255)",

@@ -12,7 +12,6 @@ function ContentChat(): JSX.Element {
     let nameTelaInicial: string = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
     const contentChatData: Array<{}> = useSelector((state: any) => state.activeWindowChat)
     const dispatch = useDispatch()
-
     const [typeMessage, setTypeMessage] = useState<string>("")
 
     function SendMessage({ message, author, destination, socketDestinatioString, chatID, isRobo, isRoom, isPrivate }: any) {

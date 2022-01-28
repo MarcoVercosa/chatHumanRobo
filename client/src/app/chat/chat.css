@@ -2,7 +2,11 @@
     display: flex;
     margin: 0;
     flex-direction: row;
+}
 
+.article-janelas_chat-menu-mobile{
+    display: none;
+/* aparece somente com menos de 600px de tela */
 }
 
 .div-chat-menu_conversas{
@@ -14,8 +18,6 @@
     border-right: 2px solid rgb(138, 138, 138);;
     overflow-y: scroll;
 }
-
-
 
 .div-chat-menu-conteudo{
     background-color: #FFFFFF ;
