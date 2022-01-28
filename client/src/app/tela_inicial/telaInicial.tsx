@@ -53,12 +53,22 @@ function Tela_Inicial(): JSX.Element {
 
                         <div className='main-telainicial-div-email'>
                             <TextField id="outlined-basic" label="E-mail..." variant="outlined" name="email" value={email}
-                                onChange={(data: any) => { setEmail(data.target.value) }}
+                                onChange={(data: any) => {
+                                    if (email.length < 31) { setEmail(data.target.value) }
+                                    else { setEmail(email.slice(0, -1)) }
+                                    //o else não deixa bater no ultimo caracter permitido, deletando o ultmo caracter
+                                    //permitindo assim deletar caracteres
+                                }}
+
                             />
                         </div>
                         <div className='main-telainicial-div-nome'>
                             <TextField id="outlined-basic" label="Nome..." variant="outlined" name="name" value={name}
-                                onChange={(data: any) => { setNome(data.target.value) }}
+                                onChange={(data: any) => {
+                                    if (name.length < 20) {
+                                        setNome(data.target.value)
+                                    } else { { setNome(name.slice(0, -1)) } }
+                                }}
                             />
                         </div>
                         <div className='main-telainicial-div-button_entrar'>

@@ -37,31 +37,33 @@ body {
       width: 100% !important;
     }
 
+
+    /* tela inicial */
     .main-telainicial{
       height: 100vh !important;
       width: 100% !important; 
     }
 
+    /* Botão menu */
     .article-janelas_chat-menu-mobile{
       position: fixed;
       display: block !important;;
-      top: 18.5% !important;;
+      top: 10% !important;;
       z-index: 100 !important;;
       padding: 10px;
       background-color: rgb(255, 255, 255);
       border-radius: 20px;
       opacity: 0.4 ;
+      cursor: pointer;
     }
+
+    /* após o js alterar para positon absolute, abaixo irá fazer com q ele seja mostrado */
     .div-chat-menu_conversas{
       z-index: 99;
       width: 75vw !important;
+      /* position: absolute; */
     }
 
-    .div-chat-menu_conversas{
-      /* display: block; */
-      position: absolute;  
-
-    }
     .div-chat-menu-conteudo{
       width: 100vw !important; 
       height: 100vh ! important;  
@@ -99,11 +101,27 @@ body {
       margin-top: 5px;
       padding: 0px ;
     }
-
-    .modalogoff{
-      background-color: red !important;
-      width: 100% !important;;
+  
+    .article-div-janelas_chat-nome{
+      font-size: 14px !important;
     }
 
-  
+    .contentChat-article-div-div-div_content{
+      max-width: 80% !important;
+    }
+
+  }
+  @media screen and (min-width: 600px) {
+
+    /* habilita animação para desktop. Usado pelo contentChat.css */
+    @keyframes slidein {
+      from {
+        margin-left: 90%;
+        width: 100%
+      }  
+      to {
+        margin-left: 1%;
+        width: 100%;
+      }
+    } 
   }

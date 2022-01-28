@@ -24,12 +24,10 @@ interface IChatContent {
 }
 
 let time = new Date()
-
-
 const initialState: IChatContent[] =
     [
         {
-            openChat: false,
+            openChat: true,
             chatNameDestination: "ROBÔ - IMC",
             isRoom: false,
             socketDestination: "send_message_to_robo_imc",
@@ -47,7 +45,7 @@ const initialState: IChatContent[] =
             }]
         },
         {
-            openChat: true,
+            openChat: false,
             chatNameDestination: "ROBÔ - Reservatórios SP",
             // avatar: "fas fa-3x fa-hand-holding-water",
             // color: "rgb(79, 135, 255)",
@@ -174,11 +172,10 @@ const contentChat = createSlice({
 
         },
         deleteChatReducer(state: any, { payload }: IdeleteChatReducer) {
-            state = state.filter((data: any, index: number, array: any) => data.chatID !== payload)
-            return state
+            let temp = state.filter((data: any) => data.chatID !== payload)
+            return state = temp
         },
         initialStateReconnect(state: any, { payload }: any) {
-            console.log(initialState)
             return state = initialState
         }
     }

@@ -49,8 +49,7 @@ function ContentChat(): JSX.Element {
 
                                     </div>
                                     <div className="contentChat-article-div-div_idChatRom">
-                                        <span
-                                        >{`ID: ${data.chatID}`}</span>
+                                        <span>{`ID: ${data.chatID}`}</span>
                                     </div>
 
                                 </div>
@@ -84,7 +83,8 @@ function ContentChat(): JSX.Element {
                             <section className="contentChat-section">
                                 <div className="contentChat-section-div">
                                     <div className="contentChat-article-input-div">
-                                        <input type="text" className='contentChat-article-input-div-input' value={typeMessage}
+                                        <textarea className='contentChat-article-input-div-input' value={typeMessage}
+                                            maxLength={150} rows={4}
                                             onChange={(data: any) => { setTypeMessage(data.target.value) }}
                                             onKeyPress={(event: any) => {
                                                 if (typeMessage.length < 1) { return }
@@ -94,7 +94,7 @@ function ContentChat(): JSX.Element {
                                                         destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
                                                     })
                                             }}
-                                        />
+                                        ></textarea>
 
                                     </div>
                                     {/* botao de enviar */}
