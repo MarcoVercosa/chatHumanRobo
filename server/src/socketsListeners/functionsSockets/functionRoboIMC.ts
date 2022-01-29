@@ -8,7 +8,7 @@ interface IRoboIMC {
 
 export function RoboIMC(socket: Socket, message: IRoboIMC) {
     let time = new Date()
-    console.log("Received Robo IMC")
+    // console.log("Received Robo IMC")
 
     switch (message.message.toLowerCase()) {
         case "não":
@@ -67,7 +67,7 @@ export function RoboIMC(socket: Socket, message: IRoboIMC) {
 
                 } else { UnknownMessage() }
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 UnknownMessage()
             }
             break

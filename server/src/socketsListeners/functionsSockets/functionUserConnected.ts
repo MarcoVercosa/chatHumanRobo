@@ -13,16 +13,16 @@ function UserConnected(socket: Socket, store: {} | any, data: IUserConnected) {
     // for (let [key, value] of Object.entries(store)) {
     for (let temp in store) {
         if (store[temp] === data.userName) {
-            console.log("User already exists")
+            // console.log("User already exists")
             userAlreadyExists = true
             break
         }
     }
     if (!userAlreadyExists) {
-        console.log("User add no store")
+        // console.log("User add no store")
         //add no obj store socket.id:userName
         store[socket.id] = data.userName
-        console.log(store)
+        // console.log(store)
 
         socket.emit("receive_uservalidation_from_server", ({ sucess: true }))
     } else {

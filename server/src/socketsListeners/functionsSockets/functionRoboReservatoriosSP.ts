@@ -26,8 +26,9 @@ async function RoboReservatoriosSP(socket: Socket, message: IRoboReservatoriosSP
     let mouth: number = time.getMonth() + 1
     let day: number = time.getDate()
 
+    let mensagem = (message.message.toLocaleLowerCase().replace(" ", ""))
 
-    switch (message.message.toLowerCase()) {
+    switch (mensagem) {
 
         case "sim":
 

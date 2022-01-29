@@ -7,7 +7,7 @@ interface ICreateRoom {
 }
 
 function CreateRoom(data: ICreateRoom, storeRooms: {} | any, socket: Socket) {
-    console.log("create_room")
+    // console.log("create_room")
     let temp = undefined
     //checka se ja existe uma sala com o nome solicitado
     for (temp in storeRooms) {
@@ -37,7 +37,7 @@ function CreateRoom(data: ICreateRoom, storeRooms: {} | any, socket: Socket) {
         message: `${data.userName} criou esta sala`,
         time: `${time.getHours()}:${time.getMinutes()}`
     })
-    console.log(`User with ID ${socket.id} joined room: ${data.roomName}`)
+    // console.log(`User with ID ${socket.id} joined room: ${data.roomName}`)
     // console.log(socket)
 }
 

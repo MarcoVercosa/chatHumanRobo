@@ -15,7 +15,7 @@ interface IRetorno {
 }
 
 function SendMenssageToPrivate(socket: Socket, message: ISendMenssageToPrivate) {
-    console.log("Solicitado mensagem privada")
+    // console.log("Solicitado mensagem privada")
     let time = new Date()
 
     // envia mensagem privada para o cliente

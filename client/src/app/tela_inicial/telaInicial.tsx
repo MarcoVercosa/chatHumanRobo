@@ -8,7 +8,7 @@ import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.
 
 function Tela_Inicial(): JSX.Element {
 
-    console.log("Carregou tela de login")
+    // console.log("Carregou tela de login")
     const [email, setEmail] = useState<string>("")
     const [name, setNome] = useState<string>("")
 

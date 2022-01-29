@@ -20,7 +20,7 @@ import IconWater from "../../icons/water.png"
 
 
 function ChatsRobo(): JSX.Element {
-    console.log("carregou Chat To Select")
+    // console.log("carregou Chat To Select")
     const dispatch = useDispatch()
     const contentChatData: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
     const { socket }: any = useSelector((state: any) => state.socketReducer)

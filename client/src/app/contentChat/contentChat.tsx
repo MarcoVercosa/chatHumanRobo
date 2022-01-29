@@ -7,7 +7,7 @@ import Charts from './charts/charts';
 import "./contentChat.css"
 
 function ContentChat(): JSX.Element {
-    console.log("Carregou content chat")
+    // console.log("Carregou content chat")
     const { socket }: any = useSelector((state: any) => state.socketReducer)
     let nameTelaInicial: string = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
     const contentChatData: Array<{}> = useSelector((state: any) => state.activeWindowChat)
@@ -83,8 +83,8 @@ function ContentChat(): JSX.Element {
                             <section className="contentChat-section">
                                 <div className="contentChat-section-div">
                                     <div className="contentChat-article-input-div">
-                                        <textarea className='contentChat-article-input-div-input' value={typeMessage}
-                                            maxLength={150} rows={4}
+                                        <input className='contentChat-article-input-div-input' value={typeMessage}
+                                            maxLength={150}
                                             onChange={(data: any) => { setTypeMessage(data.target.value) }}
                                             onKeyPress={(event: any) => {
                                                 if (typeMessage.length < 1) { return }
@@ -94,7 +94,7 @@ function ContentChat(): JSX.Element {
                                                         destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
                                                     })
                                             }}
-                                        ></textarea>
+                                        ></input>
 
                                     </div>
                                     {/* botao de enviar */}

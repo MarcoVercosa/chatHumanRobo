@@ -9,7 +9,7 @@ import { changeDadosTelaInicialReducer } from './store/reducers/telaInicial.redu
 import './App.css';
 
 function App() {
-  console.log("app.tsx")
+  // console.log("app.tsx")
 
   const dadosTelaInicialReducer: any = useSelector((state: any) => state.changeDadosTelaInicialReducer)
 

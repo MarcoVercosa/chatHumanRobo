@@ -8,7 +8,7 @@ import './index.css';
 import App from './App';
 
 
-console.log("Index.tsx")
+// console.log("Index.tsx")
 
 ReactDOM.render(
   <BrowserRouter>

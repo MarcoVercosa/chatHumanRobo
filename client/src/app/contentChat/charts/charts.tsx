@@ -25,16 +25,18 @@ interface IChartData {
 // window.dispatchEvent(new Event('resize'));
 
 function Charts({ data }: ICharts): JSX.Element {
-    // const [width, setWidth] = useState<number>(408)
     const [width, setWidth] = useState<number>(window.innerWidth < 601 ? 270 : 408)
+    // const [width, setWidth] = useState<number>(window.innerWidth < 821 ? 280 : 330)
 
     window.addEventListener('resize', function (event) {
         let largura = window.innerWidth;
-        console.log(largura)
+        // console.log(largura)
         if (largura < 601) {
-            console.log("largura chat ativada")
+            // console.log("largura chat ativada")
             setWidth(270)
-        } else { setWidth(408) }
+        } else {
+            setWidth(408)
+        }
 
     });
 

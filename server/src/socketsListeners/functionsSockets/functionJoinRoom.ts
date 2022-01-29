@@ -8,10 +8,10 @@ function JoinRoom(data: any, storeRooms: any, socket: Socket) {
         //se existir uma key no obj com o nome da sala solicitado
         //quer dizer que a sala existe de fato, então pode ser add o id nesta sala
         if (storeRooms[temp] === data.id) {
-            console.log("Sala encontrada")
+            // console.log("Sala encontrada")
             //add o id na sala solicitada
             socket.join(temp)
-            console.log(`User with ID ${socket.id} joined room: ${temp}`)
+            // console.log(`User with ID ${socket.id} joined room: ${temp}`)
             //envia para o solicitante a confirmação e os dados para criar e renderizar a sala             
             let time = new Date()
             socket.emit("add_chat_room", {
@@ -35,7 +35,7 @@ function JoinRoom(data: any, storeRooms: any, socket: Socket) {
         }
     }
     //criar mensagem de sala não encontrada
-    console.log("Sala não encontrada")
+    // console.log("Sala não encontrada")
     socket.emit("add_chat_room", {
         sucess: false,
         message: `Não foi encontrado esse ID ROOM: ${data.id} `
