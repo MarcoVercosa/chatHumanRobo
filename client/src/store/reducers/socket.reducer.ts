@@ -21,7 +21,6 @@ const socket = createSlice({
 
             state.socket = io("http://chat.mavs.vps-kinghost.net:8889")
         },
-
     }
 })
 
