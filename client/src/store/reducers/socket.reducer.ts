@@ -8,6 +8,8 @@ const initialState = {
 
     socket: io("https://chat.mavs.vps-kinghost.net")
     // socket: io("https://192.168.15.143:8889/")
+
+    // socket: io("https://powerful-tor-26335.herokuapp.com:26197")
 }
 
 const socket = createSlice({
