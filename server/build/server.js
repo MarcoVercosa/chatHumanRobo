@@ -17,9 +17,9 @@ var options = {
     cert: fs_1.default.readFileSync(path.resolve(__dirname, "../security/certificado.cert"))
 };
 var server = https_1.default.createServer( app);
-app.get("/", function (req, res) {
-    res.send('Hello World!');
-});
+// app.get("/", function (req, res) {
+//     res.send('Hello World!');
+// });
 var io = new socket_io_1.Server(server, {
     cors: {
         origin: "*",
