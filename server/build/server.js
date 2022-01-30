@@ -8,6 +8,7 @@ var https_1 = __importDefault(require("https"));
 var socket_io_1 = require("socket.io");
 var fs_1 = __importDefault(require("fs"));
 var path = require("path");
+var PORT = process.env.PORT || 8443;
 var socketListeners_1 = require("./socketsListeners/socketListeners");
 var app = (0, express_1.default)();
 // app.use(cors)
@@ -30,6 +31,6 @@ var io = new socket_io_1.Server(server, {
 // server.listen(8889, () => {
 //     console.log("Server is running 8889");
 // })
-server.listen(8443, function () {
-    console.log("Server is running 8443");
+server.listen(PORT, function () {
+    console.log("Server is running on ".concat(PORT));
 });

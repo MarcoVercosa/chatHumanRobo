@@ -4,6 +4,7 @@ import https from "https"
 import { Server } from "socket.io"
 import fs from "fs"
 const path = require("path");
+const PORT: Number | String = process.env.PORT || 8443
 
 
 import { Sockets } from "./socketsListeners/socketListeners"
@@ -36,7 +37,7 @@ Sockets(io)
 //     console.log("Server is running 8889");
 // })
 
-server.listen(8889, () => {
-    console.log("Server is running 8889");
+server.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
 })
 
