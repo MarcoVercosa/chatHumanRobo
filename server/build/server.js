@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var https_1 = __importDefault(require("https"));
+var https_1 = __importDefault(require("http"));
 var socket_io_1 = require("socket.io");
 var fs_1 = __importDefault(require("fs"));
 var path = require("path");
@@ -16,7 +16,7 @@ var options = {
     key: fs_1.default.readFileSync(path.resolve(__dirname, "../security/certificado.key")),
     cert: fs_1.default.readFileSync(path.resolve(__dirname, "../security/certificado.cert"))
 };
-var server = https_1.default.createServer(options, app);
+var server = https_1.default.createServer( app);
 app.get("/", function (req, res) {
     res.send('Hello World!');
 });
