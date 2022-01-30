@@ -4,29 +4,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var http_1 = __importDefault(require("http"));
+var https_1 = __importDefault(require("https"));
 var socket_io_1 = require("socket.io");
+var fs_1 = __importDefault(require("fs"));
+var path = require("path");
 var socketListeners_1 = require("./socketsListeners/socketListeners");
 var app = (0, express_1.default)();
 // app.use(cors)
+var options = {
+    key: fs_1.default.readFileSync(path.resolve(__dirname, "../security/certificado.key")),
+    cert: fs_1.default.readFileSync(path.resolve(__dirname, "../security/certificado.cert"))
+};
+var server = https_1.default.createServer(options, app);
 app.get("/", function (req, res) {
     res.send('Hello World!');
 });
-var server = http_1.default.createServer(app);
-// const io = new Server(server, {
-//     cors: {
-//         origin: ["http://localhost:3000", "http://192.168.15.143:3000"],
-//         methods: ["GET,", "POST"]
-//     }
-// })
 var io = new socket_io_1.Server(server, {
     cors: {
         origin: "*",
         methods: ["GET,", "POST"]
     }
 });
-//listeners dos Sockets
+//chama função ativando os listeners dos Sockets
 (0, socketListeners_1.Sockets)(io);
-server.listen(8889, function () {
-    console.log("Server is running 8889");
+// server.listen(8889, () => {
+//     console.log("Server is running 8889");
+// })
+server.listen(443, function () {
+    console.log("Server is running 443");
 });

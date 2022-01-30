@@ -6,7 +6,8 @@ import io from "socket.io-client"
 // const socketInitialState = undefined
 const initialState = {
 
-    socket: io("http://chat.mavs.vps-kinghost.net:8889")
+    socket: io("https://chat.mavs.vps-kinghost.net")
+    // socket: io("https://192.168.15.143:8889/")
 }
 
 

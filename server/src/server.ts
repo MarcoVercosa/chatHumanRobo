@@ -1,25 +1,27 @@
 import express from "express"
 import cors from "cors"
-import http from "http"
+import https from "https"
 import { Server } from "socket.io"
+import fs from "fs"
+const path = require("path");
+
 
 import { Sockets } from "./socketsListeners/socketListeners"
 
 const app = express()
 // app.use(cors)
 
+const options: any = {
+    key: fs.readFileSync(path.resolve(__dirname, "../security/certificado.key")),
+    cert: fs.readFileSync(path.resolve(__dirname, "../security/certificado.cert"))
+}
+
+
+const server = https.createServer(options, app) as any
+
 app.get("/", (req, res) => {
     res.send('Hello World!')
 })
-
-const server = http.createServer(app)
-
-// const io = new Server(server, {
-//     cors: {
-//         origin: ["http://localhost:3000", "http://192.168.15.143:3000"],
-//         methods: ["GET,", "POST"]
-//     }
-// })
 
 const io = new Server(server, {
     cors: {
@@ -28,10 +30,14 @@ const io = new Server(server, {
     }
 })
 
-//listeners dos Sockets
+//chama função ativando os listeners dos Sockets
 Sockets(io)
 
-server.listen(8889, () => {
-    console.log("Server is running 8889");
+// server.listen(8889, () => {
+//     console.log("Server is running 8889");
+// })
+
+server.listen(443, () => {
+    console.log("Server is running 443");
 })
 
