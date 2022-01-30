@@ -6,10 +6,10 @@ import io from "socket.io-client"
 // const socketInitialState = undefined
 const initialState = {
 
-    socket: io("https://chat.mavs.vps-kinghost.net")
+    // socket: io("https://chat.mavs.vps-kinghost.net")
     // socket: io("https://192.168.15.143:8889/")
 
-    // socket: io("https://powerful-tor-26335.herokuapp.com:26197")
+    socket: io("https://powerful-tor-26335.herokuapp.com")
 }
 
 const socket = createSlice({
@@ -21,7 +21,7 @@ const socket = createSlice({
         },
         socketReconnectReducer: (state: any, { payload }: any): any => {
 
-            state.socket = io("https://chat.mavs.vps-kinghost.net")
+            state.socket = io("https://powerful-tor-26335.herokuapp.com")
         },
     }
 })
