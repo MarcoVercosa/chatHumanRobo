@@ -56,10 +56,12 @@ function Sockets(io) {
     var _this = this;
     //ao Carregar a página de login, o socket ja será conectado
     io.on("connection", function (socket) {
-        // console.log("User Connected", socket.id)
+        console.log("User Connected", socket.id);
         //Tela de login - Ao clicar no botao entrar
         //armazenar id e seus respectivo userName
         socket.on("join_user_idSocket", function (data) {
+            console.log("join_user_idSocket");
+            console.log(store);
             (0, functionUserConnected_1.UserConnected)(socket, store, data);
         });
         //checa se o id ou user existem, devolve as info para o solicitante
@@ -102,7 +104,8 @@ function Sockets(io) {
         socket.on("disconnect", function () {
             //deleta o id do usuário na variavel store
             delete store[socket.id];
-            // console.log("User Disconnecteddd", socket.id)
+            console.log("User Disconnecteddd", socket.id);
+            console.log(store);
         });
     });
 }

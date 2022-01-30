@@ -21,11 +21,13 @@ let storeRooms: {} | any = {}
 function Sockets(io: Server) {
     //ao Carregar a página de login, o socket ja será conectado
     io.on("connection", (socket: Socket) => {
-        // console.log("User Connected", socket.id)
+        console.log("User Connected", socket.id)
 
         //Tela de login - Ao clicar no botao entrar
         //armazenar id e seus respectivo userName
         socket.on("join_user_idSocket", (data: any) => {
+            console.log("join_user_idSocket")
+            console.log(store)
             UserConnected(socket, store, data)
         })
 
@@ -73,7 +75,8 @@ function Sockets(io: Server) {
         socket.on("disconnect", () => {
             //deleta o id do usuário na variavel store
             delete store[socket.id]
-            // console.log("User Disconnecteddd", socket.id)
+            console.log("User Disconnecteddd", socket.id)
+            console.log(store)
         })
     })
 

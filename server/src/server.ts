@@ -16,7 +16,6 @@ const options: any = {
     cert: fs.readFileSync(path.resolve(__dirname, "../security/certificado.cert"))
 }
 
-
 const server = https.createServer(options, app) as any
 
 app.get("/", (req, res) => {
