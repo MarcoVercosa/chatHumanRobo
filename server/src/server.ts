@@ -36,7 +36,7 @@ Sockets(io)
 //     console.log("Server is running 8889");
 // })
 
-server.listen(443, () => {
-    console.log("Server is running 443");
+server.listen(8889, () => {
+    console.log("Server is running 8889");
 })
 

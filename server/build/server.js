@@ -30,6 +30,6 @@ var io = new socket_io_1.Server(server, {
 // server.listen(8889, () => {
 //     console.log("Server is running 8889");
 // })
-server.listen(443, function () {
-    console.log("Server is running 443");
+server.listen(8443, function () {
+    console.log("Server is running 8443");
 });
