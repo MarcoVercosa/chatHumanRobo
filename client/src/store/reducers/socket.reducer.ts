@@ -20,7 +20,7 @@ const socket = createSlice({
         },
         socketReconnectReducer: (state: any, { payload }: any): any => {
 
-            state.socket = io("http://chat.mavs.vps-kinghost.net:8889")
+            state.socket = io("https://chat.mavs.vps-kinghost.net")
         },
     }
 })
