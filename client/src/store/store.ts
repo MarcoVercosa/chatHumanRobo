@@ -19,6 +19,7 @@ const store = configureStore({
     // Redux ou ações despachadas). para permitir armazenar o socket, que é uma instância
     // cria esse midware abaixo para permitir o armazenamento, permitindo pelo action que é o:
     // socketAction/socketReducer, é o action do socket.reducer
+    
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false
