@@ -67,11 +67,7 @@ const contentChat = createSlice({
     name: "chatContentAction",
     initialState,
     reducers: {
-        //usado para listar todos os chats
-        listAllChatReducer(state: any, { payload }): any {            // return { contentChat: payload }
 
-            return state
-        },
         //recebe mensagens enviadas pelo "client" e armazena
         receiveMessageRoboReducer(state: any, { payload }: IreceiveMessageRoboReducer): any {
             state.map((data: any, index: any) => {
@@ -184,7 +180,7 @@ const contentChat = createSlice({
 //exporta os reducers para serem usados nos componentes com o dispatch
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
-    activeWindowChat, listAllChatReducer, receiveMessagePrivateReducer,
+    activeWindowChat, receiveMessagePrivateReducer,
     addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer,
     deleteChatReducer, initialStateReconnect
 } = contentChat.actions
