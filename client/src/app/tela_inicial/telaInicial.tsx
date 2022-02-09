@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import "./telaInicial.css"
-import { changeDadosTelaInicialReducer } from '../../store/reducers/telaInicial.reducer';
+import { changeDadosTelaInicialReducer, selectorTelaInicial } from '../../store/reducers/telaInicial.reducer';
+import { selectorSocket } from '../../store/reducers/socket.reducer';
 
 function Tela_Inicial(): JSX.Element {
 
@@ -13,8 +14,8 @@ function Tela_Inicial(): JSX.Element {
     const [name, setNome] = useState<string>("")
 
     const dispatch = useDispatch()
-    const dadosTelaInicialReducer: any = useSelector((state: any) => state.changeDadosTelaInicialReducer)
-    let { socket }: any = useSelector((state: any) => state.socketReducer)
+    const dadosTelaInicialReducer: any = useSelector(selectorTelaInicial)
+    let { socket }: any = useSelector(selectorSocket)
 
     function AbrirChat() {
         //checa se os campos não estão vazios
@@ -30,7 +31,7 @@ function Tela_Inicial(): JSX.Element {
     useEffect(() => {
         //aqui é o retorno do servidor quando clicar no botao entrar. Será verificado
         //se ja possui algun user com o nome solicitado.
-        socket.on("receive_uservalidation_from_server", ({ sucess, message }: any) => {
+        socket.on("receive_uservalidation_from_server", ({ sucess, message }: { sucess: Boolean, message: string }) => {
             //recebe o ok do server após atrelar o id com o userName e torna true o activeComponentChat
             //com essa prop como true, o component Chat é ativado
             if (sucess === true) {

@@ -6,6 +6,7 @@ import IconDelete from "../../../icons/icons-delete.png"
 
 import { useDispatch, useSelector } from "react-redux"
 import { deleteChatReducer } from '../../../store/reducers/contentChat.reducer';
+import { selectorSocket } from '../../../store/reducers/socket.reducer';
 
 
 const style = {
@@ -26,7 +27,7 @@ export default function ModalDeleteChat({ data }: any): JSX.Element {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const dispatch = useDispatch()
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
+    const { socket }: any = useSelector(selectorSocket)
 
     function DeleteChat(confirm: boolean) {
         if (confirm) {

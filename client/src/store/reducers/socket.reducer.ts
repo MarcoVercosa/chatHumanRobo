@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import io from "socket.io-client"
 
 
-
 // const socketInitialState = undefined
 const initialState = {
 
@@ -26,6 +25,11 @@ const socket = createSlice({
     }
 })
 
-
+//exporta os reducers para serem usados nos componentes com o dispatch
 export const { socketReducer, socketReconnectReducer } = socket.actions
+
+//exporta uma func q pega todo o estado da "Store" e retornna somente o do socket
+export const selectorSocket = (state: any) => state.socket
+
+//export to store
 export default socket.reducer

@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
 import IconGroup from "../../../icons/people.png"
+import { selectorSocket } from '../../../store/reducers/socket.reducer';
+import { selectorChatContent, IChatContent } from '../../../store/reducers/contentChat.reducer';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -25,8 +27,8 @@ export default function ModalJointToRoom(): JSX.Element {
     const handleClose = () => setOpen(false);
     const [idType, setIdType] = React.useState("")
 
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
-    const contentAllChats: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
+    const { socket }: any = useSelector(selectorSocket)
+    const contentAllChats: Array<IChatContent> = useSelector(selectorChatContent)
 
     function JointToRoom() {
         //verifica se há caracteres digitados

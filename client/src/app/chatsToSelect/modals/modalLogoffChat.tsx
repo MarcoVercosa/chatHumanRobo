@@ -6,7 +6,7 @@ import IconLogoff from "../../../icons/logoff.png"
 
 import { useDispatch, useSelector } from "react-redux"
 import { logoffChatReducer } from '../../../store/reducers/telaInicial.reducer'
-import { socketReconnectReducer } from '../../../store/reducers/socket.reducer';
+import { selectorSocket, socketReconnectReducer } from '../../../store/reducers/socket.reducer';
 import { initialStateReconnect } from '../../../store/reducers/contentChat.reducer';
 
 
@@ -23,12 +23,12 @@ const style = {
     p: 4,
 };
 
-export default function ModalLogoffChat({ data }: any): JSX.Element {
+export default function ModalLogoffChat(): JSX.Element {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const dispatch = useDispatch()
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
+    const { socket }: any = useSelector(selectorSocket)
 
 
     function Logoff() {

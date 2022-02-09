@@ -3,15 +3,14 @@ import { useSelector } from "react-redux"
 
 import Tela_Inicial from './app/tela_inicial/telaInicial';
 import Chat from './app/chat/chat';
-import { changeDadosTelaInicialReducer } from './store/reducers/telaInicial.reducer';
+import { changeDadosTelaInicialReducer, selectorTelaInicial } from './store/reducers/telaInicial.reducer';
 
 
 import './App.css';
 
 function App() {
-  // console.log("app.tsx")
 
-  const dadosTelaInicialReducer: any = useSelector((state: any) => state.changeDadosTelaInicialReducer)
+  const dadosTelaInicialReducer: { componentTelaInicial: Boolean, activeComponentChat: Boolean } = useSelector(selectorTelaInicial)
 
   return (
     <div className="App">

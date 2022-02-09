@@ -1,16 +1,21 @@
 import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer } from '../../store/reducers/contentChat.reducer'
+import { sendMessageRoboReducer, sendMessagePrivateReducer, sendMessageRoomReducer, selectorChatContent, IChatContent } from '../../store/reducers/contentChat.reducer'
+import { selectorTelaInicial } from '../../store/reducers/telaInicial.reducer';
+import { selectorSocket } from '../../store/reducers/socket.reducer';
+
 import Button from '@mui/material/Button';
 import Charts from './charts/charts';
 
 import "./contentChat.css"
 
+
+
 function ContentChat(): JSX.Element {
     // console.log("Carregou content chat")
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
-    let nameTelaInicial: string = useSelector((state: any) => state.changeDadosTelaInicialReducer.name)
-    const contentChatData: Array<{}> = useSelector((state: any) => state.activeWindowChat)
+    const { socket }: any = useSelector(selectorSocket)
+    let nameTelaInicial: { name: string } = useSelector(selectorTelaInicial)
+    const contentChatData: Array<IChatContent> = useSelector(selectorChatContent)
     const dispatch = useDispatch()
     const [typeMessage, setTypeMessage] = useState<string>("")
 
@@ -57,10 +62,10 @@ function ContentChat(): JSX.Element {
                                     {data.contentChat.map((data: any, index: number) => {
                                         //faz um map na array de conversa da janela aberta
                                         return (
-                                            <div className={data.author === nameTelaInicial ? "contentChat-article-div-div_content author_myself" : "contentChat-article-div-div_content author_others"}>
+                                            <div className={data.author === nameTelaInicial.name ? "contentChat-article-div-div_content author_myself" : "contentChat-article-div-div_content author_others"}>
 
                                                 <div className="contentChat-article-div-div-div_content"
-                                                    style={{ backgroundColor: data.author === nameTelaInicial ? "rgb(128, 247, 30)" : "rgb(227, 251, 122)" }}
+                                                    style={{ backgroundColor: data.author === nameTelaInicial.name ? "rgb(128, 247, 30)" : "rgb(227, 251, 122)" }}
                                                 >
                                                     <p className="contentChat-article-div-p_content">{data.content}</p>
                                                     <p className="contentChat-article-div-p_author">{data.author}</p>
@@ -90,7 +95,7 @@ function ContentChat(): JSX.Element {
                                                 if (typeMessage.length < 1) { return }
                                                 event.key === "Enter" &&
                                                     SendMessage({
-                                                        message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,
+                                                        message: typeMessage, author: nameTelaInicial.name, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,
                                                         destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
                                                     })
                                             }}
@@ -104,7 +109,7 @@ function ContentChat(): JSX.Element {
                                             style={{ height: "7.5vh", borderRadius: "10px", marginBottom: "5px" }}
                                             onClick={() => {
                                                 SendMessage({
-                                                    message: typeMessage, author: nameTelaInicial, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,
+                                                    message: typeMessage, author: nameTelaInicial.name, isRobo: data.isRobo, isRoom: data.isRoom, isPrivate: data.isPrivate,
                                                     destination: data.chatNameDestination, socketDestinatioString: data.socketDestination, chatID: data.chatID
                                                 })
                                             }}

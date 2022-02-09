@@ -8,7 +8,7 @@ import {
 } from "./contentChat.reducer.interface"
 
 
-interface IChatContent {
+export interface IChatContent {
     openChat: boolean;
     chatNameDestination: string;
     isRoom: boolean;
@@ -181,10 +181,16 @@ const contentChat = createSlice({
     }
 })
 
+//exporta os reducers para serem usados nos componentes com o dispatch
 export const { receiveMessageRoboReducer, sendMessageRoboReducer,
     addNewChatPrivateReducer, sendMessagePrivateReducer,
     activeWindowChat, listAllChatReducer, receiveMessagePrivateReducer,
     addNewChatRoomReducer, sendMessageRoomReducer, receiveMessageRoomReducer,
     deleteChatReducer, initialStateReconnect
 } = contentChat.actions
+
+//exporta uma func q pega todo o estado da "Store" e retorna somente o do chatContent
+export const selectorChatContent = (state: any) => state.contentChat
+
+//export to store
 export default contentChat.reducer

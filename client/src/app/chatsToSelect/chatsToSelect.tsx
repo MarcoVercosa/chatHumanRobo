@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import "./chatsToSelect.css"
 import { useDispatch, useSelector } from "react-redux"
 import {
     receiveMessageRoboReducer, addNewChatPrivateReducer, receiveMessagePrivateReducer,
-    addNewChatRoomReducer, receiveMessageRoomReducer, activeWindowChat, deleteChatReducer
+    addNewChatRoomReducer, receiveMessageRoomReducer, activeWindowChat, IChatContent, selectorChatContent
 }
     from '../../store/reducers/contentChat.reducer'
+import { selectorSocket } from '../../store/reducers/socket.reducer';
 
 import ModalCreatChat from './modals/modalCreateChat';
 import ModalJoinToRoom from "./modals/modalJoinRoom"
@@ -19,12 +20,12 @@ import IconWater from "../../icons/water.png"
 
 
 
+
 function ChatsRobo(): JSX.Element {
-    // console.log("carregou Chat To Select")
+
     const dispatch = useDispatch()
-    const contentChatData: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
-    // let activedisablebuttonDelete: string = "none"
+    const contentChatData: IChatContent[] = useSelector(selectorChatContent)
+    const { socket }: any = useSelector(selectorSocket)
 
     function OpenChatWindow(chatSelect: string) {
         dispatch(activeWindowChat(chatSelect))

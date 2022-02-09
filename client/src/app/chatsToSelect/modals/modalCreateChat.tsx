@@ -8,6 +8,8 @@ import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux"
 import IconPlus from "../../../icons/plus.png"
+import { selectorSocket } from '../../../store/reducers/socket.reducer';
+import { selectorChatContent } from '../../../store/reducers/contentChat.reducer';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -30,8 +32,8 @@ export default function ModalCreatChat(): JSX.Element {
     const [checkedOpenPrivate, setCheckedOpenPrivate] = useState<boolean>(true);
     const [idType, setIdType] = useState<string>("");
 
-    const { socket }: any = useSelector((state: any) => state.socketReducer)
-    const contentAllChats: Array<{}> = useSelector((state: any) => state.listAllChatReducer)
+    const { socket }: any = useSelector(selectorSocket)
+    const contentAllChats: Array<{}> = useSelector(selectorChatContent)
 
     function ChatCreate() {
         if (idType.length < 1) {
@@ -73,11 +75,6 @@ export default function ModalCreatChat(): JSX.Element {
 
     return (
         <div>
-            {/* <Button onClick={handleOpen} variant="contained" size="large"
-                style={{ width: "35%" }}
-            >
-                <i className="far fa-2x fa-plus-square"></i>
-            </Button> */}
             <img alt="adicionar private ou room" src={IconPlus}
                 onClick={handleOpen}
             />
