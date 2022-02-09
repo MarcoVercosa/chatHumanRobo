@@ -1,6 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
 
 import changeDadosTelaInicialReducer from "./reducers/telaInicial.reducer"
+import logoffChatReducer from "./reducers/telaInicial.reducer";
+
+//-------------------T E S T E
+import testeTelaInicial from "./reducers/telaInicial.reducer"
+import testeContenChat from "./reducers/contentChat.reducer"
+
+
+
 import receiveMessageRoboReducer from "./reducers/contentChat.reducer"
 import activeWindowChat from "./reducers/contentChat.reducer";
 import socketReducer from "./reducers/socket.reducer"
@@ -13,7 +21,6 @@ import addNewChatRoomReducer from "./reducers/contentChat.reducer";
 import receiveMessageRoomReducer from "./reducers/contentChat.reducer";
 import sendMessageRoomReducer from "./reducers/contentChat.reducer";
 import deleteChatReducer from "./reducers/contentChat.reducer";
-import logoffChatReducer from "./reducers/telaInicial.reducer";
 import socketReconnectReducer from "./reducers/socket.reducer";
 import initialStateReconnect from "./reducers/contentChat.reducer";
 
@@ -33,7 +40,11 @@ const reducer = combineReducers({
     deleteChatReducer,
     logoffChatReducer,
     socketReconnectReducer,
-    initialStateReconnect
+    initialStateReconnect,
+
+
+    testeTelaInicial,
+    testeContenChat
 
 })
 
