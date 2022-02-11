@@ -7,7 +7,6 @@ import {
     IdeleteChatReducer,
 } from "./contentChat.reducer.interface"
 
-
 export interface IChatContent {
     openChat: boolean;
     chatNameDestination: string;
@@ -60,7 +59,6 @@ const initialState: IChatContent[] =
                 time: ""
             }],
         }
-
     ]
 
 const contentChat = createSlice({
@@ -84,7 +82,6 @@ const contentChat = createSlice({
                     data.contentChat = [...data.contentChat, { content: payload.message, author: payload.author, time: payload.time }]
                 }
             })
-
         },
         //altera a array de conversa para true e assim renderizar a janela de conversa
         activeWindowChat(state: any, { payload }: IactiveWindowChat): any {
