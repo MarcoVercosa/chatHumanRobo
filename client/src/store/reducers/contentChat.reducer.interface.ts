@@ -5,7 +5,6 @@ export interface IsendMessageRoboReducer {
         time: string;
         destination: string
         socketDestinatioString: string
-
     }
 }
 export interface IreceiveMessageRoboReducer {
