@@ -17,12 +17,7 @@ import IconGroup from "../../icons/group.png"
 import IconFood from "../../icons/food.png"
 import IconWater from "../../icons/water.png"
 
-
-
-
-
 function ChatsRobo(): JSX.Element {
-
     const dispatch = useDispatch()
     const contentChatData: IChatContent[] = useSelector(selectorChatContent)
     const { socket }: any = useSelector(selectorSocket)
@@ -76,10 +71,8 @@ function ChatsRobo(): JSX.Element {
         socket.on("received_message_room", ({ destination, message, author, chatID }: any) => {
             dispatch(receiveMessageRoomReducer({ destination, message, author, chatID }))
         })
-
     }, [socket])
-
-
+    
     return (
         <>
             <article className='article-janelas_chat'>
