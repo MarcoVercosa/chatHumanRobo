@@ -6,7 +6,6 @@ import fs from "fs"
 const path = require("path");
 const PORT: Number | String = process.env.PORT || 8443
 
-
 import { Sockets } from "./socketsListeners/socketListeners"
 
 const app = express()
